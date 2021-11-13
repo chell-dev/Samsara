@@ -1,10 +1,8 @@
 package me.chell.samsara.api.value;
 
-import me.chell.samsara.api.Loadable;
-
 import java.util.function.Predicate;
 
-public class Value<T> implements Loadable {
+public class Value<T> {
     private final String name;
     private final T defaultValue;
     private T value;
@@ -64,9 +62,4 @@ public class Value<T> implements Loadable {
         return visible.test(false);
     }
 
-    @Override
-    public void load() {} // TODO
-
-    @Override
-    public void unload() {} // TODO
 }

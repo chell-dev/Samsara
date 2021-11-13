@@ -36,9 +36,16 @@ public class ModuleManager implements Loadable {
         modules = new ArrayList<>();
     }
 
+    public Module getModule(String name) {
+        for(Module m : modules) {
+            if(m.getName().equalsIgnoreCase(name)) return m;
+        }
+        return null;
+    }
+
     @SubscribeEvent
     public void onKeyPressed(InputEvent.KeyInputEvent event) {
-        if(!Keyboard.getEventKeyState()) return;
+        if(!Keyboard.getEventKeyState() || Keyboard.isRepeatEvent()) return;
         for(Module m : modules) {
             if(m.getBind() == Keyboard.getEventKey()) m.toggle();
         }

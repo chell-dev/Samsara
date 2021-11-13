@@ -1,5 +1,6 @@
 package me.chell.samsara.api.value;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class ValueBuilder<T> {
@@ -8,6 +9,7 @@ public class ValueBuilder<T> {
     private T sliderMin;
     private T sliderMax;
     private Predicate<Boolean> visible;
+    private List<Value<?>> addTo;
 
     public ValueBuilder(String name, T value) {
         this.name = name;
@@ -25,8 +27,15 @@ public class ValueBuilder<T> {
         return this;
     }
 
+    public ValueBuilder<T> list(List<Value<?>> addTo) {
+        this.addTo = addTo;
+        return this;
+    }
+
     public Value<T> build() {
         if(visible == null) visible = b -> true;
-        return new Value<>(name, value, sliderMin, sliderMax, visible);
+        Value<T> v = new Value<>(name, value, sliderMin, sliderMax, visible);
+        if(addTo != null) addTo.add(v);
+        return v;
     }
 }

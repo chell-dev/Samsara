@@ -1,7 +1,7 @@
 package me.chell.samsara.api.module;
 
-import com.google.common.collect.Lists;
 import me.chell.samsara.api.Loadable;
+import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.api.value.ValueBuilder;
 
@@ -12,22 +12,17 @@ public class Module implements Loadable {
     private final String name;
     private final Value<String> displayName;
     private final Value<Boolean> enabled;
-    private final Value<Integer> keyBind; // TODO: create KeyBind class
+    private final Value<Bind> bind;
     private final Category category;
     private final List<Value<?>> values;
 
-    public Module(String name, Category category, List<Value<?>> values) {
-        this.name = name;
-        this.displayName = new ValueBuilder<>("DisplayName", name).visible(b -> false).build();
-        this.enabled = new ValueBuilder<>("Enabled", false).visible(b -> false).build();
-        this.keyBind = new ValueBuilder<>("Bind", 0).build();
-        this.category = category;
-        this.values = Lists.newArrayList(displayName, enabled);
-        this.values.addAll(values);
-    }
-
     public Module(String name, Category category) {
-        this(name, category, new ArrayList<>());
+        this.name = name;
+        this.category = category;
+        this.values = new ArrayList<>();
+        this.displayName = builder("DisplayName", name).visible(b -> false).build();
+        this.enabled = builder("Enabled", false).visible(b -> false).build();
+        this.bind = builder("Bind", new Bind(0)).build();
     }
 
     public String getName() {
@@ -51,11 +46,11 @@ public class Module implements Loadable {
     }
 
     public int getBind() {
-        return keyBind.getValue();
+        return bind.getValue().getKey();
     }
 
     public int setBind (int key) {
-        return keyBind.setValue(key);
+        return bind.getValue().setKey(key);
     }
 
     public boolean toggle() {
@@ -77,14 +72,28 @@ public class Module implements Loadable {
         return values;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> Value<T> getValue(String name) {
+        for(Value<?> v : values) {
+            if(v.getName().equalsIgnoreCase(name)) return (Value<T>)v;
+        }
+        return null;
+    }
+
+    public <T> ValueBuilder<T> builder(String name, T value) {
+        return new ValueBuilder<>(name, value).list(values);
+    }
+
     public void onEnable() {}
     public void onDisable() {}
 
     @Override
-    public void load() {} // TODO
+    public void load() {}
 
     @Override
-    public void unload() {} // TODO
+    public void unload() {
+        if(isEnabled()) toggle();
+    }
 
     public enum Category {
         COMBAT(new ValueBuilder<>("DisplayName", "COMBAT").visible(b -> false).build()),
