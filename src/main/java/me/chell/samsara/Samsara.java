@@ -2,6 +2,8 @@ package me.chell.samsara;
 
 import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
+import me.chell.samsara.api.util.Rainbow;
+import me.chell.samsara.impl.gui.ClickGUI;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -21,11 +23,14 @@ public class Samsara {
 
     private List<Loadable> loadables;
     public ModuleManager moduleManager;
+    public ClickGUI clickGUI;
 
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         loadables = new ArrayList<>();
         loadables.add(moduleManager = new ModuleManager());
+        loadables.add(clickGUI = new ClickGUI());
+        loadables.add(new Rainbow());
     }
 
     @Mod.EventHandler

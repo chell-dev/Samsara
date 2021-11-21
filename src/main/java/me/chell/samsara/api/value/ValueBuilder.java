@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 public class ValueBuilder<T> {
     private final String name;
+    private String displayName;
     private final T value;
     private T sliderMin;
     private T sliderMax;
@@ -12,8 +13,13 @@ public class ValueBuilder<T> {
     private List<Value<?>> addTo;
 
     public ValueBuilder(String name, T value) {
-        this.name = name;
+        this.name = this.displayName = name;
         this.value = value;
+    }
+
+    public ValueBuilder<T> name(String displayName) {
+        this.displayName = displayName;
+        return this;
     }
 
     public ValueBuilder<T> bounds(T min, T max) {
@@ -35,6 +41,7 @@ public class ValueBuilder<T> {
     public Value<T> build() {
         if(visible == null) visible = b -> true;
         Value<T> v = new Value<>(name, value, sliderMin, sliderMax, visible);
+        v.setDisplayName(displayName);
         if(addTo != null) addTo.add(v);
         return v;
     }

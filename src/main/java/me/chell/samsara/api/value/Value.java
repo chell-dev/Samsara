@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 public class Value<T> {
     private final String name;
+    private String displayName;
     private final T defaultValue;
     private T value;
     private T sliderMin;
@@ -11,15 +12,27 @@ public class Value<T> {
     private Predicate<Boolean> visible;
 
     public Value(String name, T value, T sliderMin, T sliderMax, Predicate<Boolean> visible) {
-        this.name = name;
+        this.name = this.displayName = name;
         this.defaultValue = this.value = value;
         this.sliderMin = sliderMin;
         this.sliderMax = sliderMax;
         this.visible = visible;
+        init();
+    }
+
+    public void init() {
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public T getDefaultValue() {
