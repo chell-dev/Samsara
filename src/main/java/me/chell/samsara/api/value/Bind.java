@@ -1,5 +1,7 @@
 package me.chell.samsara.api.value;
 
+import org.lwjgl.input.Keyboard;
+
 public class Bind {
     private int key;
 
@@ -13,5 +15,10 @@ public class Bind {
 
     public int setKey(int key) {
         return this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return Keyboard.getKeyName(getKey());
     }
 }

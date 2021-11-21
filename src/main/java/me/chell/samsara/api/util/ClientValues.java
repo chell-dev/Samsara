@@ -25,6 +25,13 @@ public class ClientValues {
         }
     };
 
+    public static Value<?> getValue(String name) {
+        for(Value<?> value : values) {
+            if(name.equalsIgnoreCase(value.getName())) return value;
+        }
+        return null;
+    }
+
     private static <T> ValueBuilder<T> builder(String name, T value) {
         return new ValueBuilder<>(name, value).list(values);
     }

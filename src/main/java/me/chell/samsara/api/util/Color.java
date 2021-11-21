@@ -72,6 +72,11 @@ public class Color {
         this.alpha = alpha;
     }
 
+    @Override
+    public String toString() {
+        return ""+getARGB();
+    }
+
     public static Color WHITE = new Color(255, 255, 255, 255);
     public static Color BLACK = new Color(0, 0, 0, 255);
     public static Color RED = new Color(255, 0, 0, 255);
