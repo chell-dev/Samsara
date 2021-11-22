@@ -37,7 +37,7 @@ public class ColorPicker extends Drawable {
         super(x, y, GuiTheme.width, 100);
         this.value = value;
 
-        texture = new ResourceLocation("samsara", "textures/colorpicker.png");
+        texture = new ResourceLocation("samsara/textures/colorpicker.png");
 
         // https://stackoverflow.com/questions/6524196/java-get-pixel-array-from-image
         try {
