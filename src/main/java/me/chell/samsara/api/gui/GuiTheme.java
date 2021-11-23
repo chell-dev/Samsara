@@ -13,10 +13,10 @@ public class GuiTheme {
 
     public static int width = 110;
 
-    public static ResourceLocation primaryTex = new ResourceLocation("samsara", "textures/gui/primary.png");
-    public static ResourceLocation secondaryTex = new ResourceLocation("samsara", "textures/gui/secondary.png");
-    public static ResourceLocation tertiaryTex = new ResourceLocation("samsara", "textures/gui/tertiary.png");
-    public static ResourceLocation borderTex = new ResourceLocation("samsara", "textures/gui/border.png");
+    public static ResourceLocation primaryTex = new ResourceLocation("samsara/textures/gui/primary.png");
+    public static ResourceLocation secondaryTex = new ResourceLocation("samsara/textures/gui/secondary.png");
+    public static ResourceLocation tertiaryTex = new ResourceLocation("samsara/textures/gui/tertiary.png");
+    public static ResourceLocation borderTex = new ResourceLocation("samsara/textures/gui/border.png");
 
     public static Value<Integer> borderSize = builder("Border Size", 1).bounds(0, 10).build();
     public static Value<Mode> borderMode = builder("Border Mode", Mode.COLOR).name("Border").build();
