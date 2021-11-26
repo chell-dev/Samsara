@@ -1,10 +1,7 @@
 package me.chell.samsara.api.module;
 
 import me.chell.samsara.api.Loadable;
-import me.chell.samsara.impl.module.combat.*;
-import me.chell.samsara.impl.module.misc.*;
-import me.chell.samsara.impl.module.movement.*;
-import me.chell.samsara.impl.module.render.*;
+import me.chell.samsara.impl.module.misc.TestModule;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -22,9 +19,6 @@ public class ModuleManager implements Loadable {
 
         modules = new ArrayList<>();
         modules.add(new TestModule());
-        modules.add(new CombatModule());
-        modules.add(new MovementModule());
-        modules.add(new RenderModule());
 
         for(Module m : modules) {
             m.load();

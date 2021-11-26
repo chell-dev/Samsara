@@ -1,6 +1,7 @@
 package me.chell.samsara.api.gui;
 
 import me.chell.samsara.api.util.Rainbow;
+import me.chell.samsara.api.util.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -9,10 +10,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class Drawable {
-    public int x;
-    public int y;
-    public int width;
-    public int height;
+    public int x, y, width, height;
 
     public Drawable(int x, int y, int width, int height) {
         this.x = x;
@@ -48,6 +46,14 @@ public class Drawable {
     public void drawThemedStringRight(String text, int x, int y) {
         x -= Minecraft.getMinecraft().fontRenderer.getStringWidth(text);
         Minecraft.getMinecraft().fontRenderer.drawString(text, x, y, GuiTheme.textColor.getValue().getARGB(), GuiTheme.textShadow.getValue());
+    }
+
+    public int getStringCenterX(int start, int end, String text) {
+        return start + end/2 - Wrapper.getFontRenderer().getStringWidth(text)/2;
+    }
+
+    public int getStringCenterY(int start, int end) {
+        return start + end/2 - Wrapper.getFontRenderer().FONT_HEIGHT/2;
     }
 
     public void drawThemedRectPrimary(int x, int y, int width, int height) {
@@ -170,10 +176,6 @@ public class Drawable {
     }
 
     public void drawGradientRectHorizontal(int x, int y, int width, int height, int startColor, int endColor) {
-        int left = x;
-        int right = x + width;
-        int top = y;
-        int bottom = y + height;
         float f = (float)(startColor >> 24 & 255) / 255.0F;
         float f1 = (float)(startColor >> 16 & 255) / 255.0F;
         float f2 = (float)(startColor >> 8 & 255) / 255.0F;
@@ -190,10 +192,10 @@ public class Drawable {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos((double)left, (double)top, 0.0D).color(f1, f2, f3, f).endVertex();
-        bufferbuilder.pos((double)left, (double)bottom, 0.0D).color(f1, f2, f3, f).endVertex();
-        bufferbuilder.pos((double)right, (double)bottom, 0.0D).color(f5, f6, f7, f4).endVertex();
-        bufferbuilder.pos((double)right, (double)top, 0.0D).color(f5, f6, f7, f4).endVertex();
+        bufferbuilder.pos(x, y, 0.0D).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos(x, y + height, 0.0D).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos(x + width, y + height, 0.0D).color(f5, f6, f7, f4).endVertex();
+        bufferbuilder.pos(x + width, y, 0.0D).color(f5, f6, f7, f4).endVertex();
         tessellator.draw();
         GlStateManager.shadeModel(7424);
         GlStateManager.disableBlend();
@@ -202,10 +204,6 @@ public class Drawable {
     }
 
     public void drawGradientRectVertical(int x, int y, int width, int height, int startColor, int endColor) {
-        int left = x;
-        int right = x + width;
-        int top = y + height;
-        int bottom = y;
         float f = (float)(startColor >> 24 & 255) / 255.0F;
         float f1 = (float)(startColor >> 16 & 255) / 255.0F;
         float f2 = (float)(startColor >> 8 & 255) / 255.0F;
@@ -222,10 +220,10 @@ public class Drawable {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos((double)left, (double)top, 0.0D).color(f1, f2, f3, f).endVertex();
-        bufferbuilder.pos((double)right, (double)top, 0.0D).color(f1, f2, f3, f).endVertex();
-        bufferbuilder.pos((double)right, (double)bottom, 0.0D).color(f5, f6, f7, f4).endVertex();
-        bufferbuilder.pos((double)left, (double)bottom, 0.0D).color(f5, f6, f7, f4).endVertex();
+        bufferbuilder.pos(x, y + height, 0.0D).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos(x + width, y + height, 0.0D).color(f1, f2, f3, f).endVertex();
+        bufferbuilder.pos(x + width, y, 0.0D).color(f5, f6, f7, f4).endVertex();
+        bufferbuilder.pos(x, y, 0.0D).color(f5, f6, f7, f4).endVertex();
         tessellator.draw();
         GlStateManager.shadeModel(7424);
         GlStateManager.disableBlend();

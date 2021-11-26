@@ -13,25 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPanel extends Drawable {
-    private final int titleHeight;
+    private final int titleHeight = 17;
     private final Module.Category category;
-
+    private final List<ModuleButton> buttons;
     private boolean open = true;
-    private List<ModuleButton> buttons;
 
     private boolean grabbed = false;
-    private int offsetX;
-    private int offsetY;
+    private int offsetX, offsetY;
 
     private boolean editing = false;
-    private String oldText;
-    private String editText;
-    private int ticks = 0;
+    private String oldText, editText;
+    public int ticks = 0;
 
     public CategoryPanel(Module.Category category, int x, int y) {
-        super(x, y, GuiTheme.width, 16);
+        super(x, y, GuiTheme.width, 17);
         this.category = category;
-        titleHeight = 16;
         editText = category.getName();
 
         buttons = new ArrayList<>();
@@ -65,7 +61,7 @@ public class CategoryPanel extends Drawable {
             displayText = category.getName();
         }
 
-        drawThemedString(displayText, x + 2, y + (titleHeight-1)/2 - 4);
+        drawThemedString(displayText, x + 2, getStringCenterY(y, titleHeight-1));
 
         if(open) {
             int buttonY = y + titleHeight;
@@ -83,7 +79,7 @@ public class CategoryPanel extends Drawable {
 
     @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + titleHeight) {
+        if(mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + titleHeight-1) {
             switch (mouseButton) {
                 case 0:
                     offsetX = mouseX - x;
@@ -115,6 +111,11 @@ public class CategoryPanel extends Drawable {
             button.mouseReleased(mouseX, mouseY, state);
         }
     }
+
+    public final List<Integer> blacklist = Lists.newArrayList(
+            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
+            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
+    );
 
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
@@ -151,11 +152,6 @@ public class CategoryPanel extends Drawable {
         }
         return super.keyTyped(typedChar, keyCode);
     }
-
-    List<Integer> blacklist = Lists.newArrayList(
-            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
-            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
-    );
 
     @Override
     public void updateScreen() {

@@ -55,7 +55,7 @@ public class Config {
         } catch (Exception e) {
             Samsara.LOGGER.error("Failed to save config", e);
         } finally {
-            IOUtils.closeQuietly((Writer)writer);
+            IOUtils.closeQuietly(writer);
         }
     }
 
@@ -70,7 +70,7 @@ public class Config {
             Module parseModule = null;
             for (String s : list) {
                 try {
-                    Iterator<String> iterator = splitter.limit(2).split(s).iterator(); // s1:s2
+                    Iterator<String> iterator = splitter.limit(2).split(s).iterator();
                     String s1 = iterator.next();
                     String s2 = iterator.next();
                     switch (s1) {

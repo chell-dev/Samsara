@@ -14,43 +14,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientPanel extends Drawable {
-    private final int titleHeight;
+    private final int titleHeight = 17;
 
     private boolean open = true;
-    private final List<Drawable> buttons;
+    private final List<ValueButton<?>> buttons;
 
     private boolean grabbed = false;
-    private int offsetX;
-    private int offsetY;
+    private int offsetX, offsetY;
 
     private boolean editing = false;
-    private String oldText;
-    private String editText;
-    private String title;
+    private String oldText, editText, title;
     private int ticks = 0;
 
     public ClientPanel(int x, int y) {
-        super(x, y, GuiTheme.width, 16);
-        titleHeight = 16;
+        super(x, y, GuiTheme.width, 17);
         editText = title = "Client";
 
         buttons = new ArrayList<>();
         int buttonY = y + titleHeight;
-
         for(Value<?> v : ClientValues.values) {
-            Drawable d = ModuleButton.createValueButton(v, x, buttonY);
+            ValueButton<?> d = ModuleButton.createValueButton(v, x, buttonY);
             buttons.add(d);
             buttonY += d.height;
 
         }
 
         Value<Object> gui = new ValueBuilder<>("GUI Settings:", null).build();
-        Drawable guiButton = ModuleButton.createValueButton(gui, x, buttonY);
+        ValueButton<?> guiButton = ModuleButton.createValueButton(gui, x, buttonY);
         buttons.add(guiButton);
         buttonY += guiButton.height;
 
         for(Value<?> v : GuiTheme.values) {
-            Drawable d = ModuleButton.createValueButton(v, x, buttonY);
+            ValueButton<?> d = ModuleButton.createValueButton(v, x, buttonY);
             buttons.add(d);
             buttonY += d.height;
         }
@@ -76,13 +71,14 @@ public class ClientPanel extends Drawable {
             displayText = title;
         }
 
-        drawThemedString(displayText, x + 2, y + (titleHeight-1)/2 - 4);
+        drawThemedString(displayText, x + 2, getStringCenterY(y, titleHeight-1));
 
         if(open) {
             int buttonY = y + titleHeight;
-            for(Drawable button : buttons) {
+            for(ValueButton<?> button : buttons) {
                 button.x = x;
                 button.y = buttonY;
+                if(!button.isVisible()) continue;
                 button.draw(mouseX, mouseY);
                 buttonY += button.height;
             }
@@ -94,7 +90,7 @@ public class ClientPanel extends Drawable {
 
     @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if(mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + titleHeight) {
+        if(mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + titleHeight-1) {
             switch (mouseButton) {
                 case 0:
                     offsetX = mouseX - x;
@@ -113,11 +109,9 @@ public class ClientPanel extends Drawable {
                     return true;
             }
         }
-        for(Drawable button : buttons) {
-            if(button.height == 0) continue;
-            if(button.mouseClicked(mouseX, mouseY, mouseButton)) {
-                return true;
-            }
+        for(ValueButton<?> button : buttons) {
+            if(!button.isVisible()) continue;
+            if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -125,10 +119,15 @@ public class ClientPanel extends Drawable {
     @Override
     public void mouseReleased(int mouseX, int mouseY, int state) {
         if(state == 0) grabbed = false;
-        for(Drawable button : buttons) {
+        for(ValueButton<?> button : buttons) {
             button.mouseReleased(mouseX, mouseY, state);
         }
     }
+
+    private final List<Integer> blacklist = Lists.newArrayList(
+            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
+            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
+    );
 
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
@@ -160,28 +159,25 @@ public class ClientPanel extends Drawable {
             }
         }
 
-        for(Drawable button : buttons) {
+        for(ValueButton<?> button : buttons) {
+            if(!button.isVisible()) continue;
             if(button.keyTyped(typedChar, keyCode)) return true;
         }
         return super.keyTyped(typedChar, keyCode);
     }
 
-    List<Integer> blacklist = Lists.newArrayList(
-            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
-            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
-    );
-
     @Override
     public void updateScreen() {
         ticks++;
-        for(Drawable button : buttons) {
+        for(ValueButton<?> button : buttons) {
+            if(!button.isVisible()) continue;
             button.updateScreen();
         }
     }
 
     @Override
     public void onGuiClosed() {
-        for(Drawable button : buttons) {
+        for(ValueButton<?> button : buttons) {
             button.onGuiClosed();
         }
     }

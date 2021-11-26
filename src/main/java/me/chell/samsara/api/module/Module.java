@@ -96,10 +96,10 @@ public class Module implements Loadable {
     }
 
     public enum Category {
-        COMBAT(new ValueBuilder<>("DisplayName", "PeeVeePee").visible(b -> false).build()),
-        RENDER(new ValueBuilder<>("DisplayName", "OpenGL Errors").visible(b -> false).build()),
-        MOVEMENT(new ValueBuilder<>("DisplayName", "Bhop Scripts").visible(b -> false).build()),
-        MISC(new ValueBuilder<>("DisplayName", "idfk").visible(b -> false).build());
+        COMBAT(new ValueBuilder<>("DisplayName", "COMBAT").visible(b -> false).build()),
+        RENDER(new ValueBuilder<>("DisplayName", "RENDER").visible(b -> false).build()),
+        MOVEMENT(new ValueBuilder<>("DisplayName", "MOVEMENT").visible(b -> false).build()),
+        MISC(new ValueBuilder<>("DisplayName", "MISC").visible(b -> false).build());
 
         private final me.chell.samsara.api.value.Value<String> displayName;
         Category(Value<String> displayName) {

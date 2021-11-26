@@ -77,9 +77,23 @@ public class Color {
         return ""+getARGB();
     }
 
-    public static Color WHITE = new Color(255, 255, 255, 255);
-    public static Color BLACK = new Color(0, 0, 0, 255);
-    public static Color RED = new Color(255, 0, 0, 255);
-    public static Color GREEN = new Color(0, 255, 0, 255);
-    public static Color BLUE = new Color(0, 0, 255, 255);
+    public static Color WHITE() {
+        return new Color(255, 255, 255, 255);
+    }
+
+    public static Color BLACK() {
+        return new Color(0, 0, 0, 255);
+    }
+
+    public static Color RED() {
+        return new Color(255, 0, 0, 255);
+    }
+
+    public static Color GREEN() {
+        return new Color(0, 255, 0, 255);
+    }
+
+    public static Color BLUE() {
+        return new Color(0, 0, 255, 255);
+    }
 }

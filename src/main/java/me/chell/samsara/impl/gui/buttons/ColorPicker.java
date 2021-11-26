@@ -1,45 +1,41 @@
 package me.chell.samsara.impl.gui.buttons;
 
 import com.google.common.collect.Lists;
-import com.mojang.realmsclient.gui.ChatFormatting;
-import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.util.Color;
 import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Value;
+import me.chell.samsara.impl.gui.ValueButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.Toolkit;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class ColorPicker extends Drawable {
-    private Value<Color> value;
-
+public class ColorPicker extends ValueButton<Color> {
     private final ResourceLocation texture;
     private BufferedImage image;
 
     private boolean open = false;
     private boolean mouseDown = false;
-    private int buttonHeight = 12;
+    private final int buttonHeight = 13;
     private boolean sliderGrabbed;
+    private int ticks;
 
-    private List<Textbox> textBoxes;
+    private final List<Textbox> textBoxes;
 
     public ColorPicker(Value<Color> value, int x, int y) {
-        super(x, y, GuiTheme.width, 100);
-        this.value = value;
+        super(x, y, GuiTheme.width, 113, value);
 
         texture = new ResourceLocation("samsara/textures/colorpicker.png");
 
-        // https://stackoverflow.com/questions/6524196/java-get-pixel-array-from-image
         try {
             InputStream is = Wrapper.getMinecraft().getResourceManager().getResource(texture).getInputStream();
             image = ImageIO.read(is);
@@ -51,31 +47,29 @@ public class ColorPicker extends Drawable {
         int w = Wrapper.getFontRenderer().getStringWidth("000")+2;
         int h = Wrapper.getFontRenderer().FONT_HEIGHT+2;
         textBoxes = Lists.newArrayList(
-                new Textbox(x, y, w, h, "", ""+c.getRed()),
-                new Textbox(x, y, w, h, "", ""+c.getGreen()),
-                new Textbox(x, y, w, h, "", ""+c.getBlue()),
-                new Textbox(x, y, w, h, "", ""+c.getAlpha())
+                new Textbox(x, y, w, h, ""+c.getRed()),
+                new Textbox(x, y, w, h, ""+c.getGreen()),
+                new Textbox(x, y, w, h, ""+c.getBlue()),
+                new Textbox(x, y, w, h, ""+c.getAlpha())
         );
     }
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        if(!value.isVisible()) {
-            height = 0;
-            return;
-        }
-
         if(open) {
-            height = 112;
+            height = 113;
 
+            // draw button
             drawThemedRectPrimary(x+2, y, width-2, buttonHeight-1);
 
-            Color c = value.getValue();
+            // draw background
+            drawThemedRectSecondary(x+2, y + buttonHeight, width-2, height - buttonHeight);
 
             int startX = x;
             int startY = y + buttonHeight + 1;
 
-            drawThemedRectSecondary(x+2, y + buttonHeight, width-2, height - buttonHeight);
+            // draw text boxes
+            Color c = value.getValue();
 
             textBoxes.get(0).setValue(""+c.getRed());
             textBoxes.get(1).setValue(""+c.getGreen());
@@ -90,16 +84,19 @@ public class ColorPicker extends Drawable {
                 boxX += 27;
             }
 
+            // draw alpha slider
             int w = Wrapper.getFontRenderer().getStringWidth("000");
             drawGradientRectVertical(startX + 88, startY + 1, w, 82, 0xff000000, 0x00000000);
             drawBorder(startX + 88, startY + 1, w, 82, GuiTheme.tertiaryColor.getValue().getARGB(), 1);
 
+            // draw image
             int imgSize = 84;
 
             Wrapper.getMinecraft().getTextureManager().bindTexture(texture);
             GlStateManager.color(1f, 1f, 1f, 1f);
             drawTexturedRect(startX+2, startY, imgSize, imgSize);
 
+            // handle image
             if(mouseDown && image != null) {
                 float scale = (image.getWidth() / (float)imgSize);
                 int mX = MathHelper.clamp(mouseX - (startX+2), 0, imgSize-1);
@@ -109,7 +106,8 @@ public class ColorPicker extends Drawable {
                 value.getValue().setRGB(color);
             }
 
-            if(sliderGrabbed) { // TODO fix the weird shit with text boxes
+            // handle alpha slider
+            if(sliderGrabbed) {
                 int sliderY = startY + 1;
                 int sliderHeight = 82;
                 float mousePos = MathHelper.clamp(mouseY - sliderY, 0, sliderHeight);
@@ -118,20 +116,21 @@ public class ColorPicker extends Drawable {
                 value.getValue().setAlpha((int)(val*255));
             }
         } else {
-            height = 12;
+            height = 13;
             drawThemedRectSecondary(x+2, y, width-2, buttonHeight-1);
         }
+
         drawThemedRectTertiary(x, y, 2, height);
         drawThemedRectTertiary(x+2, y+buttonHeight-1, width-2, 1);
 
-        drawThemedString(value.getDisplayName(), x + 4, y + (buttonHeight-1)/2 - 4);
-        drawThemedStringRight(ChatFormatting.GRAY+Integer.toHexString(value.getValue().getARGB()), x + width - 2, y + (buttonHeight-1)/2 - 4); // TODO draw a small ractangle
+        drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, buttonHeight-1));
+        drawRect(x+width-2 - 11, y + (buttonHeight-1)/2 - 4, 11, 8, value.getValue().getARGB());
     }
 
     @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if(mouseButton == 0 && mouseX >= x+2 && mouseY >= y) {
-            if(mouseX <= x+width && mouseY <= y + buttonHeight) {
+            if(mouseX <= x+width && mouseY <= y + buttonHeight-1) {
                 open = !open;
                 return true;
             }
@@ -203,6 +202,12 @@ public class ColorPicker extends Drawable {
     }
 
     @Override
+    public void updateScreen() {
+        ticks++;
+        super.updateScreen();
+    }
+
+    @Override
     public void onGuiClosed() {
         mouseDown = false;
         sliderGrabbed = false;
@@ -211,44 +216,42 @@ public class ColorPicker extends Drawable {
         }
     }
 
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-    }
-
     private class Textbox {
         private int x;
         private int y;
-        private int width;
-        private int height;
-        private String title;
+        private final int width;
+        private final int height;
         private String value;
-        private int strWidth;
 
         private boolean listening = false;
         private String editText;
 
-        public Textbox(int x, int y, int width, int height, String title, String value) {
+        public Textbox(int x, int y, int width, int height, String value) {
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
-            this.title = title;
             this.value = editText = value;
-            strWidth = Wrapper.getFontRenderer().getStringWidth(title);
         }
 
         public void draw() {
-            drawThemedString(title, x - strWidth - 2, y);
             drawBorder(x, y, width, height, GuiTheme.tertiaryColor.getValue().getARGB(), 1);
-            drawThemedString(listening ? editText : value, x+1, y+2);
+
+            String displayText;
+            if(listening) {
+                displayText = editText;
+                if(ticks / 6 % 2 == 0) displayText += "_";
+            } else {
+                displayText = value;
+            }
+            drawThemedString(displayText, x+1, y+2);
         }
 
         public boolean mouseClicked(int mouseX, int mouseY) {
-            if(mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height) {
+            if(mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+                ticks = 0;
                 listening = !listening;
                 editText = value;
-                System.out.println("textbox mouse clicked");
                 return true;
             }
             return false;
@@ -275,7 +278,7 @@ public class ColorPicker extends Drawable {
                         }
                         break;
                     default:
-                        if(numbers.contains(typedChar)) {
+                        if(numbers.contains(typedChar) && editText.length() < 3) {
                             editText += typedChar;
                         }
                 }
@@ -302,10 +305,6 @@ public class ColorPicker extends Drawable {
 
         public void setY(int y) {
             this.y = y;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
         }
 
         public void setValue(String value) {

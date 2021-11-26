@@ -13,14 +13,14 @@ public class TestModule extends Module {
         setBind(Keyboard.KEY_P);
     }
 
-    private Value<Boolean> booleanVal = builder("Boolean", false).build();
-    private Value<Object> blankVal = builder("Blank", null).build();
-    private Value<Character> charVal = builder("Character", '>').build();
-    private Value<Test> enumVal = builder("Enum", Test.ONE).build();
-    private Value<Integer> intVal = builder("Integer", 11).bounds(9, 20).build();
-    private Value<Double> doubleVal = builder("Double", 5d).bounds(0d, 10d).build();
-    private Value<Float> floatVal = builder("Float", 5f).bounds(0f, 10f).build();
-    private Value<Color> colorVal = builder("Color", Color.RED).build();
+    private final Value<Boolean> booleanVal = builder("Boolean", false).build();
+    private final Value<Object> blankVal = builder("Blank", null).build();
+    private final Value<Character> charVal = builder("Character", '>').build();
+    private final Value<Test> enumVal = builder("Enum", Test.ONE).build();
+    private final Value<Integer> intVal = builder("Integer", 11).bounds(9, 20).build();
+    private final Value<Double> doubleVal = builder("Double", 5d).bounds(0d, 10d).build();
+    private final Value<Float> floatVal = builder("Float", 5f).bounds(0f, 10f).build();
+    private final Value<Color> colorVal = builder("Color", Color.RED()).build();
 
     @Override
     public void onEnable() {

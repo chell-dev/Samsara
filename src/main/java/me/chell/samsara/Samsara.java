@@ -6,10 +6,10 @@ import me.chell.samsara.api.util.Config;
 import me.chell.samsara.api.util.Rainbow;
 import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.impl.gui.ClickGUI;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +35,7 @@ public class Samsara {
     public Config config;
 
     @Mod.EventHandler
-    public void preinit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         loadables = new ArrayList<>();
         loadables.add(moduleManager = new ModuleManager());
         loadables.add(clickGUI = new ClickGUI());
@@ -52,7 +52,7 @@ public class Samsara {
     }
 
     @Mod.EventHandler
-    public void postinit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             config.save();
             for(Loadable l : loadables) {
