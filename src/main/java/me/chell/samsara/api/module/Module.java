@@ -4,6 +4,7 @@ import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.api.value.ValueBuilder;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,11 +85,16 @@ public class Module implements Loadable {
         return new ValueBuilder<>(name, value).list(values);
     }
 
-    public void onEnable() {}
-    public void onDisable() {}
+    public void onEnable() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+    public void onDisable() {
+        MinecraftForge.EVENT_BUS.unregister(this);
+    }
 
     @Override
-    public void load() {}
+    public void load() {
+    }
 
     @Override
     public void unload() {
