@@ -4,6 +4,7 @@ import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
 import me.chell.samsara.api.util.Config;
 import me.chell.samsara.api.util.Rainbow;
+import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.impl.gui.ClickGUI;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class Samsara {
     public static final String VERSION = "0.1";
 
     public static final Logger LOGGER = LogManager.getLogger(NAME);
+    public static final File FOLDER = new File(Wrapper.getMinecraft().gameDir, NAME + File.separator);
 
     @Mod.Instance(MODID)
     public static Samsara INSTANCE;

@@ -19,7 +19,7 @@ public class Config {
     private final Splitter splitter = Splitter.on(':');
 
     public Config() {
-        configFile = new File(Wrapper.getMinecraft().gameDir, "Samsara.cfg");
+        configFile = new File(Samsara.FOLDER, "Config");
     }
 
     public void save() {
