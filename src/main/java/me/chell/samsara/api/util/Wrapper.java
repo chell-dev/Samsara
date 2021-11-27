@@ -8,6 +8,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 
 import javax.annotation.Nullable;
+import java.io.File;
 
 public class Wrapper {
 
@@ -35,5 +36,9 @@ public class Wrapper {
     @Nullable
     public static WorldClient getWorld() {
         return getMinecraft().world;
+    }
+
+    public static File getGameDir() {
+        return getMinecraft().mcDataDir;
     }
 }

@@ -1,15 +1,21 @@
+// https://github.com/momentumdevelopment/cosmos/blob/main/build.gradle
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven { url 'https://repo.spongepowered.org/maven' }
+        maven { url 'https://files.minecraftforge.net/maven' }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3.4'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.spongepowered.mixin'
 
 group = 'me.chell'
 version = '0.1'
@@ -18,55 +24,64 @@ archivesBaseName = 'samsara'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'stable', version: '39-1.12'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    version '1.12.2-14.23.5.2847'
+    runDir 'run'
+    mappings 'snapshot_20171003'
+    //mappings 'stable_39'
+    coreMod 'me.chell.samsara.api.mixin.SamsaraCoremod'
+    makeObfSourceJar false
+}
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                samsara {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                samsara {
-                    source sourceSets.main
-                }
-            }
-        }
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        name 'spongepowered-repo'
+        url 'https://repo.spongepowered.org/maven'
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
+    compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        exclude module: 'launchwrapper'
+        exclude module: 'guava'
+        exclude module: 'gson'
+        exclude module: 'commons-io'
+        exclude module: 'log4j-core'
+    }
 }
 
-jar.finalizedBy('reobfJar')
+shadowJar {
+    dependencies {
+        include dependency('org.spongepowered:mixin')
+        exclude 'dummyThing', 'LICENSE.txt'
+    }
+    classifier = new Date().format("dd.MM_HHmm")
+}
+
+reobf {
+    shadowJar {
+        mappingType = 'SEARGE'
+        classpath = sourceSets.main.compileClasspath
+    }
+}
+
+mixin {
+    defaultObfuscationEnv searge
+    add sourceSets.main, 'samsara.refmap.json'
+}
+
+jar {
+    manifest {
+        attributes(
+                'MixinConfigs': 'mixins.samsara.json',
+                'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                'TweakOrder': 0,
+                'FMLCorePlugin': 'me.chell.samsara.api.mixin.SamsaraCoreMod',
+                'ForceLoadAsMod': 'true'
+                //'MixinRefmap': 'samsara.refmap.json'
+        )
+    }
+}
+
+build.dependsOn shadowJar

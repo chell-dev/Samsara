@@ -1,0 +1,6 @@
+{
+  "package": "me.chell.samsara.impl.mixin",
+  "refmap": "samsara.refmap.json",
+  "mixins": [
+  ]
+}

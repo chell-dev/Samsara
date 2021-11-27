@@ -24,7 +24,7 @@ public class Samsara {
     public static final String VERSION = "0.1";
 
     public static final Logger LOGGER = LogManager.getLogger(NAME);
-    public static final File FOLDER = new File(Wrapper.getMinecraft().gameDir, NAME + File.separator);
+    public static final File FOLDER = new File(Wrapper.getGameDir(), NAME + File.separator);
 
     @Mod.Instance(MODID)
     public static Samsara INSTANCE;
