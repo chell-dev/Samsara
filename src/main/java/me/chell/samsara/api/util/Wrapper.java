@@ -3,6 +3,7 @@ package me.chell.samsara.api.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
@@ -40,5 +41,9 @@ public class Wrapper {
 
     public static File getGameDir() {
         return getMinecraft().mcDataDir;
+    }
+
+    public static ScaledResolution getScaledResolution() {
+        return new ScaledResolution(getMinecraft());
     }
 }

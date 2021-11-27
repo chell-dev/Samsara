@@ -24,7 +24,11 @@ public class ClickGUI extends GuiScreen implements Loadable {
             panels.add(d);
             x += d.width + 10;
         }
-        panels.add(new ClientPanel(x, 20));
+        ClientPanel clientPanel = new ClientPanel(x, 20);
+        panels.add(clientPanel);
+        x += clientPanel.width + 10;
+
+        panels.add(new WidgetsPanel(x, 20));
     }
 
     @Override
