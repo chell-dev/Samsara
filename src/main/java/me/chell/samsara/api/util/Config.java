@@ -11,17 +11,22 @@ import org.lwjgl.input.Keyboard;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
 public class Config {
-    private final File configFile = new File(Samsara.configFile);
+    private final File configFile = new File(Samsara.MODID + "/" + Samsara.configFile);
     private final Splitter splitter = Splitter.on(':');
 
     public void save() {
-        PrintWriter writer = null;
         try {
-            writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(configFile), StandardCharsets.UTF_8));
+            if (!Files.exists(Paths.get(Samsara.MODID))) {
+                Files.createDirectories(Paths.get(Samsara.MODID));
+            }
+
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(configFile), StandardCharsets.UTF_8));
             String s = ":";
 
             writer.println("Section" + s + "Client");
@@ -48,10 +53,9 @@ public class Config {
             }
 
             Samsara.LOGGER.info("Saved config.");
+            writer.close();
         } catch (Exception e) {
             Samsara.LOGGER.error("Failed to save config", e);
-        } finally {
-            IOUtils.closeQuietly(writer);
         }
     }
 

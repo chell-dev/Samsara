@@ -15,9 +15,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 
-version = mod_version
 group = mod_group
-archivesBaseName = mod_id
+archivesBaseName = mod_id + '-' + new Date().format("dd.MM_HHmm")
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
