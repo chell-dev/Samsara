@@ -1,5 +1,6 @@
 package me.chell.samsara.impl.module.movement;
 
+import me.chell.samsara.api.event.PlayerUpdateEvent;
 import me.chell.samsara.api.module.Module;
 import me.chell.samsara.api.util.Wrapper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -11,8 +12,7 @@ public class Sprint extends Module {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent event) {
-        if(Wrapper.getPlayer() != null && Wrapper.getPlayer().moveForward > 0)
+    public void onPlayerUpdate(PlayerUpdateEvent event) {
             Wrapper.getPlayer().setSprinting(true);
     }
 }
