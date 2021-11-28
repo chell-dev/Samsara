@@ -86,7 +86,7 @@ public class Widget extends Drawable implements Loadable {
     public void render(){}
 
     @SubscribeEvent
-    public void onRender2D(RenderGameOverlayEvent.Post event) {
+    public void onRender2D(RenderGameOverlayEvent.Chat event) {
         if(!isGuiOpen()) render();
     }
 
