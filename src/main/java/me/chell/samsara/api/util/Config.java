@@ -15,12 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Config {
-    private final File configFile;
+    private final File configFile = new File(Samsara.configFile);
     private final Splitter splitter = Splitter.on(':');
-
-    public Config() {
-        configFile = new File(Samsara.FOLDER, "Config");
-    }
 
     public void save() {
         PrintWriter writer = null;

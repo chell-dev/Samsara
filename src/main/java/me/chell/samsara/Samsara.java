@@ -23,9 +23,9 @@ public class Samsara {
     public static final String MODID = "samsara";
     public static final String NAME = "Samsara";
     public static final String VERSION = "0.1";
+    public static final String configFile = MODID + ".cfg";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final File FOLDER = new File(NAME + File.separator);
 
     @Mod.Instance(MODID)
     public static Samsara INSTANCE;
