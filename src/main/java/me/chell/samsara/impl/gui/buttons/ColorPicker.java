@@ -3,7 +3,6 @@ package me.chell.samsara.impl.gui.buttons;
 import com.google.common.collect.Lists;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.util.Color;
-import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -37,15 +36,15 @@ public class ColorPicker extends ValueButton<Color> {
         texture = new ResourceLocation("samsara/textures/colorpicker.png");
 
         try {
-            InputStream is = Wrapper.getMinecraft().getResourceManager().getResource(texture).getInputStream();
+            InputStream is = getMinecraft().getResourceManager().getResource(texture).getInputStream();
             image = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Color c = value.getValue();
-        int w = Wrapper.getFontRenderer().getStringWidth("000")+2;
-        int h = Wrapper.getFontRenderer().FONT_HEIGHT+2;
+        int w = getFontRenderer().getStringWidth("000")+2;
+        int h = getFontRenderer().FONT_HEIGHT+2;
         textBoxes = Lists.newArrayList(
                 new Textbox(x, y, w, h, ""+c.getRed()),
                 new Textbox(x, y, w, h, ""+c.getGreen()),
@@ -85,14 +84,14 @@ public class ColorPicker extends ValueButton<Color> {
             }
 
             // draw alpha slider
-            int w = Wrapper.getFontRenderer().getStringWidth("000");
+            int w = getFontRenderer().getStringWidth("000");
             drawGradientRectVertical(startX + 88, startY + 1, w, 82, 0xff000000, 0x00000000);
             drawBorder(startX + 88, startY + 1, w, 82, GuiTheme.tertiaryColor.getValue().getARGB(), 1);
 
             // draw image
             int imgSize = 84;
 
-            Wrapper.getMinecraft().getTextureManager().bindTexture(texture);
+            getMinecraft().getTextureManager().bindTexture(texture);
             GlStateManager.color(1f, 1f, 1f, 1f);
             drawTexturedRect(startX+2, startY, imgSize, imgSize);
 
@@ -137,7 +136,7 @@ public class ColorPicker extends ValueButton<Color> {
             else if(open && mouseX <= x+2 + 84 && mouseY >= y+buttonHeight+1 && mouseY <= y+buttonHeight+1 + 84) {
                 mouseDown = true;
                 return true;
-            } else if(open && mouseX >= x + 88 && mouseY >= y+buttonHeight+1 + 1 && mouseX <= x+88 + Wrapper.getFontRenderer().getStringWidth("000") && mouseY <= y+buttonHeight+2 + 82) {
+            } else if(open && mouseX >= x + 88 && mouseY >= y+buttonHeight+1 + 1 && mouseX <= x+88 + getFontRenderer().getStringWidth("000") && mouseY <= y+buttonHeight+2 + 82) {
                 //drawGradientRectVertical(startX + 88, startY + 1, w, 82, 0xff000000, 0x00000000);
                 sliderGrabbed = true;
                 return true;

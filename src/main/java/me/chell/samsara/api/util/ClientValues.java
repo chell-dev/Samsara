@@ -6,13 +6,19 @@ import me.chell.samsara.api.value.ValueBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientValues {
+public class ClientValues implements Wrapper {
     public static List<Value<?>> values = new ArrayList<>();
 
-    public static Value<Character> cmdPrefix = builder("Prefix", ',').build();
-    public static Value<Integer> rainbowSpeed = builder("RgbSpeed", 2).bounds(1, 5).build();
-    public static Value<Boolean> fovOverride = builder("Set FOV", false).build();
-    public static Value<Integer> fovValue = new Value<Integer>("FOV", 130, 110, 180, b -> fovOverride.getValue()) {
+    private static ClientValues INSTANCE;
+
+    public ClientValues() {
+        INSTANCE = this;
+    }
+
+    public static final Value<Character> cmdPrefix = builder("Prefix", ',').build();
+    public static final Value<Integer> rainbowSpeed = builder("RgbSpeed", 2).bounds(1, 5).build();
+    public static final Value<Boolean> fovOverride = builder("Set FOV", false).build();
+    private final Value<Integer> fovValue = new Value<Integer>("FOV", 130, 110, 180, b -> fovOverride.getValue()) {
         @Override
         public void init() {
             values.add(this);
@@ -20,10 +26,14 @@ public class ClientValues {
 
         @Override
         public Integer setValue(Integer value) {
-            Wrapper.getGameSettings().fovSetting = (float)value;
+            getGameSettings().fovSetting = (float)value;
             return super.setValue(value);
         }
     };
+
+    public static int getFOV() {
+        return INSTANCE.fovValue.getValue();
+    }
 
     public static Value<?> getValue(String name) {
         for(Value<?> value : values) {

@@ -2,9 +2,7 @@ package me.chell.samsara.impl.gui.buttons;
 
 import com.google.common.collect.Lists;
 import me.chell.samsara.api.gui.GuiTheme;
-import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Value;
-import me.chell.samsara.impl.gui.ModuleButton;
 import me.chell.samsara.impl.gui.ValueButton;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -106,7 +104,7 @@ public class Slider<T extends Number> extends ValueButton<T> {
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
         int rightX = x + width - 2;
-        if(displayText.endsWith("_")) rightX += Wrapper.getFontRenderer().getCharWidth('_');
+        if(displayText.endsWith("_")) rightX += getFontRenderer().getCharWidth('_');
         drawThemedStringRight(displayText, rightX, getStringCenterY(y, height-1));
     }
 

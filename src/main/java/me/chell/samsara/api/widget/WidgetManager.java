@@ -1,7 +1,7 @@
 package me.chell.samsara.api.widget;
 
 import me.chell.samsara.api.Loadable;
-import me.chell.samsara.impl.widget.*;
+import me.chell.samsara.impl.widget.Watermark;
 
 import java.util.ArrayList;
 import java.util.List;

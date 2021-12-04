@@ -2,7 +2,6 @@ package me.chell.samsara.impl.module.render;
 
 import me.chell.samsara.Samsara;
 import me.chell.samsara.api.module.Module;
-import me.chell.samsara.api.util.Wrapper;
 import org.lwjgl.input.Keyboard;
 
 public class GuiModule extends Module {
@@ -13,8 +12,8 @@ public class GuiModule extends Module {
 
     @Override
     public void onEnable() {
-        if(Wrapper.getMinecraft().currentScreen == null)
-            Wrapper.getMinecraft().displayGuiScreen(Samsara.INSTANCE.clickGUI);
+        if(getMinecraft().currentScreen == null)
+            getMinecraft().displayGuiScreen(Samsara.INSTANCE.clickGUI);
         toggle();
     }
 

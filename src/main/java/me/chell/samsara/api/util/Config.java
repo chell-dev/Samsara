@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Config {
-    private final File configFile = new File(Samsara.MODID + "/" + Samsara.configFile);
+    private final File configFile = new File(Samsara.FOLDER, "Config.txt");
     private final Splitter splitter = Splitter.on(':');
 
     public void save() {

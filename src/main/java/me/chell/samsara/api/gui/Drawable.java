@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
-public class Drawable {
+public class Drawable implements Wrapper {
     public int x, y, width, height;
 
     public Drawable(int x, int y, int width, int height) {
@@ -49,11 +49,11 @@ public class Drawable {
     }
 
     public int getStringCenterX(int start, int end, String text) {
-        return start + end/2 - Wrapper.getFontRenderer().getStringWidth(text)/2;
+        return start + end/2 - getFontRenderer().getStringWidth(text)/2;
     }
 
     public int getStringCenterY(int start, int end) {
-        return start + end/2 - Wrapper.getFontRenderer().FONT_HEIGHT/2;
+        return start + end/2 - getFontRenderer().FONT_HEIGHT/2;
     }
 
     public void drawThemedRectPrimary(int x, int y, int width, int height) {

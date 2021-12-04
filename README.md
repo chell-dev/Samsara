@@ -23,19 +23,18 @@ After building, the output `.jar` will be in `build/libs/`
 ## IntelliJ (recommended) and Eclipse
 
 1. Import the project ([IntelliJ](https://www.jetbrains.com/help/idea/gradle.html#gradle_jvm) | [Eclipse](https://stackoverflow.com/questions/10722773/import-existing-gradle-git-project-into-eclipse))
-2. Run the gradle task `setupDecompWorkspace`
-3. Run the gradle task `build`
+2. Run the gradle task `build`
 
 ## Windows
 1. Open `cmd` in the project folder
-2. Run `./gradlew.bat setupDecompWorkspace`
-3. Run `./gradlew.bat build`
+2. Run `./gradlew.bat build`
 
 ## Linux and Mac
 1. `cd` to the project folder
-2. Run `./gradlew setupDecompWorkspace`
-3. Run `./gradlew build`
+2. Run `./gradlew build`
 
 # Credits
 
-[Minecraft Forge](https://files.minecraftforge.net/)
+[Minecraft Forge for the modding API](https://files.minecraftforge.net/)
+
+[A2H for being extremely based](https://github.com/B2H990)

@@ -1,4 +1,4 @@
-package me.chell.samsara.api.mixin;
+package me.chell.samsara.impl.mixin;
 
 import me.chell.samsara.api.event.PlayerUpdateEvent;
 import net.minecraft.client.entity.EntityPlayerSP;

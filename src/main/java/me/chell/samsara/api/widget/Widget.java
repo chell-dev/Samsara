@@ -5,7 +5,6 @@ import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.util.Color;
 import me.chell.samsara.api.util.Rainbow;
-import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.api.value.ValueBuilder;
 import me.chell.samsara.impl.gui.ClickGUI;
@@ -90,8 +89,8 @@ public class Widget extends Drawable implements Loadable {
         if(!isGuiOpen()) render();
     }
 
-    protected static boolean isGuiOpen() {
-        return Wrapper.getMinecraft().currentScreen instanceof ClickGUI;
+    protected boolean isGuiOpen() {
+        return getMinecraft().currentScreen instanceof ClickGUI;
     }
 
     public List<Value<?>> getValues() {
@@ -119,7 +118,7 @@ public class Widget extends Drawable implements Loadable {
             yPos.setValue(mouseY - offsetY);
         }
 
-        ScaledResolution res = Wrapper.getScaledResolution();
+        ScaledResolution res = getScaledResolution();
         if(xPos.getValue() < 0) xPos.setValue(0);
         if(yPos.getValue() < 0) yPos.setValue(0);
         if(xPos.getValue() + width > res.getScaledWidth()) xPos.setValue(res.getScaledWidth() - width);
@@ -163,15 +162,15 @@ public class Widget extends Drawable implements Loadable {
         super.updateScreen();
     }
 
-    protected void drawString(String text, int x, int y, int width, int height, boolean shadow, Align hAlign, ColorMode color, int customColor) {
+    protected void drawString(String text, int x, int y, int width, boolean shadow, Align hAlign, ColorMode color, int customColor) {
         int c = getStringColor(color, customColor).getARGB();
         int drawX = x;
         if (hAlign == Align.RIGHT) {
-            drawX = x - Wrapper.getFontRenderer().getStringWidth(text);
+            drawX = width - getFontRenderer().getStringWidth(text);
         } else if (hAlign == Align.CENTER) {
-            drawX = x - Wrapper.getFontRenderer().getStringWidth(text) / 2;
+            drawX = width/2 - getFontRenderer().getStringWidth(text) / 2;
         }
-        Wrapper.getFontRenderer().drawString(text, drawX, y, c, shadow);
+        getFontRenderer().drawString(text, drawX, y, c, shadow);
     }
 
     protected Color getStringColor(ColorMode color, int customColor) {

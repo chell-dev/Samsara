@@ -1,6 +1,7 @@
 package me.chell.samsara.api.module;
 
 import me.chell.samsara.api.Loadable;
+import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.api.value.ValueBuilder;
@@ -9,7 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Module implements Loadable {
+public class Module implements Loadable, Wrapper {
     private final String name;
     private final Value<String> displayName;
     private final Value<Boolean> enabled;

@@ -8,45 +8,33 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 
-import javax.annotation.Nullable;
-import java.io.File;
+public interface Wrapper {
 
-// This should be replaced with a interface -B2H990
-public class Wrapper {
-
-    public static Minecraft getMinecraft() {
+    default Minecraft getMinecraft() {
         return Minecraft.getMinecraft();
     }
 
-    public static FontRenderer getFontRenderer() {
+    default FontRenderer getFontRenderer() {
         return getMinecraft().fontRenderer;
     }
 
-    public static PlayerControllerMP getPlayerController() {
+    default PlayerControllerMP getPlayerController() {
         return getMinecraft().playerController;
     }
 
-    public static GameSettings getGameSettings() {
+    default GameSettings getGameSettings() {
         return getMinecraft().gameSettings;
     }
 
-    public static EntityPlayerSP getPlayer() {
-        assert getMinecraft().player != null;
+    default EntityPlayerSP getPlayer() {
         return getMinecraft().player;
     }
 
-    public static WorldClient getWorld() {
-        assert getMinecraft().world != null;
+    default WorldClient getWorld() {
         return getMinecraft().world;
     }
 
-/*
-    You don't need this Google context root.
-    public static File getGameDir() {
-        return getMinecraft().gameDir;
-    }*/
-
-    public static ScaledResolution getScaledResolution() {
+    default ScaledResolution getScaledResolution() {
         return new ScaledResolution(getMinecraft());
     }
 }

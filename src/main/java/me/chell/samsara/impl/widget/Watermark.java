@@ -2,14 +2,15 @@ package me.chell.samsara.impl.widget;
 
 import me.chell.samsara.Samsara;
 import me.chell.samsara.api.util.Color;
-import me.chell.samsara.api.util.Wrapper;
-import me.chell.samsara.api.widget.Widget;
 import me.chell.samsara.api.value.Value;
+import me.chell.samsara.api.widget.Widget;
 
 public class Watermark extends Widget {
 
     public Watermark() {
-        super("Watermark", 2, 2, Wrapper.getFontRenderer().getStringWidth(Samsara.NAME + " " + Samsara.VERSION), Wrapper.getFontRenderer().FONT_HEIGHT);
+        super("Watermark", 2, 2, 5, 5);
+        width = getFontRenderer().getStringWidth(Samsara.NAME + " " + Samsara.VERSION);
+        height = getFontRenderer().FONT_HEIGHT;
         toggle();
     }
 
@@ -19,6 +20,6 @@ public class Watermark extends Widget {
 
     @Override
     public void render() {
-        drawString(Samsara.NAME + " " + Samsara.VERSION, getX(), getY(), width, height, shadow.getValue(), Align.LEFT, colorMode.getValue(), customColor.getValue().getARGB());
+        drawString(Samsara.NAME + " " + Samsara.VERSION, getX(), getY(), width, shadow.getValue(), Align.LEFT, colorMode.getValue(), customColor.getValue().getARGB());
     }
 }

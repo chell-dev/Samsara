@@ -2,9 +2,9 @@ package me.chell.samsara;
 
 import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
+import me.chell.samsara.api.util.ClientValues;
 import me.chell.samsara.api.util.Config;
 import me.chell.samsara.api.util.Rainbow;
-import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.widget.WidgetManager;
 import me.chell.samsara.impl.gui.ClickGUI;
 import net.minecraftforge.fml.common.Mod;
@@ -22,9 +22,9 @@ import java.util.List;
 public class Samsara {
     public static final String MODID = "samsara";
     public static final String NAME = "Samsara";
-    public static final String VERSION = "0.1";
-    public static final String configFile = MODID + ".cfg";
+    public static final String VERSION = "1.0.0";
 
+    public static final File FOLDER = new File(NAME + File.separatorChar);
     public static final Logger LOGGER = LogManager.getLogger();
 
     @Mod.Instance(MODID)
@@ -39,6 +39,7 @@ public class Samsara {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         loadables = new ArrayList<>();
+        new ClientValues();
         loadables.add(moduleManager = new ModuleManager());
         loadables.add(widgetManager = new WidgetManager());
         loadables.add(clickGUI = new ClickGUI());

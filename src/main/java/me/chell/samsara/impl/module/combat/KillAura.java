@@ -2,7 +2,6 @@ package me.chell.samsara.impl.module.combat;
 
 import me.chell.samsara.api.event.PlayerUpdateEvent;
 import me.chell.samsara.api.module.Module;
-import me.chell.samsara.api.util.Wrapper;
 import me.chell.samsara.api.value.Value;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
@@ -26,23 +25,22 @@ public class KillAura extends Module {
 
     @SubscribeEvent
     public void onPlayerUpdate(PlayerUpdateEvent event) {
-
-        if(sword.getValue() && !(Wrapper.getPlayer().getHeldItemMainhand().getItem() instanceof ItemSword)) return;
+        if(sword.getValue() && !(getPlayer().getHeldItemMainhand().getItem() instanceof ItemSword)) return;
 
         List<EntityPlayer> list = new ArrayList<>();
-        for(EntityPlayer player : Wrapper.getWorld().playerEntities) {
-            if(player == Wrapper.getPlayer()) continue;
-            if(Wrapper.getPlayer().getDistance(player) > range.getValue()) continue;
+        for(EntityPlayer player : getWorld().playerEntities) {
+            if(player == getPlayer()) continue;
+            if(getPlayer().getDistance(player) > range.getValue()) continue;
             if(player.getHealth() <= 0 || player.isDead) continue;
             list.add(player);
         }
 
         if(list.isEmpty()) return;
-        list.sort(Comparator.comparing(player -> player.getDistance(Wrapper.getPlayer())));
+        list.sort(Comparator.comparing(player -> player.getDistance(getPlayer())));
 
-        if(!delay.getValue() || Wrapper.getPlayer().getCooledAttackStrength(0f) >= 1f) {
-            Wrapper.getPlayerController().attackEntity(Wrapper.getPlayer(), list.get(0));
-            Wrapper.getPlayer().swingArm(EnumHand.MAIN_HAND);
+        if(!delay.getValue() || getPlayer().getCooledAttackStrength(0f) >= 1f) {
+            getPlayerController().attackEntity(getPlayer(), list.get(0));
+            getPlayer().swingArm(EnumHand.MAIN_HAND);
         }
 
     }
