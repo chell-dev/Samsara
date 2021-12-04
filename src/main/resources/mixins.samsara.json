@@ -4,6 +4,8 @@
   "package": "me.chell.samsara.impl.mixin",
   "refmap": "samsara.refmap.json",
   "mixins": [
-    "EntityPlayerSPMixin"
+    "EntityPlayerSPMixin",
+    "MinecraftAccessor",
+    "PlayerControllerMPAccessor"
   ]
 }
