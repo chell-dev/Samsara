@@ -11,6 +11,7 @@ import net.minecraft.client.settings.GameSettings;
 import javax.annotation.Nullable;
 import java.io.File;
 
+// This should be replaced with a interface -B2H990
 public class Wrapper {
 
     public static Minecraft getMinecraft() {
@@ -29,19 +30,21 @@ public class Wrapper {
         return getMinecraft().gameSettings;
     }
 
-    @Nullable
     public static EntityPlayerSP getPlayer() {
+        assert getMinecraft().player != null;
         return getMinecraft().player;
     }
 
-    @Nullable
     public static WorldClient getWorld() {
+        assert getMinecraft().world != null;
         return getMinecraft().world;
     }
 
+/*
+    You don't need this Google context root.
     public static File getGameDir() {
-        return getMinecraft().mcDataDir;
-    }
+        return getMinecraft().gameDir;
+    }*/
 
     public static ScaledResolution getScaledResolution() {
         return new ScaledResolution(getMinecraft());

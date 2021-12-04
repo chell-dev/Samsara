@@ -1,87 +1,97 @@
-// https://github.com/momentumdevelopment/cosmos/blob/main/build.gradle
 buildscript {
     repositories {
-        jcenter()
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = "https://repo.spongepowered.org/maven" }
         mavenCentral()
-        maven { url 'https://repo.spongepowered.org/maven' }
-        maven { url 'https://files.minecraftforge.net/maven' }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3.4'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
 
-group = 'me.chell'
-version = '0.1'
-archivesBaseName = 'samsara'
+group = mod_group
+archivesBaseName = mod_id + '-' + new Date().format("dd.MM_HHmm")
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    version '1.12.2-14.23.5.2847'
-    runDir 'run'
-    mappings 'snapshot_20171003'
-    //mappings 'stable_39'
-    coreMod 'me.chell.samsara.api.mixin.SamsaraCoremod'
-    makeObfSourceJar false
+    mappings channel: mappings_channel, version: mappings_version
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.coreMods.load', mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
+        }
+
+        server {
+            property 'fml.coreMods.load', mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
 }
 
 repositories {
-    jcenter()
-    mavenCentral()
-    maven {
-        name 'spongepowered-repo'
-        url 'https://repo.spongepowered.org/maven'
-    }
+    maven { url = 'https://repo.spongepowered.org/maven' }
+}
+
+configurations {
+    embed
+    compile.extendsFrom(embed)
 }
 
 dependencies {
-    compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-        exclude module: 'launchwrapper'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    embed('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
         exclude module: 'guava'
-        exclude module: 'gson'
         exclude module: 'commons-io'
-        exclude module: 'log4j-core'
+        exclude module: 'gson'
     }
 }
 
-shadowJar {
-    dependencies {
-        include dependency('org.spongepowered:mixin')
-        exclude 'dummyThing', 'LICENSE.txt'
-    }
-    classifier = new Date().format("dd.MM_HHmm")
-}
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", minecraft_version
 
-reobf {
-    shadowJar {
-        mappingType = 'SEARGE'
-        classpath = sourceSets.main.compileClasspath
-    }
-}
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
 
-mixin {
-    defaultObfuscationEnv searge
-    add sourceSets.main, 'samsara.refmap.json'
+        expand 'mod_id': mod_id, 'mod_name': mod_name, 'version': project.version,
+                'mcversion': minecraft_version, 'mod_description': mod_description,
+                'mod_author': mod_author
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
 }
 
 jar {
+    from {
+        configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "LICENSE.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
+    }
+
     manifest {
-        attributes(
-                'MixinConfigs': 'mixins.samsara.json',
-                'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-                'TweakOrder': 0,
-                'FMLCorePlugin': 'me.chell.samsara.api.mixin.SamsaraCoreMod',
-                'ForceLoadAsMod': 'true'
-                //'MixinRefmap': 'samsara.refmap.json'
-        )
+        attributes "FMLCorePlugin": mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id)
+        attributes "FMLCorePluginContainsFMLMod": "false"
+        attributes "ForceLoadAsMod": "true"
+        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+        attributes "TweakOrder": "0"
+        attributes "MixinConfigs": mod_mixin_configs.replace('${mod_id}', mod_id)
     }
 }
 
-build.dependsOn shadowJar
+jar.finalizedBy('reobfJar')

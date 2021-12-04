@@ -6,12 +6,12 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import java.util.Map;
 
-public class SamsaraCoremod implements IFMLLoadingPlugin {
-        public static boolean isObfuscatedEnvironment = false;
+public class MixinCoreMod implements IFMLLoadingPlugin {
 
-        public SamsaraCoremod() {
-        MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.samsara.json");
+        public MixinCoreMod() {
+                MixinBootstrap.init();
+                Mixins.addConfiguration("mixins.samsara.json");
+                System.out.println("Samsara MixinCoreMod loaded");
         }
 
         @Override

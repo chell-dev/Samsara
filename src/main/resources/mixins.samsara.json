@@ -1,6 +1,9 @@
 {
-  "package": "me.chell.samsara.impl.mixin",
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.chell.samsara.api.mixin",
   "refmap": "samsara.refmap.json",
   "mixins": [
+    "EntityPlayerSPMixin"
   ]
 }
