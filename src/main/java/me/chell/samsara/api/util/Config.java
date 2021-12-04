@@ -12,8 +12,6 @@ import org.lwjgl.input.Keyboard;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,9 +21,10 @@ public class Config {
 
     public void save() {
         try {
-            if (!Files.exists(Paths.get(Samsara.MODID))) {
-                Files.createDirectories(Paths.get(Samsara.MODID));
-            }
+            if(!configFile.getParentFile().exists())
+                configFile.getParentFile().mkdirs();
+            if(!configFile.exists())
+                configFile.createNewFile();
 
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(configFile), StandardCharsets.UTF_8));
             String s = ":";
