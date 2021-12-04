@@ -109,6 +109,9 @@ public class ClientPanel extends Drawable {
                     return true;
             }
         }
+
+        if(!open) return super.mouseClicked(mouseX, mouseY, mouseButton);
+
         for(ValueButton<?> button : buttons) {
             if(!button.isVisible()) continue;
             if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;

@@ -96,6 +96,9 @@ public class WidgetsPanel extends Drawable {
                     return true;
             }
         }
+
+        if(!open) return super.mouseClicked(mouseX, mouseY, mouseButton);
+
         for(WidgetButton button : buttons) {
             if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;
         }

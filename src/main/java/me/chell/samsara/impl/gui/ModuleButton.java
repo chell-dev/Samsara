@@ -94,6 +94,8 @@ public class ModuleButton extends Drawable {
             }
         }
 
+        if(!open) return super.mouseClicked(mouseX, mouseY, mouseButton); // check color picker and panels for this
+
         for(ValueButton<?> button : valueButtons) {
             if(!button.isVisible()) continue;
             if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;

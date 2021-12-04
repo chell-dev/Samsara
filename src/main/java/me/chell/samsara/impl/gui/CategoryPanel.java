@@ -98,6 +98,9 @@ public class CategoryPanel extends Drawable {
                     return true;
             }
         }
+
+        if(!open) return super.mouseClicked(mouseX, mouseY, mouseButton);
+
         for(ModuleButton button : buttons) {
             if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;
         }

@@ -68,9 +68,11 @@ public class WidgetButton extends Drawable {
             }
         }
 
-        for(ValueButton<?> button : valueButtons) {
-            if(!button.isVisible()) continue;
-            if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;
+        if(open) {
+            for(ValueButton<?> button : valueButtons) {
+                if(!button.isVisible()) continue;
+                if(button.mouseClicked(mouseX, mouseY, mouseButton)) return true;
+            }
         }
 
         if(widget.isEnabled())
