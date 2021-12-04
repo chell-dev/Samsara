@@ -11,7 +11,6 @@ public class Watermark extends Widget {
         super("Watermark", 2, 2, 5, 5);
         width = getFontRenderer().getStringWidth(Samsara.NAME + " " + Samsara.VERSION);
         height = getFontRenderer().FONT_HEIGHT;
-        toggle();
     }
 
     private final Value<ColorMode> colorMode = builder("Color", ColorMode.PRIMARY).build();

@@ -6,6 +6,7 @@ import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.module.Module;
 import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
+import me.chell.samsara.api.widget.Widget;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.input.Keyboard;
 
@@ -44,6 +45,14 @@ public class Config {
                 writer.println(c.name() + s + c.getName());
             }
 
+            writer.println("Section" + s + "Widgets");
+            for(Widget w : Samsara.INSTANCE.widgetManager.getWidgets()) {
+                writer.println("Widget" + s + w.getName());
+                for(Value<?> v : w.getValues()) {
+                    writer.println(v.getName() + s + v.getValue());
+                }
+            }
+
             writer.println("Section" + s + "Modules");
             for(Module m : Samsara.INSTANCE.moduleManager.getModules()) {
                 writer.println("Module" + s + m.getName());
@@ -68,6 +77,7 @@ public class Config {
 
             int parsing = 0;
             Module parseModule = null;
+            Widget parseWidget = null;
             for (String s : list) {
                 try {
                     Iterator<String> iterator = splitter.limit(2).split(s).iterator();
@@ -88,10 +98,16 @@ public class Config {
                                 case "Categories":
                                     parsing = 3;
                                     break;
+                                case "Widgets":
+                                    parsing = 4;
+                                    break;
                             }
                             break;
                         case "Module":
                             parseModule = Samsara.INSTANCE.moduleManager.getModule(s2);
+                            break;
+                        case "Widget":
+                            parseWidget = Samsara.INSTANCE.widgetManager.getWidget(s2);
                             break;
                         default:
                             switch (parsing) {
@@ -107,6 +123,9 @@ public class Config {
                                 case 3:
                                     Module.Category.valueOf(s1).setName(s2);
                                     break;
+                                case 4:
+                                    parseValue(parseWidget.getValue(s1), s2);
+                                    break;
                             }
                     }
                 } catch (Exception e) {
@@ -118,6 +137,14 @@ public class Config {
             Samsara.LOGGER.error("Failed to load config", e);
         } finally {
             IOUtils.closeQuietly(fileInputStream);
+        }
+
+        for(Module m : Samsara.INSTANCE.moduleManager.getModules()) {
+            if(m.isEnabled()) m.onEnable();
+        }
+
+        for(Widget w : Samsara.INSTANCE.widgetManager.getWidgets()) {
+            if(w.isEnabled()) w.onEnable();
         }
     }
 

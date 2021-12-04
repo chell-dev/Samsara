@@ -30,11 +30,11 @@ public class Widget extends Drawable implements Loadable {
 
     public Widget(String name, int x, int y, int width, int height) {
         super(x, y, width, height);
+        this.values = new ArrayList<>();
         this.xPos = builder("X", x).bounds(0, 1).visible(b -> false).build();
         this.yPos = builder("Y", y).bounds(0, 1).visible(b -> false).build();
         this.name = name;
-        this.enabled = builder("Enabled", false).build();
-        this.values = new ArrayList<>();
+        this.enabled = builder("Enabled", false).visible(b -> false).build();
     }
 
     @Override
@@ -76,10 +76,10 @@ public class Widget extends Drawable implements Loadable {
         return isEnabled();
     }
 
-    protected void onEnable(){
+    public void onEnable(){
         MinecraftForge.EVENT_BUS.register(this);
     }
-    protected void onDisable(){
+    public void onDisable(){
         MinecraftForge.EVENT_BUS.unregister(this);
     }
     public void render(){}
@@ -109,7 +109,7 @@ public class Widget extends Drawable implements Loadable {
         return new ValueBuilder<>(name, value).list(values);
     }
 
-    private int background = new Color(10, 10, 10, 100).getARGB();
+    private final int background = new Color(10, 10, 10, 100).getARGB();
 
     @Override
     public void draw(int mouseX, int mouseY) {
