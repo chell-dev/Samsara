@@ -7,7 +7,7 @@
     "mcversion": "${mcversion}",
     "url": "https://github.com/FINZ0/Samsara",
     "updateUrl": "",
-    "authorList": ${mod_author},
+    "authorList": "${mod_author}",
     "credits": "A2H",
     "logoFile": "",
     "screenshots": [],

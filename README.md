@@ -35,6 +35,6 @@ After building, the output `.jar` will be in `build/libs/`
 
 # Credits
 
-[Minecraft Forge for the modding API](https://files.minecraftforge.net/)
+[Minecraft Forge](https://files.minecraftforge.net/) for the modding API
 
-[A2H for being extremely based](https://github.com/B2H990)
+[A2H](https://github.com/B2H990) for being extremely based
