@@ -4,6 +4,7 @@ import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
 import me.chell.samsara.api.util.ClientValues;
 import me.chell.samsara.api.util.Config;
+import me.chell.samsara.api.util.KillEventManager;
 import me.chell.samsara.api.util.Rainbow;
 import me.chell.samsara.api.widget.WidgetManager;
 import me.chell.samsara.impl.gui.ClickGUI;
@@ -44,6 +45,7 @@ public class Samsara {
         loadables.add(widgetManager = new WidgetManager());
         loadables.add(clickGUI = new ClickGUI());
         loadables.add(new Rainbow());
+        loadables.add(new KillEventManager());
         config = new Config();
     }
 
