@@ -1,5 +1,6 @@
 package me.chell.samsara.api.util;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.api.value.ValueBuilder;
 
@@ -15,6 +16,12 @@ public class ClientValues implements Wrapper {
         INSTANCE = this;
     }
 
+    private static final Value<Object> messageBlank = builder("Client Messages", null).build();
+    public static final Value<ChatFormatting> msgPrefixColor = builder("Prefix Color", ChatFormatting.DARK_PURPLE).build();
+    public static final Value<ChatFormatting> msgColor = builder("Text Color", ChatFormatting.GRAY).build();
+    public static final Value<Boolean> msgDelete = builder("Delete", false).build();
+
+    private static final Value<Object> otherBlank = builder("Other", null).build();
     public static final Value<Character> cmdPrefix = builder("Prefix", ',').build();
     public static final Value<Integer> rainbowSpeed = builder("RgbSpeed", 2).bounds(1, 5).build();
     public static final Value<Boolean> fovOverride = builder("Set FOV", false).build();

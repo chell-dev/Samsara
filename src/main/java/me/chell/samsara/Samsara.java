@@ -2,10 +2,7 @@ package me.chell.samsara;
 
 import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
-import me.chell.samsara.api.util.ClientValues;
-import me.chell.samsara.api.util.Config;
-import me.chell.samsara.api.util.KillEventManager;
-import me.chell.samsara.api.util.Rainbow;
+import me.chell.samsara.api.util.*;
 import me.chell.samsara.api.widget.WidgetManager;
 import me.chell.samsara.impl.gui.ClickGUI;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +37,7 @@ public class Samsara {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         loadables = new ArrayList<>();
+        new ChatUtil();
         new ClientValues();
         loadables.add(moduleManager = new ModuleManager());
         loadables.add(widgetManager = new WidgetManager());
