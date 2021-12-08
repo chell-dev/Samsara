@@ -27,6 +27,7 @@ public class ModuleManager implements Loadable {
         modules.add(new PullDown());
         modules.add(new Step());
         modules.add(new FastUse());
+        modules.add(new KillEffects());
 
         for(Module m : modules) {
             m.load();
