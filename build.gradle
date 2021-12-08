@@ -2,11 +2,13 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = 'https://jitpack.io' }
         mavenCentral()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'com.github.JnCrMx:discord-game-sdk4j:v0.5.4'
     }
 }
 
@@ -43,6 +45,7 @@ minecraft {
 
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven' }
+    maven { url = 'https://jitpack.io' }
 }
 
 configurations {
@@ -58,6 +61,8 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
+
+    embed 'com.github.JnCrMx:discord-game-sdk4j:v0.5.4'
 }
 
 processResources {

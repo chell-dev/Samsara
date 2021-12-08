@@ -1,5 +1,6 @@
 package me.chell.samsara;
 
+import me.chell.samsara.api.DiscordActivity;
 import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.module.ModuleManager;
 import me.chell.samsara.api.util.*;
@@ -44,6 +45,7 @@ public class Samsara {
         loadables.add(clickGUI = new ClickGUI());
         loadables.add(new Rainbow());
         loadables.add(new KillEventManager());
+        loadables.add(new DiscordActivity());
         config = new Config();
     }
 

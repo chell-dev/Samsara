@@ -28,6 +28,7 @@ public class ModuleManager implements Loadable {
         modules.add(new Step());
         modules.add(new FastUse());
         modules.add(new KillEffects());
+        modules.add(new DiscordRPC());
 
         for(Module m : modules) {
             m.load();
