@@ -80,6 +80,16 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    from(layout.buildDirectory.dir("tmp/compileJava/")) {
+        include 'mixin.refmap.json'
+    }
+    rename 'mixin.refmap.json', 'samsara.refmap.json'
+}
+
+mixin {
+    defaultObfuscationEnv 'notch'
+    add sourceSets.main, 'samsara.refmap.json'
 }
 
 jar {
