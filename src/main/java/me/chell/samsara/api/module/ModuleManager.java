@@ -29,6 +29,7 @@ public class ModuleManager implements Loadable {
         modules.add(new FastUse());
         modules.add(new KillEffects());
         modules.add(new DiscordRPC());
+        modules.add(new AutoBed());
 
         for(Module m : modules) {
             m.load();
@@ -59,7 +60,7 @@ public class ModuleManager implements Loadable {
 
     @SubscribeEvent
     public void onKeyPressed(InputEvent.KeyInputEvent event) {
-        if(!Keyboard.getEventKeyState() || Keyboard.isRepeatEvent()) return;
+        if(!Keyboard.getEventKeyState() || Keyboard.isRepeatEvent() || Keyboard.getEventKey() == 0) return;
         for(Module m : modules) {
             if(m.getBind() == Keyboard.getEventKey()) m.toggle();
         }
