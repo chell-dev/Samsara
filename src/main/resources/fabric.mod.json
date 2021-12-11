@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "samsara",
+  "version": "${version}",
+  "name": "Samsara",
+  "description": "block game cheat",
+  "authors": [
+    "chell"
+  ],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/samsara/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "me.chell.samsara.FabricMod"
+      }
+    ]
+  },
+  "mixins": [
+    "samsara.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.11",
+    "minecraft": "1.18",
+    "fabric-language-kotlin": ">=1.6.1+kotlin.1.5.20"
+  }
+}
