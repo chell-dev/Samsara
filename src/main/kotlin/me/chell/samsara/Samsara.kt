@@ -26,6 +26,11 @@ class Samsara {
     fun init() {
         loadables.add(EventManager().also { eventManager = it })
         load()
+        Runtime.getRuntime().addShutdownHook(object: Thread("$NAME shutdown hook") {
+            override fun run() {
+                if(loaded) unload()
+            }
+        })
     }
 
     fun load() {
@@ -37,5 +42,6 @@ class Samsara {
     fun unload() {
         loaded = false
         for(l in loadables) l.unload()
+        LOGGER.info("$NAME $VERSION unloaded.")
     }
 }
