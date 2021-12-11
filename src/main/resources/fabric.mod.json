@@ -20,7 +20,7 @@
     ]
   },
   "mixins": [
-    "samsara.mixins.json"
+    "mixins.samsara.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.11",
