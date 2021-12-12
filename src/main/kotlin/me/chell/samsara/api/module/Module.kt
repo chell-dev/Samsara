@@ -1,7 +1,8 @@
 package me.chell.samsara.api.module
 
-import me.chell.samsara.Samsara
 import me.chell.samsara.api.Loadable
+import me.chell.samsara.api.event.EventManager
+import me.chell.samsara.api.util.Wrapper
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
@@ -11,7 +12,7 @@ import kotlin.reflect.full.memberProperties
 abstract class Module(
     val name: String,
     val category: Category
-    ): Loadable {
+    ): Loadable, Wrapper {
 
     val values = mutableListOf<Value<*>>()
 
@@ -39,10 +40,10 @@ abstract class Module(
     }
 
     open fun onEnable() {
-        Samsara.instance.eventManager.register(this)
+        EventManager.register(this)
     }
     open fun onDisable() {
-        Samsara.instance.eventManager.unregister(this)
+        EventManager.unregister(this)
     }
 
     fun <T> getValue(name: String): Value<T> = values.firstOrNull { it.name.equals(name, true) } as Value<T>

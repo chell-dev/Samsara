@@ -6,7 +6,7 @@ import kotlin.reflect.full.createType
 import kotlin.reflect.full.functions
 import kotlin.reflect.jvm.jvmErasure
 
-class EventManager : Loadable {
+object EventManager : Loadable {
     private val map: MutableMap<KClass<out Event>, MutableList<Any>> = mutableMapOf()
 
     fun post(e: Event) {

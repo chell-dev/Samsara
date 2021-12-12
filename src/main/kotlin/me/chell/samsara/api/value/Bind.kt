@@ -1,3 +1,3 @@
 package me.chell.samsara.api.value
 
-class Bind(key: Int)
+class Bind(var key: Int)

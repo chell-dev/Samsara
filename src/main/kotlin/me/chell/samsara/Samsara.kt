@@ -5,29 +5,20 @@ import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import org.apache.logging.log4j.LogManager
 
-class Samsara {
+object Samsara {
 
-    companion object {
-        const val NAME = "Samsara"
-        const val VERSION = "1.0.0"
-        const val MODID = "samsara"
-        val LOGGER = LogManager.getLogger()
-        lateinit var instance: Samsara
-    }
-
-    init {
-        instance = this
-    }
+    const val NAME = "Samsara"
+    const val VERSION = "1.0.0"
+    const val MODID = "samsara"
+    val LOGGER = LogManager.getLogger()
 
     private val loadables = mutableListOf<Loadable>()
 
-    lateinit var eventManager: EventManager
-    lateinit var moduleManager: ModuleManager
     var loaded = false
 
     fun init() {
-        loadables.add(EventManager().also { eventManager = it })
-        loadables.add(ModuleManager().also { moduleManager = it })
+        loadables.add(EventManager)
+        loadables.add(ModuleManager)
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("$NAME shutdown hook") {
             override fun run() {
