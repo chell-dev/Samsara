@@ -11,14 +11,6 @@
   "license": "GPL-3.0",
   "icon": "assets/samsara/icon.png",
   "environment": "*",
-  "entrypoints": {
-    "main": [
-      {
-        "adapter": "kotlin",
-        "value": "me.chell.samsara.FabricMod"
-      }
-    ]
-  },
   "mixins": [
     "mixins.samsara.json"
   ],
