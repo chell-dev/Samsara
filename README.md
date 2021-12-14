@@ -2,7 +2,7 @@
 
 Samsara is a free, open-source Minecraft 1.12.2 Forge mod for anarchy servers.
 
-Join the [Discord server](https://discord.gg/eG4YWkRe) if you want
+Join the [Discord server](https://discord.gg/ubfWKsQTDG) if you want
 
 # Usage
 THE CLIENT IS NOT READY TO BE USED YET but if you wanna try it go ahead
