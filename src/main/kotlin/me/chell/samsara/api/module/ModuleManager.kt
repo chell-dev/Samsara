@@ -5,6 +5,7 @@ import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
 import me.chell.samsara.impl.event.KeyInputEvent
+import me.chell.samsara.impl.module.movement.Sprint
 import me.chell.samsara.impl.module.render.ClickGuiModule
 import org.lwjgl.glfw.GLFW
 
@@ -16,6 +17,7 @@ object ModuleManager: Loadable, Wrapper {
     override fun load() {
         EventManager.register(this)
         modules.add(ClickGuiModule())
+        modules.add(Sprint())
         for(m in modules) m.load()
     }
 
