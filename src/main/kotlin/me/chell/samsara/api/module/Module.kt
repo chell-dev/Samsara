@@ -55,7 +55,7 @@ abstract class Module(
                 if(p.annotations[0].annotationClass == Register::class) {
                     val a = p.getter.call(this)
                     Samsara.LOGGER.info(a)
-                    values.add(a as Value<*>)
+                    values.add(0, a as Value<*>)
                 }
             }
         }
