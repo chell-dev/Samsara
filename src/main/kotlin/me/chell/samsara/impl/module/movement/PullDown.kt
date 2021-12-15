@@ -5,7 +5,7 @@ import me.chell.samsara.api.module.Module
 import me.chell.samsara.impl.event.PlayerTickEvent
 import net.minecraft.tag.FluidTags
 
-class PullDown: Module("PullDown", Category.MOVEMENT) {
+class PullDown: Module("PullDown", Category.MOVEMENT, "Makes you fall faster.") {
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

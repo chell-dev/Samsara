@@ -5,6 +5,7 @@ import java.util.function.Predicate
 data class Value<T>(
     val name: String,
     var value: T,
+    val description: String = "No description.",
     val displayName: String = name,
     val sliderMin: T? = null,
     val sliderMax: T? = null,

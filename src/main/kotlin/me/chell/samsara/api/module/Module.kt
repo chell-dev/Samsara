@@ -12,7 +12,8 @@ import kotlin.reflect.full.memberProperties
 
 abstract class Module(
     val name: String,
-    val category: Category
+    val category: Category,
+    val description: String = "No description."
     ): Loadable, Wrapper {
 
     val values = mutableListOf<Value<*>>()

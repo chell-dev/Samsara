@@ -6,9 +6,9 @@ import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.event.PlayerTickEvent
 
-class Sprint: Module("Sprint", Category.MOVEMENT) {
+class Sprint: Module("Sprint", Category.MOVEMENT, "Sprint automatically.") {
 
-    @Register val strict = Value("Strict", true)
+    @Register val strict = Value("Strict", true, "Only sprint when moving forward.")
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

@@ -4,7 +4,7 @@ import me.chell.samsara.Samsara
 import me.chell.samsara.api.module.Module
 import org.lwjgl.glfw.GLFW
 
-class ClickGuiModule: Module("ClickGUI", Category.RENDER) {
+class ClickGuiModule: Module("ClickGUI", Category.RENDER, "Opens the ClickGUI.") {
 
     init {
         bind.value.key = GLFW.GLFW_KEY_BACKSLASH

@@ -10,9 +10,9 @@ import net.minecraft.item.BlockItem
 import net.minecraft.item.EndCrystalItem
 import net.minecraft.item.ExperienceBottleItem
 
-class FastUse: Module("FastUse", Category.MISC) {
+class FastUse: Module("FastUse", Category.MISC, "Removes item use delay.") {
 
-    @Register val pvp = Value("PVP Mode", true)
+    @Register val pvp = Value("PVP Mode", true, "Only for XP bottles and crystals.")
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {
