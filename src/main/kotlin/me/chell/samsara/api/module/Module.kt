@@ -1,5 +1,6 @@
 package me.chell.samsara.api.module
 
+import me.chell.samsara.Samsara
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
@@ -20,22 +21,13 @@ abstract class Module(
     @Register val enabled: Value<Boolean> = ValueBuilder("Enabled", false).visible{false}.build()
     @Register val bind: Value<Bind> = Value("Bind", Bind(0))
 
-    init {
-        for(p in this::class.memberProperties) {
-            if(p.annotations.isNotEmpty()) {
-                if(p.annotations[0].annotationClass == Register::class)
-                    values.add(p.getter.call(this) as Value<*>)
-            }
-        }
-    }
-
     fun toggle() {
         if(enabled.value) {
-            onDisable()
             enabled.value = false
+            onDisable()
         } else {
-            onEnable()
             enabled.value = true
+            onEnable()
         }
     }
 
@@ -48,11 +40,27 @@ abstract class Module(
 
     fun <T> getValue(name: String): Value<T> = values.firstOrNull { it.name.equals(name, true) } as Value<T>
 
-    override fun load() {}
+    override fun load() {
+        registerValues()
+    }
 
-    override fun unload() {}
+    override fun unload() {
+        values.clear()
+    }
+
+    private fun registerValues() {
+        for(p in this::class.memberProperties) {
+            if(p.annotations.isNotEmpty()) {
+                if(p.annotations[0].annotationClass == Register::class) {
+                    val a = p.getter.call(this)
+                    Samsara.LOGGER.info(a)
+                    values.add(a as Value<*>)
+                }
+            }
+        }
+    }
 
     enum class Category {
-        COMBAT, RENDER
+        COMBAT, RENDER, MOVEMENT, MISC
     }
 }
