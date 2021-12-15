@@ -6,6 +6,7 @@
   "mixins": [
     "AccessorMinecraftClient",
     "MixinClientPlayerEntity",
+    "MixinClientPlayerInteractionManager",
     "MixinInGameHud",
     "MixinKeyboard",
     "MixinMinecraftClient"
