@@ -4,6 +4,7 @@
   "package": "me.chell.samsara.impl.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinClientPlayerEntity",
     "MixinInGameHud",
     "MixinKeyboard",
     "MixinMinecraftClient"
