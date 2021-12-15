@@ -3,6 +3,7 @@ package me.chell.samsara
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
+import me.chell.samsara.impl.gui.ClickGUI
 import org.apache.logging.log4j.LogManager
 
 object Samsara {
@@ -16,9 +17,12 @@ object Samsara {
 
     var loaded = false
 
+    lateinit var clickGUI: ClickGUI
+
     fun init() {
         loadables.add(EventManager)
         loadables.add(ModuleManager)
+        loadables.add(ClickGUI().also { clickGUI = it })
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("$NAME shutdown hook") {
             override fun run() {

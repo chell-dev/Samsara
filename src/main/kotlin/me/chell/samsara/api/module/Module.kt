@@ -53,6 +53,6 @@ abstract class Module(
     override fun unload() {}
 
     enum class Category {
-        COMBAT
+        COMBAT, RENDER
     }
 }
