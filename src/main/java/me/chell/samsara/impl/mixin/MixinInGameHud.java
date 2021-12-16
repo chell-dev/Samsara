@@ -20,28 +20,28 @@ public class MixinInGameHud {
     @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
     private void preRenderOverlay(Identifier texture, float opacity, CallbackInfo ci) {
         if(texture != PUMPKIN_BLUR) return;
-        RenderHudEvent.Pumpkin event = new RenderHudEvent.Pumpkin(false);
+        RenderHudEvent.Pumpkin event = new RenderHudEvent.Pumpkin();
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
 
     @Inject(method = "renderPortalOverlay", at = @At("HEAD"), cancellable = true)
     private void preRenderPortal(float nauseaStrength, CallbackInfo ci) {
-        RenderHudEvent.Portal event = new RenderHudEvent.Portal(false);
+        RenderHudEvent.Portal event = new RenderHudEvent.Portal();
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
 
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     private void preRenderCrosshair(MatrixStack matrices, CallbackInfo ci) {
-        RenderHudEvent.Crosshair event = new RenderHudEvent.Crosshair(matrices, false);
+        RenderHudEvent.Crosshair event = new RenderHudEvent.Crosshair(matrices);
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
 
     @Inject(method = "renderStatusEffectOverlay", at = @At("HEAD"), cancellable = true)
     private void preRenderStatusEffectOverlay(MatrixStack matrices, CallbackInfo ci) {
-        RenderHudEvent.StatusEffect event = new RenderHudEvent.StatusEffect(matrices, false);
+        RenderHudEvent.StatusEffect event = new RenderHudEvent.StatusEffect(matrices);
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }

@@ -16,21 +16,21 @@ public class MixinInGameOverlayRenderer {
 
     @Inject(method = "renderInWallOverlay", at = @At("HEAD"), cancellable = true)
     private static void wallOverlay(Sprite sprite, MatrixStack matrices, CallbackInfo ci) {
-        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.WALL, false);
+        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.WALL);
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
 
     @Inject(method = "renderUnderwaterOverlay", at = @At("HEAD"), cancellable = true)
     private static void waterOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
-        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.WATER, false);
+        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.WATER);
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
 
     @Inject(method = "renderFireOverlay", at = @At("HEAD"), cancellable = true)
     private static void fireOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
-        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.FIRE, false);
+        RenderOverlayEvent event = new RenderOverlayEvent(RenderOverlayEvent.Type.FIRE);
         EventManager.INSTANCE.post(event);
         if(event.getCanceled()) ci.cancel();
     }
