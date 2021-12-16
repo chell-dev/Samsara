@@ -24,6 +24,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(FastUse())
         modules.add(KillAura())
         modules.add(NoRender())
+        modules.add(FullBright())
         for(m in modules) m.load()
     }
 

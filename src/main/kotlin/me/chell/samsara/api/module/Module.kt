@@ -46,6 +46,7 @@ abstract class Module(
     }
 
     override fun unload() {
+        if(enabled.value) toggle()
         values.clear()
     }
 
