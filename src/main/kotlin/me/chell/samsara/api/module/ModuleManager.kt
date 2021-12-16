@@ -5,7 +5,7 @@ import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
 import me.chell.samsara.impl.event.KeyInputEvent
-import me.chell.samsara.impl.module.combat.KillAura
+import me.chell.samsara.impl.module.combat.*
 import me.chell.samsara.impl.module.misc.FastUse
 import me.chell.samsara.impl.module.movement.*
 import me.chell.samsara.impl.module.render.*
@@ -25,6 +25,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(KillAura())
         modules.add(NoRender())
         modules.add(FullBright())
+        modules.add(Velocity())
         for(m in modules) m.load()
     }
 
