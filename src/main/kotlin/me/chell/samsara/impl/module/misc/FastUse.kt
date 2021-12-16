@@ -5,6 +5,7 @@ import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.event.PlayerTickEvent
+import me.chell.samsara.impl.mixin.AccessorClientPlayerInteractionManager
 import me.chell.samsara.impl.mixin.AccessorMinecraftClient
 import net.minecraft.item.BlockItem
 import net.minecraft.item.EndCrystalItem
@@ -18,6 +19,7 @@ class FastUse: Module("FastUse", Category.MISC, "Removes item use delay.") {
     fun onPlayerTick(event: PlayerTickEvent) {
         val accessor = mc as AccessorMinecraftClient
 
+        (interactionManager as AccessorClientPlayerInteractionManager).setBlockBreakingCooldown(0)
         accessor.setAttackCooldown(0)
         if(!pvp.value || mainHand() || offHand())
             accessor.setItemUseCooldown(0)
