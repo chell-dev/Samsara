@@ -10,7 +10,7 @@ object EventManager : Loadable {
     private val map: MutableMap<KClass<out Event>, MutableList<Any>> = mutableMapOf()
 
     fun post(e: Event) {
-        val list = map[e::class] ?: return
+        val list = map[e::class]?.toList() ?: return
         for(any in list) {
             for(f in any::class.functions) {
                 if(f.annotations.isEmpty()) continue
