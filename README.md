@@ -1,29 +1,32 @@
 # Samsara
 
-Samsara is a free, open-source Minecraft 1.12.2 Forge mod for anarchy servers.
+Samsara is a free, open-source utility mod for Fabric 1.18.1.
 
 Join the [Discord server](https://discord.gg/ubfWKsQTDG) if you want
 
 # Usage
-THE CLIENT IS NOT READY TO BE USED YET but if you wanna try it go ahead
+THE MOD IS NOT READY TO BE USED YET but if you wanna try it go ahead
 
-1. Download the latest release `.jar` file or build it yourself
+1. Download the latest `.jar` file or build it yourself
 2. Make sure you delete any old Samsara .jars from your `mods` folder
 3. Put the release `.jar` in your `.minecraft/mods/` folder
+4. do the same for [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/files) if you don't already have the latest version
 
-The default ClickGUI bind is `P`
+The default ClickGUI bind is `\ (backslash)`
 
-Read the [Wiki]() for more info
+Read the [Wiki](https://github.com/FINZ0/Samsara/tree/fabric) for more info (soon <sup>tm</sup>)
+
+<p><a title="Fabric Language Kotlin" href="https://minecraft.curseforge.com/projects/fabric-language-kotlin" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://i.imgur.com/c1DH9VL.png" alt="" width="171" height="50" /></a></p>
 
 # Building
 `git clone https://github.com/FINZ0/Samsara.git` or download the repository
 
 After building, the output `.jar` will be in `build/libs/`
 
-## IntelliJ (recommended) and Eclipse
+## IntelliJ (recommended), Eclipse or VSCode
 
-1. Import the project ([IntelliJ](https://www.jetbrains.com/help/idea/gradle.html#gradle_jvm) | [Eclipse](https://stackoverflow.com/questions/10722773/import-existing-gradle-git-project-into-eclipse))
-2. Run the gradle task `build`
+1. Import the project - see https://fabricmc.net/wiki/tutorial:setup, refer to the section for your IDE
+2. Run the `build` gradle task
 
 ## Windows
 1. Open `cmd` in the project folder
@@ -35,6 +38,4 @@ After building, the output `.jar` will be in `build/libs/`
 
 # Credits
 
-[Minecraft Forge](https://files.minecraftforge.net/) for the modding API
-
-[A2H](https://github.com/B2H990) for being extremely based
+[Fabric](https://fabricmc.net/) for their mod loader
