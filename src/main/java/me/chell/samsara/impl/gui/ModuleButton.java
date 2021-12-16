@@ -33,7 +33,7 @@ public class ModuleButton extends Drawable {
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        if(module.getEnabled().getValue()) {
+        if(module.isEnabled()) {
             drawThemedRectPrimary(x, y, width, buttonHeight-1);
         } else {
             drawThemedRectSecondary(x, y, width, buttonHeight-1);

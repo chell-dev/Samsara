@@ -4,7 +4,9 @@ import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
+import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent
+import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.module.combat.*
 import me.chell.samsara.impl.module.misc.FastUse
 import me.chell.samsara.impl.module.movement.*
@@ -39,6 +41,26 @@ object ModuleManager: Loadable, Wrapper {
     fun onKeyInput(event: KeyInputEvent) {
         if(event.action == GLFW.GLFW_PRESS && event.key != 0 && mc.currentScreen == null)
             for(m in modules)
-                if(m.bind.value.key == event.key) m.toggle()
+                if(m.bind.value.key == event.key && !m.bind.value.hold) m.toggle()
+    }
+
+    @EventHandler
+    fun onPlayerTick(event: PlayerTickEvent) {
+        if(mc.currentScreen != null) return
+
+        for(m in modules) {
+            for (v in m.values) {
+
+                val value = v.value
+                if (value is Bind) {
+                    when (value.tick()) {
+                        -1 -> continue
+                        0 -> m.onDisable()
+                        1 -> m.onEnable()
+                    }
+                }
+
+            }
+        }
     }
 }

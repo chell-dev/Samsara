@@ -23,7 +23,9 @@ public class BindButton extends ValueButton<Bind> {
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
 
-        drawThemedStringRight(listening ? Formatting.GRAY+"..." : InputUtil.fromKeyCode(value.getValue().getKey(), 0).getLocalizedText().asString(), x + width - 2, getStringCenterY(y, height-1));
+        String key = InputUtil.fromKeyCode(value.getValue().getKey(), 0).getLocalizedText().asString().toUpperCase();
+        String text = (value.getValue().getHold() ? "HOLD " : "") + (key.isBlank() ? "NONE" : key);
+        drawThemedStringRight(Formatting.GRAY + (listening ? "..." : text), x + width - 2, getStringCenterY(y, height-1));
     }
 
     @Override
@@ -32,6 +34,9 @@ public class BindButton extends ValueButton<Bind> {
             if(mouseButton == 0) {
                 listening = !listening;
                 return true;
+            }
+            else if(mouseButton == 1) {
+                value.getValue().setHold(!value.getValue().getHold());
             }
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);

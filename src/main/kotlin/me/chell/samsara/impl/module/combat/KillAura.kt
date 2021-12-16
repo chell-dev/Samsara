@@ -57,7 +57,7 @@ class KillAura: Module("KillAura", Category.COMBAT, "Attack other entities.") {
             }
             if(crits.value == CritMode.MiniJump) {
                 if(player.isOnGround) {
-                    player.addVelocity(0.0, if(ModuleManager.getModule<PullDown>("PullDown").enabled.value) 1.12 else 0.12, 0.0)
+                    player.addVelocity(0.0, if(ModuleManager.getModule<PullDown>("PullDown").isEnabled()) 1.12 else 0.12, 0.0)
                 }
                 if(player.fallDistance <= 0) return
             }

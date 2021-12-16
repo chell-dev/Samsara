@@ -19,15 +19,16 @@ abstract class Module(
     val values = mutableListOf<Value<*>>()
 
     @Register val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
-    @Register val enabled: Value<Boolean> = ValueBuilder("Enabled", false).visible{false}.build()
     @Register val bind: Value<Bind> = Value("Bind", Bind(0))
 
+    fun isEnabled(): Boolean = bind.value.enabled
+
     fun toggle() {
-        if(enabled.value) {
-            enabled.value = false
+        if(isEnabled()) {
+            bind.value.enabled = false
             onDisable()
         } else {
-            enabled.value = true
+            bind.value.enabled = true
             onEnable()
         }
     }
@@ -46,7 +47,7 @@ abstract class Module(
     }
 
     override fun unload() {
-        if(enabled.value) toggle()
+        if(isEnabled()) toggle()
         values.clear()
     }
 
