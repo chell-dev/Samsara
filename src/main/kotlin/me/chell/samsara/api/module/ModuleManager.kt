@@ -8,7 +8,7 @@ import me.chell.samsara.impl.event.KeyInputEvent
 import me.chell.samsara.impl.module.combat.KillAura
 import me.chell.samsara.impl.module.misc.FastUse
 import me.chell.samsara.impl.module.movement.*
-import me.chell.samsara.impl.module.render.ClickGuiModule
+import me.chell.samsara.impl.module.render.*
 import org.lwjgl.glfw.GLFW
 
 object ModuleManager: Loadable, Wrapper {
@@ -23,6 +23,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(PullDown())
         modules.add(FastUse())
         modules.add(KillAura())
+        modules.add(NoRender())
         for(m in modules) m.load()
     }
 
