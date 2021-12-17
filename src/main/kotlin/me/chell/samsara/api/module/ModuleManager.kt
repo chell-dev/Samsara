@@ -28,6 +28,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(NoRender())
         modules.add(FullBright())
         modules.add(Velocity())
+        modules.add(Zoom())
         for(m in modules) m.load()
     }
 

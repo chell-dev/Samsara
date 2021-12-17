@@ -8,11 +8,13 @@
     "AccessorMinecraftClient",
     "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
+    "MixinGamerenderer",
     "MixinInGameHud",
     "MixinInGameOverlayRenderer",
     "MixinKeyboard",
     "MixinLivingEntity",
-    "MixinMinecraftClient"
+    "MixinMinecraftClient",
+    "MixinMouse"
   ],
   "injectors": {
     "defaultRequire": 1
