@@ -6,6 +6,7 @@ import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent
+import me.chell.samsara.impl.event.MouseInputEvent
 import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.module.combat.*
 import me.chell.samsara.impl.module.misc.*
@@ -41,9 +42,17 @@ object ModuleManager: Loadable, Wrapper {
 
     @EventHandler
     fun onKeyInput(event: KeyInputEvent) {
-        if(event.action == GLFW.GLFW_PRESS && event.key != 0 && mc.currentScreen == null)
+        if(event.action == GLFW.GLFW_PRESS && event.key != -1 && mc.currentScreen == null)
             for(m in modules)
                 if(m.bind.value.key == event.key && !m.bind.value.hold) m.toggle()
+    }
+
+    @EventHandler
+    fun onMouseInput(event: MouseInputEvent.Button) {
+        if(event.action == GLFW.GLFW_PRESS && event.button != -1 && mc.currentScreen == null) {
+            for(m in modules)
+                if(m.bind.value.key == event.button && !m.bind.value.hold) m.toggle()
+        }
     }
 
     @EventHandler

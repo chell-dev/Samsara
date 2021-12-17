@@ -24,15 +24,19 @@ public class BindButton extends ValueButton<Bind> {
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
 
         String key = InputUtil.fromKeyCode(value.getValue().getKey(), 0).getLocalizedText().asString().toUpperCase();
-        String text = (value.getValue().getHold() ? "HOLD " : "") + (key.isBlank() ? "NONE" : key);
+        String text = (value.getValue().getHold() ? "HOLD " : "") + (key.isBlank() ? "UNKNOWN" : key);
         drawThemedStringRight(Formatting.GRAY + (listening ? "..." : text), x + width - 2, getStringCenterY(y, height-1));
     }
 
     @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if(mouseX >= x+2 && mouseX <= x + width && mouseY >= y && mouseY <= y + height-1) {
-            if(mouseButton == 0) {
-                listening = !listening;
+            if(listening) {
+                value.getValue().setKey(mouseButton);
+                listening = false;
+            }
+            else if(mouseButton == 0) {
+                listening = true;
                 return true;
             }
             else if(mouseButton == 1) {

@@ -22,7 +22,7 @@ open class Module(
     val values = mutableListOf<Value<*>>()
 
     @Register val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
-    @Register val bind: Value<Bind> = Value("Bind", Bind(0))
+    @Register val bind: Value<Bind> = Value("Bind", Bind(-1))
 
     fun isEnabled(): Boolean = bind.value.enabled
 

@@ -6,7 +6,7 @@ import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.api.value.ValueBuilder
 import me.chell.samsara.impl.event.FovEvent
-import me.chell.samsara.impl.event.MouseScrollEvent
+import me.chell.samsara.impl.event.MouseInputEvent
 
 class Zoom: Module("Zoom", Category.RENDER)  {
 
@@ -33,9 +33,9 @@ class Zoom: Module("Zoom", Category.RENDER)  {
     }
 
     @EventHandler
-    fun onMouseScroll(event: MouseScrollEvent) {
+    fun onMouseScroll(event: MouseInputEvent.Scroll) {
         if(scroll.value) {
-            multiplier -= event.amount * 0.01
+            multiplier -= event.scrollAmount * 0.01
             event.cancel()
         }
     }
