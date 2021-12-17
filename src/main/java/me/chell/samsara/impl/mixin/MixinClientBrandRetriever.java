@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ClientBrandRetriever.class)
 public class MixinClientBrandRetriever {
 
-    @Inject(method = "getClientModName", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getClientModName", at = @At("HEAD"), cancellable = true, remap = false)
     private static void getBrand(CallbackInfoReturnable<String> cir) {
         FakeVanilla module = ModuleManager.INSTANCE.getModule("FakeVanilla");
         if(module != null && module.isEnabled()) {
