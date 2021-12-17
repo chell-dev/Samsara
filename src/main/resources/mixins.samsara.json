@@ -14,7 +14,8 @@
     "MixinKeyboard",
     "MixinLivingEntity",
     "MixinMinecraftClient",
-    "MixinMouse"
+    "MixinMouse",
+    "MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1
