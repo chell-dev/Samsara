@@ -6,6 +6,7 @@
   "mixins": [
     "AccessorClientPlayerInteractionManager",
     "AccessorMinecraftClient",
+    "MixinClientBrandRetriever",
     "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
     "MixinGamerenderer",

@@ -8,7 +8,7 @@ import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent
 import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.module.combat.*
-import me.chell.samsara.impl.module.misc.FastUse
+import me.chell.samsara.impl.module.misc.*
 import me.chell.samsara.impl.module.movement.*
 import me.chell.samsara.impl.module.render.*
 import org.lwjgl.glfw.GLFW
@@ -29,6 +29,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(FullBright())
         modules.add(Velocity())
         modules.add(Zoom())
+        modules.add(FakeVanilla())
         for(m in modules) m.load()
     }
 

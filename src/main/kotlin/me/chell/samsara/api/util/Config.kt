@@ -33,6 +33,7 @@ object Config {
             for(v in m.values) {
                 parseValue(v, module)
             }
+            if(module.isEnabled()) module.onEnable()
         }
     }
 
@@ -74,7 +75,7 @@ object Config {
             is String -> {
                 val v = module.getValue<Any>(parse.name) ?: return
                 if(v.value is Enum<*>) {
-                    val enum = v.value as Value<Enum<*>>
+                    val enum = v as Value<Enum<*>>
                     val clazz = enum.value::class.java
                     v.value = (java.lang.Enum.valueOf(clazz, (parse.value as String)))
                 } else {
