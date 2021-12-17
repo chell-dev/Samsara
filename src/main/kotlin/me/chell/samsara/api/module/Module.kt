@@ -1,6 +1,6 @@
 package me.chell.samsara.api.module
 
-import me.chell.samsara.Samsara
+import com.google.gson.annotations.Expose
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Wrapper
@@ -10,12 +10,15 @@ import me.chell.samsara.api.value.Value
 import me.chell.samsara.api.value.ValueBuilder
 import kotlin.reflect.full.memberProperties
 
-abstract class Module(
-    val name: String,
+open class Module(
+    @Expose val name: String,
     val category: Category,
     val description: String = "No description."
     ): Loadable, Wrapper {
 
+    constructor() : this("", Category.MISC) // for json, do not use this
+
+    @Expose
     val values = mutableListOf<Value<*>>()
 
     @Register val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
@@ -40,7 +43,7 @@ abstract class Module(
         EventManager.unregister(this)
     }
 
-    fun <T> getValue(name: String): Value<T> = values.firstOrNull { it.name.equals(name, true) } as Value<T>
+    fun <T> getValue(name: String): Value<T>? = values.firstOrNull { it.name.equals(name, true) } as Value<T>?
 
     override fun load() {
         registerValues()
@@ -56,7 +59,6 @@ abstract class Module(
             if(p.annotations.isNotEmpty()) {
                 if(p.annotations[0].annotationClass == Register::class) {
                     val a = p.getter.call(this)
-                    Samsara.LOGGER.info(a)
                     values.add(0, a as Value<*>)
                 }
             }

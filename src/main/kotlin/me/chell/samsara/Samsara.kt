@@ -3,6 +3,7 @@ package me.chell.samsara
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
+import me.chell.samsara.api.util.Config
 import me.chell.samsara.impl.gui.ClickGUI
 import net.minecraft.util.Formatting
 import org.apache.logging.log4j.LogManager
@@ -36,12 +37,14 @@ object Samsara {
 
     fun load() {
         for(l in loadables) l.load()
+        Config.load("SamsaraConfig.json")
         loaded = true
         LOGGER.info("$NAME $VERSION loaded.")
     }
 
     fun unload() {
         loaded = false
+        Config.save("SamsaraConfig.json")
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
         LOGGER.info("$NAME $VERSION unloaded.")
     }

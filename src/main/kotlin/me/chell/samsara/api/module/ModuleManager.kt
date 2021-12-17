@@ -16,7 +16,7 @@ import org.lwjgl.glfw.GLFW
 object ModuleManager: Loadable, Wrapper {
     val modules = mutableListOf<Module>()
 
-    fun <T> getModule(name: String): T = modules.firstOrNull { it.name.equals(name, true) } as T
+    fun <T> getModule(name: String): T? = modules.firstOrNull { it.name.equals(name, true) } as T?
 
     override fun load() {
         EventManager.register(this)
