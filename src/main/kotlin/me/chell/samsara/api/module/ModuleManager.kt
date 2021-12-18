@@ -31,6 +31,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(Velocity())
         modules.add(Zoom())
         modules.add(FakeVanilla())
+        modules.add(AirPlace())
         for(m in modules) m.load()
     }
 
