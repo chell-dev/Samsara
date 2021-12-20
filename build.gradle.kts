@@ -6,7 +6,7 @@ plugins {
 }
 
 group = property("maven_group")!!
-version = property("mod_version")!!
+version = property("mod_version")!!.toString() + "d"
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
