@@ -27,7 +27,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(FastUse())
         modules.add(KillAura())
         modules.add(NoRender())
-        modules.add(FullBright())
+        modules.add(Brightness())
         modules.add(Velocity())
         modules.add(Zoom())
         modules.add(FakeVanilla())
