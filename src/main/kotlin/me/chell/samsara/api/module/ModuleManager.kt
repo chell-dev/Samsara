@@ -33,6 +33,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(FakeVanilla())
         modules.add(AirPlace())
         modules.add(ESP())
+        modules.add(PearlBind())
         for(m in modules) m.load()
     }
 
