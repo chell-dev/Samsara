@@ -32,6 +32,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(Zoom())
         modules.add(FakeVanilla())
         modules.add(AirPlace())
+        modules.add(ESP())
         for(m in modules) m.load()
     }
 

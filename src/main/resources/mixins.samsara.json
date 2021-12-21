@@ -9,13 +9,15 @@
     "MixinClientBrandRetriever",
     "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
-    "MixinGamerenderer",
+    "MixinEntityRenderer",
+    "MixinGameRenderer",
     "MixinInGameHud",
     "MixinInGameOverlayRenderer",
     "MixinKeyboard",
     "MixinLivingEntity",
     "MixinMinecraftClient",
     "MixinMouse",
+    "MixinPlayerEntityRenderer",
     "MixinTitleScreen"
   ],
   "injectors": {
