@@ -8,14 +8,12 @@ import me.chell.samsara.impl.event.PlayerTickEvent
 
 class Sprint: Module("Sprint", Category.MOVEMENT, "Sprint automatically.") {
 
-    @Register val strict = Value("Strict", true, "Only sprint when moving forward.")
+    @Register val legit = Value("Legit", true, "Use keybind")
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {
-        if(strict.value) {
-            if(player.forwardSpeed > 0F) {
-                player.isSprinting = true
-            }
+        if(legit.value && mc.currentScreen == null) {
+            mc.options.keySprint.isPressed = true
         } else {
             if(player.forwardSpeed != 0F || player.sidewaysSpeed != 0F) {
                 player.isSprinting = true
