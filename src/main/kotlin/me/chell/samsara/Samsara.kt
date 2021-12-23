@@ -5,6 +5,7 @@ import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.Config
 import me.chell.samsara.impl.gui.ClickGUI
+import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
 import org.apache.logging.log4j.LogManager
 import java.net.URL
@@ -38,6 +39,7 @@ object Samsara {
     fun load() {
         for(l in loadables) l.load()
         Config.load("SamsaraConfig.json")
+        Option.FOV.setMax(179f)
         loaded = true
         LOGGER.info("$NAME $VERSION loaded.")
     }
@@ -46,6 +48,7 @@ object Samsara {
         loaded = false
         Config.save("SamsaraConfig.json")
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
+        Option.FOV.setMax(110f)
         LOGGER.info("$NAME $VERSION unloaded.")
     }
 
