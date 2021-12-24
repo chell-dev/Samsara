@@ -4,6 +4,7 @@ import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.Config
+import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.impl.gui.ClickGUI
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
@@ -27,6 +28,7 @@ object Samsara {
     fun init() {
         loadables.add(EventManager)
         loadables.add(ModuleManager)
+        loadables.add(KillEventManager)
         loadables.add(ClickGUI().also { clickGUI = it })
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("$NAME shutdown hook") {

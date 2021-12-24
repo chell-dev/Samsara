@@ -1,0 +1,32 @@
+{
+  "godlike": {
+    "sounds": [
+      "samsara:godlike"
+    ]
+  },
+  "holyshit": {
+    "sounds": [
+      "samsara:holyshit"
+    ]
+  },
+  "impressive": {
+    "sounds": [
+      "samsara:impressive"
+    ]
+  },
+  "ownage": {
+    "sounds": [
+      "samsara:ownage"
+    ]
+  },
+  "perfect": {
+    "sounds": [
+      "samsara:perfect"
+    ]
+  },
+  "wickedsick": {
+    "sounds": [
+      "samsara:wickedsick"
+    ]
+  }
+}

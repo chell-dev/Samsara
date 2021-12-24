@@ -34,6 +34,7 @@ object ModuleManager: Loadable, Wrapper {
         modules.add(AirPlace())
         modules.add(ESP())
         modules.add(PearlBind())
+        modules.add(KillEffects())
         for(m in modules) m.load()
     }
 
