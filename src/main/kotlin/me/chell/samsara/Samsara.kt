@@ -14,7 +14,7 @@ import java.net.URL
 object Samsara {
 
     const val NAME = "Samsara"
-    const val VERSION = "1.0.0"
+    const val VERSION = "0.0.1"
     const val MODID = "samsara"
     val LOGGER = LogManager.getLogger()
     var MOTD = "No message :("
