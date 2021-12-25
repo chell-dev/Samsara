@@ -75,7 +75,7 @@ public class ClickGUI extends Screen implements Loadable {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return false;
     }
 
