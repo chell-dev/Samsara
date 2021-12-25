@@ -1,3 +1,3 @@
 package me.chell.samsara.api.value
 
-annotation class Register
+annotation class Register(val order: Int = 0)

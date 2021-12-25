@@ -32,19 +32,18 @@ class KillEffects: Module("KillEffects", Category.COMBAT) {
         sounds.add(registerSoundEvent("wickedsick"))
     }
 
-    @Register val quake = Value("Announcer", true)
+    @Register(0) val quake = Value("Announcer", true)
 
-    @Register val chat = Value("Chat", Chat.CLIENT)
-    @Register val message = ValueBuilder("Message", "GG, \${target}, well played!").visible{ chat.value != Chat.OFF }.build()
+    @Register(1) val chat = Value("Chat", Chat.CLIENT)
+    @Register(2) val message = ValueBuilder("Message", "GG, \${target}, well played!").visible{ chat.value != Chat.OFF }.build()
 
-    @Register val particles = Value("Particles", Particles.OFF)
-    //@Register val sound = ValueBuilder("Sound", true).visible{ particles.value == Particles.LIGHTNING }.build()
-    @Register val time = ValueBuilder("Time", 2.0).bounds(0.0, 5.0).visible{ particles.value == Particles.HEARTS }.build()
-    @Register val amount = ValueBuilder("Amount", 8).bounds(1, 10).visible{ particles.value != Particles.OFF }.build()
+    @Register(3) val particles = Value("Particles", Particles.OFF)
+    @Register(4) val amount = ValueBuilder("Amount", 8).bounds(1, 10).visible{ particles.value != Particles.OFF }.build()
+    @Register(5) val time = ValueBuilder("Time", 2.0).bounds(0.0, 5.0).visible{ particles.value == Particles.HEARTS }.build()
 
-    @Register val players = Value("Players", true)
-    @Register val hostile = Value("Hostile", false)
-    @Register val passive = Value("Passive", false)
+    @Register(6) val players = Value("Players", true)
+    @Register(7) val hostile = Value("Hostile", false)
+    @Register(8) val passive = Value("Passive", false)
 
     private val entityMap = mutableMapOf<LivingEntity, Int>()
 

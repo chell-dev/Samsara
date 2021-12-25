@@ -18,14 +18,14 @@ import net.minecraft.util.Hand
 
 class KillAura: Module("KillAura", Category.COMBAT, "Attack other entities.") {
 
-    @Register val range = ValueBuilder("Range", 5.5).bounds(0.0, 7.0).build()
-    @Register val players = Value("Players", true)
-    @Register val hostile = Value("Hostile", false)
-    @Register val passive = Value("Passive", false)
-    @Register val delay = Value("1.9 Delay", true)
-    @Register val sword = Value("Sword Only", false, "Only attack when holding a sword.")
-    @Register val axe = ValueBuilder("Use Axe", false).visible{sword.value}.description("Also attack when holding an axe.").build()
-    @Register val crits = Value("Criticals", CritMode.Off)
+    @Register(0) val range = ValueBuilder("Range", 5.5).bounds(0.0, 7.0).build()
+    @Register(1) val players = Value("Players", true)
+    @Register(2) val hostile = Value("Hostile", false)
+    @Register(3) val passive = Value("Passive", false)
+    @Register(4) val delay = Value("1.9 Delay", true)
+    @Register(5) val sword = Value("Sword Only", false, "Only attack when holding a sword.")
+    @Register(6) val axe = ValueBuilder("Use Axe", false).visible{sword.value}.description("Also attack when holding an axe.").build()
+    @Register(7) val crits = Value("Criticals", CritMode.Off)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

@@ -21,8 +21,8 @@ open class Module(
     @Expose
     val values = mutableListOf<Value<*>>()
 
-    @Register val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
-    @Register val bind: Value<Bind> = Value("Bind", Bind(-1))
+    @Register(99) val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
+    @Register(98) val bind: Value<Bind> = Value("Bind", Bind(-1))
 
     fun isEnabled(): Boolean = bind.value.enabled
 
@@ -55,14 +55,19 @@ open class Module(
     }
 
     private fun registerValues() {
+        val toAdd = mutableMapOf<Value<*>, Int>()
+
         for(p in this::class.memberProperties) {
-            if(p.annotations.isNotEmpty()) {
-                if(p.annotations[0].annotationClass == Register::class) {
-                    val a = p.getter.call(this)
-                    values.add(0, a as Value<*>)
+            for(a in p.annotations) {
+                if(a is Register) {
+                    val v = p.getter.call(this) as Value<*>
+                    toAdd[v] = a.order
                 }
             }
         }
+
+        for(v in toAdd.keys) values.add(v)
+        values.sortBy { toAdd[it] }
     }
 
     enum class Category {
