@@ -1,9 +1,9 @@
 package me.chell.samsara.impl.gui.buttons;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
+import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,7 @@ public class EnumButton extends ValueButton<Enum<?>> {
         drawThemedRectTertiary(x+2, y+height-1, width-2, 1);
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
-        drawThemedStringRight(ChatFormatting.GRAY+value.getValue().name(), x + width - 2, getStringCenterY(y, height-1));
+        drawThemedStringRight(Formatting.GRAY+value.getValue().name(), x + width - 2, getStringCenterY(y, height-1));
     }
 
     @Override

@@ -4,9 +4,10 @@ import com.google.common.collect.Lists;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.util.List;
@@ -104,7 +105,7 @@ public class Slider<T extends Number> extends ValueButton<T> {
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
         int rightX = x + width - 2;
-        if(displayText.endsWith("_")) rightX += getFontRenderer().getCharWidth('_');
+        if(displayText.endsWith("_")) rightX += getFontRenderer().getWidth("_");
         drawThemedStringRight(displayText, rightX, getStringCenterY(y, height-1));
     }
 
@@ -139,19 +140,19 @@ public class Slider<T extends Number> extends ValueButton<T> {
     public boolean keyTyped(char typedChar, int keyCode) {
         if(editing) {
             switch (keyCode) {
-                case Keyboard.KEY_BACK:
+                case GLFW.GLFW_KEY_BACKSPACE:
                     editText = StringUtils.chop(editText);
                     return true;
-                case Keyboard.KEY_RETURN:
+                case GLFW.GLFW_KEY_ENTER:
                     parseValue(editText);
                     editing = false;
                     return true;
-                case Keyboard.KEY_ESCAPE:
+                case GLFW.GLFW_KEY_ESCAPE:
                     editing = false;
                     editText = oldText;
                     return true;
-                case Keyboard.KEY_V:
-                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+                case GLFW.GLFW_KEY_V:
+                    if (InputUtil.isKeyPressed(getMc().getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL)) {
                         editText += Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
                     } else {
                         editText += typedChar;

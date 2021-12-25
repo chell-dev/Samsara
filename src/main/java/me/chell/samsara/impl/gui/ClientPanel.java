@@ -1,15 +1,7 @@
 package me.chell.samsara.impl.gui;
 
-import com.google.common.collect.Lists;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
-import me.chell.samsara.api.util.ClientValues;
-import me.chell.samsara.api.value.Value;
-import me.chell.samsara.api.value.ValueBuilder;
-import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +24,7 @@ public class ClientPanel extends Drawable {
 
         buttons = new ArrayList<>();
         int buttonY = y + titleHeight;
+        /*
         for(Value<?> v : ClientValues.values) {
             ValueButton<?> d = ModuleButton.createValueButton(v, x, buttonY);
             buttons.add(d);
@@ -49,6 +42,7 @@ public class ClientPanel extends Drawable {
             buttons.add(d);
             buttonY += d.height;
         }
+         */
         height = buttonY - y;
     }
 
@@ -127,39 +121,10 @@ public class ClientPanel extends Drawable {
         }
     }
 
-    private final List<Integer> blacklist = Lists.newArrayList(
-            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
-            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
-    );
-
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
         if(editing) {
-            switch (keyCode) {
-                case Keyboard.KEY_BACK:
-                    editText = StringUtils.chop(editText);
-                    return true;
-                case Keyboard.KEY_RETURN:
-                    title = editText;
-                    editing = false;
-                    return true;
-                case Keyboard.KEY_ESCAPE:
-                    editing = false;
-                    editText = oldText;
-                    return true;
-                case Keyboard.KEY_V:
-                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-                        editText += Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-                    } else {
-                        editText += typedChar;
-                    }
-                    return true;
-                default:
-                    if(!blacklist.contains(keyCode)) {
-                        editText += typedChar;
-                        return true;
-                    }
-            }
+            editing = false;
         }
 
         for(ValueButton<?> button : buttons) {

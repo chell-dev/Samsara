@@ -12,6 +12,6 @@ public class ValueButton<T> extends Drawable {
     }
 
     public boolean isVisible() {
-        return value.isVisible();
+        return value.getVisible().test(false);
     }
 }

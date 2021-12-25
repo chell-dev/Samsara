@@ -1,11 +1,12 @@
 package me.chell.samsara.impl.gui.buttons;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Formatting;
+import org.lwjgl.glfw.GLFW;
 
 public class BindButton extends ValueButton<Bind> {
     private boolean listening = false;
@@ -22,15 +23,24 @@ public class BindButton extends ValueButton<Bind> {
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
 
-        drawThemedStringRight(listening ? ChatFormatting.GRAY+"..." : Keyboard.getKeyName(value.getValue().getKey()), x + width - 2, getStringCenterY(y, height-1));
+        String key = InputUtil.fromKeyCode(value.getValue().getKey(), 0).getLocalizedText().asString().toUpperCase();
+        String text = (value.getValue().getHold() ? "HOLD " : "") + (key.isBlank() ? "UNKNOWN" : key);
+        drawThemedStringRight(Formatting.GRAY + (listening ? "..." : text), x + width - 2, getStringCenterY(y, height-1));
     }
 
     @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if(mouseX >= x+2 && mouseX <= x + width && mouseY >= y && mouseY <= y + height-1) {
-            if(mouseButton == 0) {
-                listening = !listening;
+            if(listening) {
+                value.getValue().setKey(mouseButton);
+                listening = false;
+            }
+            else if(mouseButton == 0) {
+                listening = true;
                 return true;
+            }
+            else if(mouseButton == 1) {
+                value.getValue().setHold(!value.getValue().getHold());
             }
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -40,10 +50,10 @@ public class BindButton extends ValueButton<Bind> {
     public boolean keyTyped(char typedChar, int keyCode) {
         if(listening) {
             switch (keyCode) {
-                case Keyboard.KEY_DELETE:
+                case GLFW.GLFW_KEY_DELETE:
                     value.getValue().setKey(0);
                     break;
-                case Keyboard.KEY_ESCAPE:
+                case GLFW.GLFW_KEY_ESCAPE:
                     break;
                 default:
                     value.getValue().setKey(keyCode);

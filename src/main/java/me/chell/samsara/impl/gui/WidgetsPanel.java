@@ -4,15 +4,14 @@ import com.google.common.collect.Lists;
 import me.chell.samsara.Samsara;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
-import me.chell.samsara.api.widget.Widget;
 import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WidgetsPanel extends Drawable {
+public class WidgetsPanel {
+    /*
     private final int titleHeight = 17;
 
     private boolean open = true;
@@ -168,4 +167,6 @@ public class WidgetsPanel extends Drawable {
             button.onGuiClosed();
         }
     }
+
+     */
 }

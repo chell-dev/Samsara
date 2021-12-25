@@ -5,8 +5,10 @@ import me.chell.samsara.Samsara;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.module.Module;
+import me.chell.samsara.api.module.ModuleManager;
+import net.minecraft.client.util.InputUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,11 +30,11 @@ public class CategoryPanel extends Drawable {
     public CategoryPanel(Module.Category category, int x, int y) {
         super(x, y, GuiTheme.width, 17);
         this.category = category;
-        editText = category.getName();
+        editText = category.name();
 
         buttons = new ArrayList<>();
         int buttonY = y + titleHeight;
-        for(Module m : Samsara.INSTANCE.moduleManager.getModules()) {
+        for(Module m : ModuleManager.INSTANCE.getModules()) {
             if(m.getCategory().equals(category)) {
                 ModuleButton b = new ModuleButton(m, x, buttonY, this);
                 buttons.add(b);
@@ -58,7 +60,7 @@ public class CategoryPanel extends Drawable {
             displayText = editText;
             if(ticks / 6 % 2 == 0) displayText += "_";
         } else {
-            displayText = category.getName();
+            displayText = category.name();
         }
 
         drawThemedString(displayText, x + 2, getStringCenterY(y, titleHeight-1));
@@ -93,7 +95,7 @@ public class CategoryPanel extends Drawable {
                     if(!editing) {
                         ticks = 0;
                         editing = true;
-                        oldText = category.getName();
+                        oldText = category.name();
                     }
                     return true;
             }
@@ -116,38 +118,14 @@ public class CategoryPanel extends Drawable {
     }
 
     public final List<Integer> blacklist = Lists.newArrayList(
-            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
-            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
+            GLFW.GLFW_KEY_TAB, GLFW.GLFW_KEY_CAPS_LOCK, GLFW.GLFW_KEY_LEFT_SHIFT, GLFW.GLFW_KEY_RIGHT_SHIFT, GLFW.GLFW_KEY_LEFT_CONTROL, GLFW.GLFW_KEY_RIGHT_CONTROL,
+            GLFW.GLFW_KEY_LEFT_ALT, GLFW.GLFW_KEY_RIGHT_ALT
     );
 
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
         if(editing) {
-            switch (keyCode) {
-                case Keyboard.KEY_BACK:
-                    editText = StringUtils.chop(editText);
-                    return true;
-                case Keyboard.KEY_RETURN:
-                    category.setName(editText);
-                    editing = false;
-                    return true;
-                case Keyboard.KEY_ESCAPE:
-                    editing = false;
-                    editText = oldText;
-                    return true;
-                case Keyboard.KEY_V:
-                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-                        editText += Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-                    } else {
-                        editText += typedChar;
-                    }
-                    return true;
-                default:
-                    if(!blacklist.contains(keyCode)) {
-                        editText += typedChar;
-                        return true;
-                    }
-            }
+            editing = false;
         }
 
         for(ModuleButton button : buttons) {

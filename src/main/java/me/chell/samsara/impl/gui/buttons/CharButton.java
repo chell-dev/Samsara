@@ -1,13 +1,9 @@
 package me.chell.samsara.impl.gui.buttons;
 
-import com.google.common.collect.Lists;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
-import org.lwjgl.input.Keyboard;
-
-import java.util.List;
+import net.minecraft.util.Formatting;
 
 public class CharButton extends ValueButton<Character> {
     private boolean listening = false;
@@ -23,7 +19,7 @@ public class CharButton extends ValueButton<Character> {
         drawThemedRectTertiary(x+2, y+height-1, width-2, 1);
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, height-1));
-        drawThemedStringRight(listening ? ChatFormatting.GRAY+"..." : value.getValue().toString(), x + width - 2, getStringCenterY(y, height-1));
+        drawThemedStringRight(listening ? Formatting.GRAY+"..." : value.getValue().toString(), x + width - 2, getStringCenterY(y, height-1));
     }
 
     @Override
@@ -37,24 +33,11 @@ public class CharButton extends ValueButton<Character> {
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
-    private final List<Integer> blacklist = Lists.newArrayList(
-            Keyboard.KEY_TAB, Keyboard.KEY_CAPITAL, Keyboard.KEY_LSHIFT, Keyboard.KEY_RSHIFT, Keyboard.KEY_LCONTROL, Keyboard.KEY_RCONTROL,
-            Keyboard.KEY_LMENU, Keyboard.KEY_RMENU
-    );
-
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
         if(listening) {
-            if (keyCode == Keyboard.KEY_ESCAPE) {
-                listening = false;
-                return true;
-            } else {
-                if(!blacklist.contains(keyCode)) {
-                    value.setValue(typedChar);
-                    listening = false;
-                    return true;
-                }
-            }
+            listening = false;
+            return true;
         }
         return super.keyTyped(typedChar, keyCode);
     }

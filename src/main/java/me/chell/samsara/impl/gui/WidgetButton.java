@@ -3,12 +3,12 @@ package me.chell.samsara.impl.gui;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.value.Value;
-import me.chell.samsara.api.widget.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WidgetButton extends Drawable {
+public class WidgetButton {
+    /*
     private final Widget widget;
     private final List<ValueButton<?>> valueButtons;
     private final int buttonHeight = 13;
@@ -121,4 +121,6 @@ public class WidgetButton extends Drawable {
 
         widget.onGuiClosed();
     }
+
+     */
 }

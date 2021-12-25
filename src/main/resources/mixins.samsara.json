@@ -1,11 +1,26 @@
 {
   "required": true,
-  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
   "package": "me.chell.samsara.impl.mixin",
-  "refmap": "samsara.refmap.json",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityPlayerSPMixin",
-    "MinecraftAccessor",
-    "PlayerControllerMPAccessor"
-  ]
+    "AccessorClientPlayerInteractionManager",
+    "AccessorMinecraftClient",
+    "MixinClientBrandRetriever",
+    "MixinClientPlayerEntity",
+    "MixinClientPlayerInteractionManager",
+    "MixinEntityRenderer",
+    "MixinGameRenderer",
+    "MixinInGameHud",
+    "MixinInGameOverlayRenderer",
+    "MixinKeyboard",
+    "MixinLivingEntity",
+    "MixinMinecraftClient",
+    "MixinMouse",
+    "MixinPlayerEntityRenderer",
+    "MixinTitleScreen"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

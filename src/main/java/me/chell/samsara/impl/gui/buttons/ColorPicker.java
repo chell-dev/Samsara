@@ -5,11 +5,11 @@ import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.util.Color;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.ValueButton;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class ColorPicker extends ValueButton<Color> {
-    private final ResourceLocation texture;
+    private final Identifier texture;
     private BufferedImage image;
 
     private boolean open = false;
@@ -33,18 +33,18 @@ public class ColorPicker extends ValueButton<Color> {
     public ColorPicker(Value<Color> value, int x, int y) {
         super(x, y, GuiTheme.width, 113, value);
 
-        texture = new ResourceLocation("samsara/textures/colorpicker.png");
+        texture = new Identifier("samsara/textures/colorpicker.png");
 
         try {
-            InputStream is = getMinecraft().getResourceManager().getResource(texture).getInputStream();
+            InputStream is = getMc().getResourceManager().getResource(texture).getInputStream();
             image = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Color c = value.getValue();
-        int w = getFontRenderer().getStringWidth("000")+2;
-        int h = getFontRenderer().FONT_HEIGHT+2;
+        int w = getFontRenderer().getWidth("000")+2;
+        int h = getFontRenderer().fontHeight+2;
         textBoxes = Lists.newArrayList(
                 new Textbox(x, y, w, h, ""+c.getRed()),
                 new Textbox(x, y, w, h, ""+c.getGreen()),
@@ -84,15 +84,15 @@ public class ColorPicker extends ValueButton<Color> {
             }
 
             // draw alpha slider
-            int w = getFontRenderer().getStringWidth("000");
-            drawGradientRectVertical(startX + 88, startY + 1, w, 82, 0xff000000, 0x00000000);
-            drawBorder(startX + 88, startY + 1, w, 82, GuiTheme.tertiaryColor.getValue().getARGB(), 1);
+            int w = getFontRenderer().getWidth("000");
+            drawRect(startX + 88, startY + 1, w, 82, 0xff000000);
+            drawBorder(startX + 88, startY + 1, w, 82, GuiTheme.tertiaryColor.getValue().getArgb(), 1);
 
             // draw image
             int imgSize = 84;
 
-            getMinecraft().getTextureManager().bindTexture(texture);
-            GlStateManager.color(1f, 1f, 1f, 1f);
+            getMc().getTextureManager().bindTexture(texture);
+            //GlStateManager.color(1f, 1f, 1f, 1f);
             drawTexturedRect(startX+2, startY, imgSize, imgSize);
 
             // handle image
@@ -102,7 +102,7 @@ public class ColorPicker extends ValueButton<Color> {
                 int mY = MathHelper.clamp(mouseY - startY, 0, imgSize-1);
 
                 int color = image.getRGB((int)(mX * scale), (int)(mY * scale));
-                value.getValue().setRGB(color);
+                value.getValue().setArgb(color);
             }
 
             // handle alpha slider
@@ -123,7 +123,7 @@ public class ColorPicker extends ValueButton<Color> {
         drawThemedRectTertiary(x+2, y+buttonHeight-1, width-2, 1);
 
         drawThemedString(value.getDisplayName(), x + 4, getStringCenterY(y, buttonHeight-1));
-        drawRect(x+width-2 - 11, y + (buttonHeight-1)/2 - 4, 11, 8, value.getValue().getARGB());
+        drawRect(x+width-2 - 11, y + (buttonHeight-1)/2 - 4, 11, 8, value.getValue().getArgb());
     }
 
     @Override
@@ -136,7 +136,7 @@ public class ColorPicker extends ValueButton<Color> {
             else if(open && mouseX <= x+2 + 84 && mouseY >= y+buttonHeight+1 && mouseY <= y+buttonHeight+1 + 84) {
                 mouseDown = true;
                 return true;
-            } else if(open && mouseX >= x + 88 && mouseY >= y+buttonHeight+1 + 1 && mouseX <= x+88 + getFontRenderer().getStringWidth("000") && mouseY <= y+buttonHeight+2 + 82) {
+            } else if(open && mouseX >= x + 88 && mouseY >= y+buttonHeight+1 + 1 && mouseX <= x+88 + getFontRenderer().getWidth("000") && mouseY <= y+buttonHeight+2 + 82) {
                 //drawGradientRectVertical(startX + 88, startY + 1, w, 82, 0xff000000, 0x00000000);
                 sliderGrabbed = true;
                 return true;
@@ -234,7 +234,7 @@ public class ColorPicker extends ValueButton<Color> {
         }
 
         public void draw() {
-            drawBorder(x, y, width, height, GuiTheme.tertiaryColor.getValue().getARGB(), 1);
+            drawBorder(x, y, width, height, GuiTheme.tertiaryColor.getValue().getArgb(), 1);
 
             String displayText;
             if(listening) {
@@ -261,18 +261,18 @@ public class ColorPicker extends ValueButton<Color> {
         public int keyTyped(char typedChar, int keyCode) {
             if(listening) {
                 switch (keyCode) {
-                    case Keyboard.KEY_BACK:
+                    case GLFW.GLFW_KEY_BACKSPACE:
                         editText = StringUtils.chop(editText);
                         break;
-                    case Keyboard.KEY_RETURN:
+                    case GLFW.GLFW_KEY_ENTER:
                         listening = false;
                         return 2;
-                    case Keyboard.KEY_ESCAPE:
+                    case GLFW.GLFW_KEY_ESCAPE:
                         listening = false;
                         editText = value;
                         break;
-                    case Keyboard.KEY_V:
-                        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+                    case GLFW.GLFW_KEY_V:
+                        if (InputUtil.isKeyPressed(getMc().getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_CONTROL)) {
                             editText += Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
                         }
                         break;

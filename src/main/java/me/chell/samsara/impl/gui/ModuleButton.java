@@ -7,10 +7,6 @@ import me.chell.samsara.api.util.Color;
 import me.chell.samsara.api.value.Bind;
 import me.chell.samsara.api.value.Value;
 import me.chell.samsara.impl.gui.buttons.*;
-import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.input.Keyboard;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +17,10 @@ public class ModuleButton extends Drawable {
     private final int buttonHeight = 13;
     private boolean open = false;
 
-    private boolean editing = false;
-    private String oldText, editText;
-
     public ModuleButton(Module module, int x, int y, CategoryPanel parent) {
         super(x, y, GuiTheme.width, 13);
         this.module = module;
         this.parent = parent;
-
-        editText = module.getDisplayName();
 
         valueButtons = new ArrayList<>();
         int buttonY = y + buttonHeight;
@@ -49,15 +40,7 @@ public class ModuleButton extends Drawable {
         }
         drawThemedRectTertiary(x, y+buttonHeight-1, width, 1);
 
-        String displayText;
-        if(editing) {
-            displayText = editText;
-            if(parent.ticks / 6 % 2 == 0) displayText += "_";
-        } else {
-            displayText = module.getDisplayName();
-        }
-
-        drawThemedString(displayText, x + 2, getStringCenterY(y, buttonHeight-1));
+        drawThemedString(module.getDisplayName().getValue(), x + 2, getStringCenterY(y, buttonHeight-1));
 
         if(open) {
             int buttonY = y + buttonHeight;
@@ -84,13 +67,6 @@ public class ModuleButton extends Drawable {
                 case 1:
                     open = !open;
                     return true;
-                case 2:
-                    if(!editing) {
-                        parent.ticks = 0;
-                        editing = true;
-                        oldText = module.getDisplayName();
-                    }
-                    return true;
             }
         }
 
@@ -113,34 +89,6 @@ public class ModuleButton extends Drawable {
 
     @Override
     public boolean keyTyped(char typedChar, int keyCode) {
-        if(editing) {
-            switch (keyCode) {
-                case Keyboard.KEY_BACK:
-                    editText = StringUtils.chop(editText);
-                    return true;
-                case Keyboard.KEY_RETURN:
-                    module.setDisplayName(editText);
-                    editing = false;
-                    return true;
-                case Keyboard.KEY_ESCAPE:
-                    editing = false;
-                    editText = oldText;
-                    return true;
-                case Keyboard.KEY_V:
-                    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-                        editText += Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-                    } else {
-                        editText += typedChar;
-                    }
-                    return true;
-                default:
-                    if(!parent.blacklist.contains(keyCode)) {
-                        editText += typedChar;
-                        return true;
-                    }
-            }
-        }
-
         for(ValueButton<?> button : valueButtons) {
             if(!button.isVisible()) continue;
             if(button.keyTyped(typedChar, keyCode)) return true;

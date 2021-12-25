@@ -1,44 +1,32 @@
 {
-  "godlike":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:godlike", "stream": true
-    }]
+  "godlike": {
+    "sounds": [
+      "samsara:godlike"
+    ]
   },
-  "holyshit":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:holyshit", "stream": true
-    }]
+  "holyshit": {
+    "sounds": [
+      "samsara:holyshit"
+    ]
   },
-  "impressive":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:impressive", "stream": true
-    }]
+  "impressive": {
+    "sounds": [
+      "samsara:impressive"
+    ]
   },
-  "ownage":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:ownage", "stream": true
-    }]
+  "ownage": {
+    "sounds": [
+      "samsara:ownage"
+    ]
   },
-  "perfect":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:perfect", "stream": true
-    }]
+  "perfect": {
+    "sounds": [
+      "samsara:perfect"
+    ]
   },
-  "wickedsick":
-  {
-    "category": "entity",
-    "sounds": [{
-      "name": "samsara:wickedsick", "stream": true
-    }]
+  "wickedsick": {
+    "sounds": [
+      "samsara:wickedsick"
+    ]
   }
 }
