@@ -12,8 +12,9 @@ class Sprint: Module("Sprint", Category.MOVEMENT, "Sprint automatically.") {
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {
-        if(legit.value && mc.currentScreen == null) {
-            mc.options.keySprint.isPressed = true
+        if(legit.value) {
+            if(mc.currentScreen == null)
+                mc.options.keySprint.isPressed = true
         } else {
             if(player.forwardSpeed != 0F || player.sidewaysSpeed != 0F) {
                 player.isSprinting = true
