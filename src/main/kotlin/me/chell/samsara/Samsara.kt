@@ -6,6 +6,7 @@ import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.Config
 import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.impl.gui.ClickGUI
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
 import org.apache.logging.log4j.LogManager
@@ -13,9 +14,9 @@ import java.net.URL
 
 object Samsara {
 
-    const val NAME = "Samsara"
-    const val VERSION = "0.0.1"
-    const val MODID = "samsara"
+    var NAME = ""
+    var VERSION = ""
+    var MODID = "samsara"
     val LOGGER = LogManager.getLogger()
     var MOTD = "No message :("
 
@@ -26,6 +27,7 @@ object Samsara {
     lateinit var clickGUI: ClickGUI
 
     fun init() {
+        getModInfo()
         loadables.add(EventManager)
         loadables.add(ModuleManager)
         loadables.add(KillEventManager)
@@ -52,6 +54,12 @@ object Samsara {
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
         Option.FOV.setMax(110f)
         LOGGER.info("$NAME $VERSION unloaded.")
+    }
+
+    private fun getModInfo() {
+        val mod = FabricLoader.getInstance().getModContainer(MODID).get()
+        NAME = mod.metadata.name
+        VERSION = mod.metadata.version.friendlyString
     }
 
     fun updateMOTD() {

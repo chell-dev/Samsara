@@ -6,7 +6,6 @@ plugins {
 }
 
 group = property("maven_group")!!
-version = property("mod_version")!!.toString() + "d"
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -27,10 +26,9 @@ dependencies {
 tasks {
 
     processResources {
-        inputs.property("version", project.version)
-        filesMatching("fabric.mod.json") {
-            expand(mutableMapOf("version" to project.version))
-        }
+        val jsonFile = file("src/main/resources/fabric.mod.json")
+        val parsedJson = groovy.json.JsonSlurper().parseText(jsonFile.readText()) as Map<*, *>
+        version = parsedJson["version"]!!
     }
 
     jar {
