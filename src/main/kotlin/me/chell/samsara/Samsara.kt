@@ -4,20 +4,16 @@ import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.Config
+import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.impl.gui.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
-import org.apache.logging.log4j.LogManager
 import java.net.URL
 
-object Samsara {
+object Samsara: Globals {
 
-    var NAME = ""
-    var VERSION = ""
-    var MODID = "samsara"
-    val LOGGER = LogManager.getLogger()
     var MOTD = "No message :("
 
     private val loadables = mutableListOf<Loadable>()
@@ -33,7 +29,7 @@ object Samsara {
         loadables.add(KillEventManager)
         loadables.add(ClickGUI().also { clickGUI = it })
         load()
-        Runtime.getRuntime().addShutdownHook(object: Thread("$NAME shutdown hook") {
+        Runtime.getRuntime().addShutdownHook(object: Thread("${Globals.NAME} shutdown hook") {
             override fun run() {
                 if(loaded) unload()
             }
@@ -45,7 +41,7 @@ object Samsara {
         Config.load("SamsaraConfig.json")
         Option.FOV.setMax(179f)
         loaded = true
-        LOGGER.info("$NAME $VERSION loaded.")
+        LOG.info("${Globals.NAME} ${Globals.VERSION} loaded.")
     }
 
     fun unload() {
@@ -53,13 +49,13 @@ object Samsara {
         Config.save("SamsaraConfig.json")
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
         Option.FOV.setMax(110f)
-        LOGGER.info("$NAME $VERSION unloaded.")
+        LOG.info("${Globals.NAME} ${Globals.VERSION} unloaded.")
     }
 
     private fun getModInfo() {
         val mod = FabricLoader.getInstance().getModContainer(MODID).get()
-        NAME = mod.metadata.name
-        VERSION = mod.metadata.version.friendlyString
+        Globals.NAME = mod.metadata.name
+        Globals.VERSION = mod.metadata.version.friendlyString
     }
 
     fun updateMOTD() {

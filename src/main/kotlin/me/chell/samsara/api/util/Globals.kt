@@ -6,8 +6,22 @@ import net.minecraft.client.network.ClientPlayNetworkHandler
 import net.minecraft.client.network.ClientPlayerEntity
 import net.minecraft.client.network.ClientPlayerInteractionManager
 import net.minecraft.client.world.ClientWorld
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 
-interface Wrapper {
+interface Globals {
+
+    companion object {
+        var NAME = ""
+        var VERSION = ""
+    }
+
+    val MODID: String
+        get() = "samsara"
+
+    val LOG: Logger
+        get() = LogManager.getLogger()
+
     val mc: MinecraftClient
         get() = MinecraftClient.getInstance()
 

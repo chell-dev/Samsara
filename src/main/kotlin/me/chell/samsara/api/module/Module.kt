@@ -3,7 +3,7 @@ package me.chell.samsara.api.module
 import com.google.gson.annotations.Expose
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
-import me.chell.samsara.api.util.Wrapper
+import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
@@ -14,7 +14,7 @@ open class Module(
     @Expose val name: String,
     val category: Category,
     val description: String = "No description."
-    ): Loadable, Wrapper {
+    ): Loadable, Globals {
 
     constructor() : this("", Category.MISC) // for json, do not use this
 

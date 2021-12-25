@@ -1,6 +1,5 @@
 package me.chell.samsara.impl.module.combat
 
-import me.chell.samsara.Samsara
 import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.value.Register
@@ -127,7 +126,7 @@ class KillEffects: Module("KillEffects", Category.COMBAT) {
     }
 
     private fun registerSoundEvent(name: String): SoundEvent {
-        val id = Identifier("${Samsara.MODID}:$name")
+        val id = Identifier("$MODID:$name")
         val event = SoundEvent(id)
         Registry.register(Registry.SOUND_EVENT, id, event)
         return event

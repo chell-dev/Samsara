@@ -11,7 +11,7 @@ import net.minecraft.entity.decoration.EndCrystalEntity
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 
-object KillEventManager: Loadable, Wrapper {
+object KillEventManager: Loadable, Globals {
 
     private val targets = mutableMapOf<LivingEntity, Int>()
 
