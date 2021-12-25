@@ -1,5 +1,3 @@
-# Samsara
-
 Samsara is a free, open-source utility mod for Fabric 1.18.1.
 
 Join the [Discord server](https://discord.gg/ubfWKsQTDG) if you want
