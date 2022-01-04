@@ -35,6 +35,7 @@ object ModuleManager: Loadable, Globals {
         modules.add(ESP())
         modules.add(PearlBind())
         modules.add(KillEffects())
+        modules.add(ModelEditorModule())
         for(m in modules) m.load()
     }
 
