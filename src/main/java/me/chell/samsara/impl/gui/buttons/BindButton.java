@@ -51,7 +51,7 @@ public class BindButton extends ValueButton<Bind> {
         if(listening) {
             switch (keyCode) {
                 case GLFW.GLFW_KEY_DELETE:
-                    value.getValue().setKey(0);
+                    value.getValue().setKey(-1);
                     break;
                 case GLFW.GLFW_KEY_ESCAPE:
                     break;
