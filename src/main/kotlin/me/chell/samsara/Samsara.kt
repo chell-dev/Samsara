@@ -1,6 +1,7 @@
 package me.chell.samsara
 
 import me.chell.samsara.api.Loadable
+import me.chell.samsara.api.addon.AddonManager
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.Config
@@ -27,6 +28,7 @@ object Samsara: Globals {
         loadables.add(EventManager)
         loadables.add(ModuleManager)
         loadables.add(KillEventManager)
+        loadables.add(AddonManager)
         loadables.add(ClickGUI().also { clickGUI = it })
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("${Globals.NAME} shutdown hook") {
