@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AccessorClientPlayerInteractionManager",
+    "AccessorHeldItemRenderer",
     "AccessorLivingEntityRenderer",
     "AccessorMinecraftClient",
     "MixinClientBrandRetriever",

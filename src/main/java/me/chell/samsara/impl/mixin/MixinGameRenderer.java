@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.chell.samsara.api.event.EventManager;
 import me.chell.samsara.impl.event.FovEvent;
 import me.chell.samsara.impl.event.RenderEvent;
+import me.chell.samsara.impl.event.RenderHandEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -29,6 +30,11 @@ public class MixinGameRenderer {
         MinecraftClient.getInstance().getProfiler().swap("samsara");
         RenderSystem.clear(256, MinecraftClient.IS_SYSTEM_MAC);
         EventManager.INSTANCE.post(new RenderEvent(matrices, tickDelta));
+    }
+
+    @Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;push()V"))
+    private void renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+        EventManager.INSTANCE.post(new RenderHandEvent(matrices));
     }
 
 }
