@@ -38,6 +38,7 @@ object ModuleManager: Loadable, Globals {
         modules.add(ModelEditorModule())
         modules.add(ViewModel())
         modules.add(NoFog())
+        modules.add(Bhop())
         for(m in modules) m.load()
     }
 
