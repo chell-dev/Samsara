@@ -37,6 +37,7 @@ object ModuleManager: Loadable, Globals {
         modules.add(KillEffects())
         modules.add(ModelEditorModule())
         modules.add(ViewModel())
+        modules.add(NoFog())
         for(m in modules) m.load()
     }
 
