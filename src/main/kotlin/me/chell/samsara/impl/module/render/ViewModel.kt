@@ -7,6 +7,7 @@ import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.event.RenderHandEvent
 import me.chell.samsara.impl.mixin.AccessorHeldItemRenderer
+import net.minecraft.util.math.Quaternion
 
 class ViewModel: Module("ViewModel", Category.RENDER) {
     @Register(0) val setOffhandProgress = Value("Offhand Progress", false)
@@ -16,6 +17,7 @@ class ViewModel: Module("ViewModel", Category.RENDER) {
     @Register(4) val fov = Value("FOV", 70, sliderMin = 40, sliderMax = 150)
     @Register(5) val yOffset = Value("Offset Y", 0.0, sliderMin = -1.0, sliderMax = 1.0)
     @Register(5) val zOffset = Value("Offset Z", 0.0, sliderMin = -1.0, sliderMax = 1.0)
+    @Register(6) val xRotation = Value("Rotation", 0, sliderMin = -90, sliderMax = 90)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {
@@ -35,5 +37,6 @@ class ViewModel: Module("ViewModel", Category.RENDER) {
     fun onRenderHand(event: RenderHandEvent) {
         mc.gameRenderer.loadProjectionMatrix(mc.gameRenderer.getBasicProjectionMatrix(fov.value.toDouble()))
         event.matrices.translate(0.0, yOffset.value, zOffset.value)
+        event.matrices.multiply(Quaternion(xRotation.value.toFloat(), 0f, 0f, true))
     }
 }
