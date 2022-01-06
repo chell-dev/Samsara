@@ -28,7 +28,7 @@ object KillEventManager: Loadable, Globals {
 
     @EventHandler
     fun onAttackEntity(event:AttackEntityEvent.Post) {
-        if(event.target is LivingEntity) {
+        if(event.target is LivingEntity && event.target.alive()) {
             targets[event.target] = timeout
         }
         else if(event.target is EndCrystalEntity) {
@@ -48,7 +48,7 @@ object KillEventManager: Loadable, Globals {
                 continue
             }
 
-            if(entity.isDead || entity.health <= 0.0) {
+            if(!entity.alive()) {
                 list.add(entity)
                 EventManager.post(EntityKilledEvent(entity))
                 continue
@@ -69,7 +69,7 @@ object KillEventManager: Loadable, Globals {
         )
 
         for(entity in world.getOtherEntities(player, box)) {
-            if(entity is LivingEntity && pos.distanceTo(entity.pos) <= range)
+            if(entity is LivingEntity && entity.alive() && pos.distanceTo(entity.pos) <= range)
                 targets[entity] = timeout
         }
     }
