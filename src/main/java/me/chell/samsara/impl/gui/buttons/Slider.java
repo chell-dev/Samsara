@@ -20,17 +20,6 @@ public class Slider<T extends Number> extends ValueButton<T> {
     private boolean editing = false;
     private String oldText, editText;
 
-    public void setSliderWidth() {
-        double min = value.getSliderMin().doubleValue();
-        double max = value.getSliderMax().doubleValue();
-        double val = value.getValue().doubleValue() - min;
-        double diff = min >= 0 ? max - min : min - max;
-        if(val == 0) sliderWidth = 0;
-        double d = val / diff;
-        if(d < 0) d *= -1;
-        sliderWidth = (int) ((width-2) * MathHelper.clamp(d, 0D, 1D));
-    }
-
     public Slider(Value<T> value, int x, int y) {
         super(x, y, GuiTheme.width, 13, value);
         editText = ""+value.getValue();
@@ -41,17 +30,6 @@ public class Slider<T extends Number> extends ValueButton<T> {
     @SuppressWarnings("unchecked")
     @Override
     public void draw(int mouseX, int mouseY) {
-        if(value.getName().equals("Rotation")) {
-            double min = value.getSliderMin().doubleValue();
-            double max = value.getSliderMax().doubleValue();
-            double val = value.getValue().doubleValue() - min;
-            double diff = min >= 0 ? max - min : min - max;
-            if(val == 0) sliderWidth = 0;
-            double d = val / diff;
-            if(d < 0) d *= -1;
-            sliderWidth = (int) ((width-2) * MathHelper.clamp(d, 0D, 1D));
-        }
-
         if(grabbed) {
             int mousePos = MathHelper.clamp(mouseX - (x+2), 0, width-2);
 
@@ -169,6 +147,17 @@ public class Slider<T extends Number> extends ValueButton<T> {
                 setSliderWidth();
             } catch (NumberFormatException ignored) {}
         }
+    }
+
+    public void setSliderWidth() {
+        double min = value.getSliderMin().doubleValue();
+        double max = value.getSliderMax().doubleValue();
+        double val = value.getValue().doubleValue() - min;
+        double diff = min >= 0 ? max - min : min - max;
+        if(val == 0) sliderWidth = 0;
+        double d = val / diff;
+        if(d < 0) d *= -1;
+        sliderWidth = (int) ((width-2) * MathHelper.clamp(d, 0D, 1D));
     }
 
     @Override
