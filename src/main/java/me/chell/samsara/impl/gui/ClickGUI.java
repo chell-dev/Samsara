@@ -3,6 +3,7 @@ package me.chell.samsara.impl.gui;
 import me.chell.samsara.api.Loadable;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.module.Module;
+import me.chell.samsara.impl.gui.buttons.Slider;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
@@ -16,6 +17,22 @@ public class ClickGUI extends Screen implements Loadable {
     public ClickGUI() {
         super(new LiteralText("ClickGUI"));
         panels = new ArrayList<>();
+    }
+
+    @Override
+    protected void init() {
+        // java moment
+        for(Drawable d : panels) {
+            if(d instanceof CategoryPanel p) {
+                for(ModuleButton m : p.buttons) {
+                    for(ValueButton<?> v : m.valueButtons) {
+                        if(v instanceof Slider<?> s) {
+                            s.setSliderWidth();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override

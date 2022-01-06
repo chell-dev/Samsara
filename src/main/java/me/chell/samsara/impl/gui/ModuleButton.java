@@ -13,7 +13,7 @@ import java.util.List;
 public class ModuleButton extends Drawable {
     private final Module module;
     private final CategoryPanel parent;
-    private final List<ValueButton<?>> valueButtons;
+    public final List<ValueButton<?>> valueButtons;
     private final int buttonHeight = 13;
     private boolean open = false;
 

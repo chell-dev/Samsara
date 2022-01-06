@@ -1,23 +1,19 @@
 package me.chell.samsara.impl.gui;
 
 import com.google.common.collect.Lists;
-import me.chell.samsara.Samsara;
 import me.chell.samsara.api.gui.Drawable;
 import me.chell.samsara.api.gui.GuiTheme;
 import me.chell.samsara.api.module.Module;
 import me.chell.samsara.api.module.ModuleManager;
-import net.minecraft.client.util.InputUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPanel extends Drawable {
     private final int titleHeight = 17;
     private final Module.Category category;
-    private final List<ModuleButton> buttons;
+    public final List<ModuleButton> buttons;
     private boolean open = true;
 
     private boolean grabbed = false;

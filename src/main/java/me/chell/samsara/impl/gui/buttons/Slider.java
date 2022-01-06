@@ -15,79 +15,60 @@ import java.util.List;
 public class Slider<T extends Number> extends ValueButton<T> {
     private int sliderWidth = 0;
     private boolean grabbed = false;
-    private Type type;
 
     private int ticks;
     private boolean editing = false;
     private String oldText, editText;
 
-    //@SuppressWarnings("unchecked")
+    public void setSliderWidth() {
+        double min = value.getSliderMin().doubleValue();
+        double max = value.getSliderMax().doubleValue();
+        double val = value.getValue().doubleValue() - min;
+        double diff = min >= 0 ? max - min : min - max;
+        if(val == 0) sliderWidth = 0;
+        double d = val / diff;
+        if(d < 0) d *= -1;
+        sliderWidth = (int) ((width-2) * MathHelper.clamp(d, 0D, 1D));
+    }
+
     public Slider(Value<T> value, int x, int y) {
         super(x, y, GuiTheme.width, 13, value);
         editText = ""+value.getValue();
 
-        // TODO fix
-        if(value.getValue() instanceof Integer){
-            type = Type.INT;
-
-            /*
-            Value<Integer> val = (Value<Integer>) value;
-            int range = val.getSliderMax() - val.getSliderMin();
-            int m = (val.getValue() * (2-width)) / range;
-            sliderWidth = m * -1;
-            */
-        }
-        else if(value.getValue() instanceof Double) {
-            type = Type.DOUBLE;
-
-            /*
-            Value<Double> val = (Value<Double>) value;
-            double range = val.getSliderMax() - val.getSliderMin();
-            double m = (val.getValue() * (2-width)) / range;
-            sliderWidth = (int)m * -1;
-            */
-        }
-        else if(value.getValue() instanceof Float) {
-            type = Type.FLOAT;
-
-            /*
-            Value<Float> val = (Value<Float>) value;
-            float range = val.getSliderMax() - val.getSliderMin();
-            float m = (val.getValue() * (2-width)) / range;
-            sliderWidth = (int)m * -1;
-            */
-        }
+        setSliderWidth();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void draw(int mouseX, int mouseY) {
+        if(value.getName().equals("Rotation")) {
+            double min = value.getSliderMin().doubleValue();
+            double max = value.getSliderMax().doubleValue();
+            double val = value.getValue().doubleValue() - min;
+            double diff = min >= 0 ? max - min : min - max;
+            if(val == 0) sliderWidth = 0;
+            double d = val / diff;
+            if(d < 0) d *= -1;
+            sliderWidth = (int) ((width-2) * MathHelper.clamp(d, 0D, 1D));
+        }
+
         if(grabbed) {
             int mousePos = MathHelper.clamp(mouseX - (x+2), 0, width-2);
-            sliderWidth = mousePos;
 
-            switch (type) {
-                case INT:
-                    Value<Integer> val = (Value<Integer>) value;
-                    int range = val.getSliderMax() - val.getSliderMin();
-                    float v = val.getSliderMin() + (mousePos / (width-2f) * range);
-                    value.setValue((T)(Integer)(int)v); // don't worry about it
-                    break;
-                case DOUBLE:
-                    Value<Double> val2 = (Value<Double>) value;
-                    double range2 = val2.getSliderMax() - val2.getSliderMin();
-                    double v2 = val2.getSliderMin() + ((double)mousePos / (width-2) * range2);
-                    double roundedD = Math.round(v2 * 100d) / 100d;
-                    value.setValue((T)(Double)roundedD);
-                    break;
-                case FLOAT:
-                    Value<Float> val3 = (Value<Float>) value;
-                    float range3 = val3.getSliderMax() - val3.getSliderMin();
-                    float v3 = val3.getSliderMin() + ((float)mousePos / (width-2) * range3);
-                    float roundedF = Math.round(v3 * 100f) / 100f;
-                    value.setValue((T)(Float)roundedF);
-                    break;
-            }
+            double min = value.getSliderMin().doubleValue();
+            double max = value.getSliderMax().doubleValue();
+            double diff = max - min;
+
+            double v = mousePos / (width-2D);
+            v *= diff;
+            v += min;
+
+            if(value.getSliderMin() instanceof Integer) {
+                value.setValue((T) (Number) (int) v);
+            } else
+                value.setValue((T) (Number) (Math.round(v * 100d) / 100d));
+
+            setSliderWidth();
         }
 
         drawThemedRectPrimary(x+2, y, sliderWidth, height-1);
@@ -170,22 +151,23 @@ public class Slider<T extends Number> extends ValueButton<T> {
 
     @SuppressWarnings("unchecked")
     private void parseValue(String text) {
-        switch (type) {
-            case INT:
-                try {
-                    value.setValue((T)(Integer)Integer.parseInt(text));
-                } catch (NumberFormatException ignored){}
-                break;
-            case FLOAT:
-                try {
-                    value.setValue((T)(Float)Float.parseFloat(text));
-                } catch (NumberFormatException ignored){}
-                break;
-            case DOUBLE:
-                try {
-                    value.setValue((T)(Double)Double.parseDouble(text));
-                } catch (NumberFormatException ignored){}
-                break;
+        if (value.getSliderMin() instanceof Integer) {
+            try {
+                value.setValue((T) (Integer) Integer.parseInt(text));
+                setSliderWidth();
+            } catch (NumberFormatException ignored) {}
+        }
+        else if (value.getSliderMin() instanceof Float) {
+            try {
+                value.setValue((T) (Float) Float.parseFloat(text));
+                setSliderWidth();
+            } catch (NumberFormatException ignored) {}
+        }
+        else if(value.getSliderMin() instanceof Double) {
+            try {
+                value.setValue((T) (Double) Double.parseDouble(text));
+                setSliderWidth();
+            } catch (NumberFormatException ignored) {}
         }
     }
 
@@ -199,9 +181,5 @@ public class Slider<T extends Number> extends ValueButton<T> {
     @Override
     public void updateScreen() {
         ticks++;
-    }
-
-    private enum Type {
-        INT, DOUBLE, FLOAT
     }
 }
