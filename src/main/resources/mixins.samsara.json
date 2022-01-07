@@ -22,6 +22,7 @@
     "MixinMouse",
     "MixinParticleManager",
     "MixinPlayerEntityRenderer",
+    "MixinPlayerListHud",
     "MixinTitleScreen"
   ],
   "injectors": {

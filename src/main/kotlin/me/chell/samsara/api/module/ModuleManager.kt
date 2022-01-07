@@ -39,6 +39,7 @@ object ModuleManager: Loadable, Globals {
         modules.add(ViewModel())
         modules.add(NoFog())
         modules.add(Bhop())
+        modules.add(BetterPingDisplay())
         for(m in modules) m.load()
     }
 
