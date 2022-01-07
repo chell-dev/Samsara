@@ -42,7 +42,7 @@ jobs:
 
     - name: Upload artifacts if a tag was NOT pushed
       uses: actions/upload-artifact@v2
-      if: !startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') != true
       with:
         name: build-output
         path: build/libs/
