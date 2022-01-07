@@ -35,7 +35,7 @@ class ViewModel: Module("ViewModel", Category.RENDER) {
 
     @EventHandler
     fun onRenderHand(event: RenderHandEvent) {
-        mc.gameRenderer.loadProjectionMatrix(mc.gameRenderer.getBasicProjectionMatrix(fov.value.toDouble()))
+        mc.gameRenderer.loadProjectionMatrix(mc.gameRenderer.getBasicProjectionMatrix(fov.value.toDouble() * Zoom.multiplier))
         event.matrices.translate(0.0, yOffset.value, zOffset.value)
         event.matrices.multiply(Quaternion(xRotation.value.toFloat(), 0f, 0f, true))
     }

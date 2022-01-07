@@ -15,7 +15,10 @@ class Zoom: Module("Zoom", Category.RENDER)  {
     @Register val mouse = Value("Change Sensitivity", true, "Changes mouse sensitivity while zooming.")
 
     private var oldSens: Double? = null
-    private var multiplier: Double = 0.16
+
+    companion object {
+        var multiplier: Double = 1.0
+    }
 
     @EventHandler
     fun setFov(event: FovEvent) {
@@ -42,10 +45,15 @@ class Zoom: Module("Zoom", Category.RENDER)  {
 
     override fun onDisable() {
         super.onDisable()
-        multiplier = multi.value
+        multiplier = 1.0
         if(oldSens != null) {
             mc.options.mouseSensitivity = oldSens!!
             oldSens = null
         }
+    }
+
+    override fun onEnable() {
+        super.onEnable()
+        multiplier = multi.value
     }
 }
