@@ -1,6 +1,7 @@
 package me.chell.samsara.api.module
 
 import com.google.gson.annotations.Expose
+import me.chell.samsara.api.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Globals
@@ -11,22 +12,22 @@ import me.chell.samsara.api.value.ValueBuilder
 import kotlin.reflect.full.memberProperties
 
 open class Module(
-    @Expose val name: String,
+    @Expose final override val name: String,
     val category: Category,
     val description: String = "No description."
-    ): Loadable, Globals {
+    ): Feature(name), Loadable, Globals {
 
     constructor() : this("", Category.MISC) // for json, do not use this
 
     @Expose
-    val values = mutableListOf<Value<*>>()
+    override val values = mutableListOf<Value<*>>()
 
     @Register(99) val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
     @Register(98) val bind: Value<Bind> = Value("Bind", Bind(-1))
 
-    fun isEnabled(): Boolean = bind.value.enabled
+    override fun isEnabled(): Boolean = bind.value.enabled
 
-    fun toggle() {
+    override fun toggle() {
         if(isEnabled()) {
             bind.value.enabled = false
             onDisable()
@@ -44,6 +45,8 @@ open class Module(
     }
 
     fun <T> getValue(name: String): Value<T>? = values.firstOrNull { it.name.equals(name, true) } as Value<T>?
+
+    override fun getDisplayName(): String = displayName.value
 
     override fun load() {
         registerValues()
