@@ -18,9 +18,9 @@ data class Color(var red: Int, var green: Int, var blue: Int, var alpha: Int) {
                 (blue and 0xFF)
         set(value) {
             alpha = value shr 24 and 0xFF
-            red = argb shr 16 and 0xFF
-            green = argb shr 8 and 0xFF
-            blue = argb and 0xFF
+            red = value shr 16 and 0xFF
+            green = value shr 8 and 0xFF
+            blue = value and 0xFF
         }
 
     override fun toString() = "$argb"
