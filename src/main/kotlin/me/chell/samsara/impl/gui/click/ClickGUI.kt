@@ -67,17 +67,17 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
 
 
         // load the current theme
-        loadTheme("DefaultTheme.lua")
+        loadTheme("DefaultTheme")
     }
 
     fun loadTheme(name: String) {
         try {
-            LuaUtils.loadFile("Samsara/Themes/$name")
+            LuaUtils.loadFile("Samsara/Themes/$name.lua")
 
             val windowLua = CoerceJavaToLua.coerce(Window)
             val buttonLua = CoerceJavaToLua.coerce(Button)
             val valueLua = CoerceJavaToLua.coerce(ValueButton)
-            LuaUtils.globals.get(name).call(windowLua, buttonLua, valueLua).toString()
+            LuaUtils.globals.get(name).call(windowLua, buttonLua, valueLua)
         } catch (e: Exception) {
             e.printStackTrace()
         }

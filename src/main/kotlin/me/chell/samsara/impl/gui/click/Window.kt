@@ -19,7 +19,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
         @JvmStatic var titleHeight = 14.0
         @JvmStatic var titleColor = Color(100, 0, 150, 255)
 
-        @JvmStatic var text = TextProperties(Border(), Color(0xffffff), true, Align.Horizontal.LEFT)
+        @JvmStatic var text = TextProperties(Border(2.0, 0.0, 0.0, 0.0), Color(0xffffff), true, Align.Horizontal.LEFT, Align.Vertical.CENTER)
 
         @JvmStatic var border = Border(2.0, 2.0, 2.0, 2.0)
         @JvmStatic var borderColor = Color(100, 0, 150, 255)
@@ -27,9 +27,17 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
 
     val buttons = mutableListOf<Button>()
     var open = true
+
     var grabbed = false
+    var moveX = 0.0
+    var moveY = 0.0
 
     override fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float) {
+        if(grabbed) {
+            x = mouseX - moveX
+            y = mouseY - moveY
+        }
+
         val t = Rectangle(x, y, width, titleHeight)
 
         // draw title
@@ -67,6 +75,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     }
 
     override fun guiClosed() {
+        ClickGUI.INSTANCE!!.loadTheme("DefaultTheme")
         if(!open) return
         for(button in buttons) {
             button.guiClosed()
@@ -107,7 +116,11 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         if(Rectangle(x, y, width, titleHeight).isInBounds(mouseX, mouseY)) {
             when(button) {
-                0 -> grabbed = true
+                0 -> {
+                    grabbed = true
+                    moveX = mouseX - x
+                    moveY = mouseY - y
+                }
                 1 -> open = !open
             }
             return true

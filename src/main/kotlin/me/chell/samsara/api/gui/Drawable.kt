@@ -1,5 +1,6 @@
 package me.chell.samsara.api.gui
 
+import me.chell.samsara.api.util.Align
 import me.chell.samsara.api.util.Color
 import me.chell.samsara.api.util.Globals
 import net.minecraft.client.gui.DrawableHelper
@@ -45,7 +46,23 @@ abstract class Drawable: Globals {
     }
 
     fun drawString(matrices: MatrixStack, text: String, properties: TextProperties, container: Rectangle) {
-        // x, y, color
-        fontRenderer.drawWithShadow(matrices, text, container.x.toFloat(), container.y.toFloat(), -1)
+        val bounds = container.subtract(properties.padding)
+
+        val x = when(properties.horizontal) {
+            Align.Horizontal.LEFT -> bounds.x
+            Align.Horizontal.RIGHT -> bounds.endX - fontRenderer.getWidth(text)
+            Align.Horizontal.CENTER -> bounds.x + bounds.width / 2 - fontRenderer.getWidth(text) / 2
+        }
+
+        val y = when(properties.vertical) {
+            Align.Vertical.TOP -> bounds.y
+            Align.Vertical.BOTTOM-> bounds.endY - fontRenderer.fontHeight
+            Align.Vertical.CENTER -> bounds.y + fontRenderer.fontHeight / 4
+        }
+
+        if(properties.shadow)
+            fontRenderer.drawWithShadow(matrices, text, x.toFloat(), y.toFloat(), properties.color.argb)
+        else
+            fontRenderer.draw(matrices, text, x.toFloat(), y.toFloat(), properties.color.argb)
     }
 }

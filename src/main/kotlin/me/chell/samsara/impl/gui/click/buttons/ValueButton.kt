@@ -10,10 +10,10 @@ import net.minecraft.client.util.math.MatrixStack
 
 open class ValueButton<T>(val value: Value<T>, override var x: Double, override var y: Double): Button(value.name, x, y) {
     companion object {
-        var height = 12.0
+        @JvmStatic var height = 12.0
 
-        var border = Border(2.0, 0.0, 0.0, 1.0)
-        var borderColor = Color(15, 15, 15, 200)
+        @JvmStatic var border = Border(2.0, 0.0, 0.0, 1.0)
+        @JvmStatic var borderColor = Color(15, 15, 15, 200)
     }
 
     init {
