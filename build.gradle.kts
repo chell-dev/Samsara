@@ -14,10 +14,10 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     mavenCentral()
-    //maven {
-    //    name = "jitpack.io"
-    //    url = uri("https://jitpack.io")
-    //}
+    maven {
+        name = "jitpack.io"
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
@@ -28,6 +28,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
     //implementation("com.github.wagyourtail:baritone:ver")
     implementation("org.luaj:luaj-jse:3.0.1")
+    implementation("com.github.NepNep21:DiscordRPC4j16:7ac6cddcbe")
 }
 
 tasks {

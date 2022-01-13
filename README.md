@@ -32,6 +32,10 @@ After building, the output `.jar` will be in `build/libs/`
 1. `cd` to the project folder
 2. Run `./gradlew build`
 
-# Credits
+# Thank you
 
 [Fabric](https://fabricmc.net/) for their mod loader
+
+[LuaJ](https://github.com/luaj/luaj) for their lua interpreter
+
+[Nep Nep](https://github.com/NepNep21) for [DiscordRPC4j16](https://github.com/NepNep21/DiscordRPC4j16)

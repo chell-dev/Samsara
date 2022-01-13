@@ -4,10 +4,11 @@ import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.addon.AddonManager
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
-import me.chell.samsara.api.util.Config
+import me.chell.samsara.api.util.DiscordUtils
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
-import me.chell.samsara.impl.gui.ClickGUI
+import me.chell.samsara.api.util.LuaUtils
+import me.chell.samsara.impl.gui.click.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
@@ -21,15 +22,13 @@ object Samsara: Globals {
 
     var loaded = false
 
-    lateinit var clickGUI: ClickGUI
-
     fun init() {
         getModInfo()
         loadables.add(EventManager)
         loadables.add(ModuleManager)
         loadables.add(KillEventManager)
         loadables.add(AddonManager)
-        loadables.add(ClickGUI().also { clickGUI = it })
+        loadables.add(DiscordUtils)
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("${Globals.NAME} shutdown hook") {
             override fun run() {

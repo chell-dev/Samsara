@@ -21,7 +21,6 @@ object ModuleManager: Loadable, Globals {
 
     override fun load() {
         EventManager.register(this)
-        modules.add(ClickGuiModule())
         modules.add(Sprint())
         modules.add(PullDown())
         modules.add(FastUse())
@@ -40,6 +39,9 @@ object ModuleManager: Loadable, Globals {
         modules.add(NoFog())
         modules.add(Bhop())
         modules.add(BetterPingDisplay())
+        modules.add(DiscordRPC())
+
+        modules.add(ClickGuiModule()) // Keep this last
         for(m in modules) m.load()
     }
 
