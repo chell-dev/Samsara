@@ -39,7 +39,9 @@ object Samsara: Globals {
 
     fun load() {
         for(l in loadables) l.load()
-        Config.load("SamsaraConfig.json")
+        ClickGUI.INSTANCE = ClickGUI()
+        LuaUtils.runScript("Samsara/theme.lua")
+        //Config.loadModules("SamsaraConfig.json")
         Option.FOV.setMax(179f)
         loaded = true
         LOG.info("${Globals.NAME} ${Globals.VERSION} loaded.")
@@ -47,7 +49,7 @@ object Samsara: Globals {
 
     fun unload() {
         loaded = false
-        Config.save("SamsaraConfig.json")
+        //Config.saveModules("SamsaraConfig.json")
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
         Option.FOV.setMax(110f)
         LOG.info("${Globals.NAME} ${Globals.VERSION} unloaded.")

@@ -40,7 +40,7 @@ public class ModuleButton extends Drawable {
         }
         drawThemedRectTertiary(x, y+buttonHeight-1, width, 1);
 
-        drawThemedString(module.getDisplayName().getValue(), x + 2, getStringCenterY(y, buttonHeight-1));
+        drawThemedString(module.getName(), x + 2, getStringCenterY(y, buttonHeight-1));
 
         if(open) {
             int buttonY = y + buttonHeight;

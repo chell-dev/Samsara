@@ -1,5 +1,6 @@
 package me.chell.samsara.impl.gui.click
 
+import com.mojang.blaze3d.systems.RenderSystem
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.impl.gui.click.buttons.FeatureButton
@@ -8,20 +9,28 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.LiteralText
 import org.lwjgl.glfw.GLFW
 import java.nio.file.Path
+import java.util.*
 
-object ClickGUI: Screen(LiteralText("ClickGUI")) {
+class ClickGUI: Screen(LiteralText("ClickGUI")) {
+
+    companion object {
+        var INSTANCE: ClickGUI? = null
+    }
 
     private val windows = mutableListOf<Window>()
 
     init {
+        windows.clear()
+
         var x = 10.0
         val y = 20.0
         var buttonY: Double
 
         // Create category windows
         for(c in Module.Category.values()) {
-            val w = Window(c.name, x, y)
-            buttonY = 0.0
+            val capitalizedName = c.name.lowercase().replaceFirstChar { it.titlecase(Locale.getDefault()) }
+            val w = Window(capitalizedName, x, y)
+            buttonY = w.y + Window.titleHeight
 
             for(m in ModuleManager.modules) {
                 val b = FeatureButton(m, x, buttonY)
@@ -37,7 +46,7 @@ object ClickGUI: Screen(LiteralText("ClickGUI")) {
 
         // Create Widgets window
         val widgetWindow = Window("Widgets", x, y)
-        buttonY = 0.0
+        buttonY = widgetWindow.y + Window.titleHeight
 
         /*
         for(widget in WidgetManager.widgets) {
@@ -56,10 +65,10 @@ object ClickGUI: Screen(LiteralText("ClickGUI")) {
     }
 
     override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {
-        matrices ?: return
+        val m = matrices ?: MatrixStack()
 
         for(window in windows) {
-            window.render(matrices, mouseX.toDouble(), mouseY.toDouble(), delta)
+            window.render(m, mouseX.toDouble(), mouseY.toDouble(), delta)
         }
     }
 

@@ -12,13 +12,13 @@ abstract class Button(open var name: String, open var x: Double, open var y: Dou
     var openHeight = height
 
     companion object {
-        var height = 10.0
+        var height = 13.0
 
         var primary_color = Color(100, 0, 150, 200)
-        var secondary_color = Color(30, 30, 30, 20)
+        var secondary_color = Color(30, 30, 30, 200)
 
-        var border = Border()
-        var border_color = Color(-1)
+        var border = Border(0.0, 0.0, 0.0, 1.0)
+        var border_color = Color(15, 15, 15, 200)
 
         var primary_text = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
         var secondary_text = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
