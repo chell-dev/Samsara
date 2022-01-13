@@ -7,7 +7,6 @@ import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.DiscordUtils
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
-import me.chell.samsara.api.util.LuaUtils
 import me.chell.samsara.impl.gui.click.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
@@ -40,7 +39,6 @@ object Samsara: Globals {
     fun load() {
         for(l in loadables) l.load()
         ClickGUI.INSTANCE = ClickGUI()
-        LuaUtils.runScript("Samsara/theme.lua")
         //Config.loadModules("SamsaraConfig.json")
         Option.FOV.setMax(179f)
         loaded = true

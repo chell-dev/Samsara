@@ -6,7 +6,6 @@ import me.chell.samsara.api.gui.Rectangle
 import me.chell.samsara.api.gui.TextProperties
 import me.chell.samsara.api.util.Align
 import me.chell.samsara.api.util.Color
-import me.chell.samsara.api.util.LuaUtils
 import net.minecraft.client.util.math.MatrixStack
 
 open class Window(var name: String, var x: Double, var y: Double): Drawable() {
@@ -75,7 +74,6 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     }
 
     override fun screenResized() {
-        LuaUtils.runScript("Samsara/theme.lua")
         if(!open) return
         for(button in buttons) {
             button.screenResized()

@@ -1,7 +1,6 @@
 package me.chell.samsara.impl.gui.click.buttons
 
 import me.chell.samsara.api.Feature
-import me.chell.samsara.api.gui.Border
 import me.chell.samsara.api.gui.Rectangle
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.gui.click.Button
@@ -24,9 +23,9 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
         //if(open) rect.height += border.bottom
 
         // draw background
-        fill(matrices, rect, if(feature.isEnabled()) primary_color else secondary_color)
+        fill(matrices, rect, if(feature.isEnabled()) primaryColor else secondaryColor)
         // draw text
-        drawString(matrices, feature.getDisplayName(), primary_text, rect)
+        drawString(matrices, feature.getDisplayName(), primaryText, rect)
 
         // draw buttons
         if(open) {
@@ -41,7 +40,7 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
 
         // draw border
         //rect.height += openHeight - height
-        drawBorder(matrices, border, rect, border_color)
+        drawBorder(matrices, border, rect, borderColor)
     }
 
     @Suppress("unchecked_cast")

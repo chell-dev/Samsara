@@ -1,13 +1,16 @@
 package me.chell.samsara.impl.gui.click
 
-import com.mojang.blaze3d.systems.RenderSystem
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
+import me.chell.samsara.api.util.LuaUtils
 import me.chell.samsara.impl.gui.click.buttons.FeatureButton
+import me.chell.samsara.impl.gui.click.buttons.ValueButton
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.LiteralText
+import org.luaj.vm2.lib.jse.CoerceJavaToLua
 import org.lwjgl.glfw.GLFW
+import java.lang.Exception
 import java.nio.file.Path
 import java.util.*
 
@@ -62,6 +65,22 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
 
         // Create Config window
 
+
+        // load the current theme
+        loadTheme("DefaultTheme.lua")
+    }
+
+    fun loadTheme(name: String) {
+        try {
+            LuaUtils.loadFile("Samsara/Themes/$name")
+
+            val windowLua = CoerceJavaToLua.coerce(Window)
+            val buttonLua = CoerceJavaToLua.coerce(Button)
+            val valueLua = CoerceJavaToLua.coerce(ValueButton)
+            LuaUtils.globals.get(name).call(windowLua, buttonLua, valueLua).toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun render(matrices: MatrixStack?, mouseX: Int, mouseY: Int, delta: Float) {

@@ -11,7 +11,7 @@ object LuaUtils {
         globals.load(lua).call()
     }
 
-    fun runScript(filePath: String) {
+    fun loadFile(filePath: String) {
         globals.loadfile(filePath).call()
     }
 
