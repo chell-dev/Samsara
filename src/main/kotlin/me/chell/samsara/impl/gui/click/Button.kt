@@ -14,18 +14,18 @@ abstract class Button(open var name: String, open var x: Double, open var y: Dou
     companion object {
         var height = 13.0
 
-        var primary_color = Color(100, 0, 150, 200)
-        var secondary_color = Color(30, 30, 30, 200)
+        var primaryColor = Color(100, 0, 150, 200)
+        var secondaryColor = Color(30, 30, 30, 200)
 
         var border = Border(0.0, 0.0, 0.0, 1.0)
-        var border_color = Color(15, 15, 15, 200)
+        var borderColor = Color(15, 15, 15, 200)
 
-        var primary_text = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
-        var secondary_text = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
+        var primaryText = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
+        var secondaryText = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
 
-        var tooltip_background = Color(-1)
-        var tooltip_border = Border()
-        var tooltip_border_color = Color(-1)
-        var tooltip_text = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
+        var tooltipBackground = Color(-1)
+        var tooltipBorder = Border()
+        var tooltipBorder_color = Color(-1)
+        var tooltipText = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT)
     }
 }

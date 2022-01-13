@@ -13,7 +13,7 @@ open class ValueButton<T>(val value: Value<T>, override var x: Double, override 
         var height = 12.0
 
         var border = Border(2.0, 0.0, 0.0, 1.0)
-        var border_color = Color(15, 15, 15, 200)
+        var borderColor = Color(15, 15, 15, 200)
     }
 
     init {
@@ -26,11 +26,11 @@ open class ValueButton<T>(val value: Value<T>, override var x: Double, override 
         rect.width -= Window.padding.left + Window.padding.right + Button.border.left + Button.border.right
 
         // draw background
-        fill(matrices, rect, secondary_color)
+        fill(matrices, rect, secondaryColor)
         //draw border
-        drawBorder(matrices, border, rect, border_color)
+        drawBorder(matrices, border, rect, borderColor)
         // draw text
-        drawString(matrices, value.displayName, primary_text, rect)
+        drawString(matrices, value.displayName, primaryText, rect)
     }
 
     override fun tick() {}
