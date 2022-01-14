@@ -5,6 +5,7 @@ import me.chell.samsara.api.gui.Rectangle
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.gui.click.Button
 import me.chell.samsara.impl.gui.click.Window
+import me.chell.samsara.impl.gui.click.buttons.value.BooleanButton
 import net.minecraft.client.util.math.MatrixStack
 
 class FeatureButton(val feature: Feature, override var x: Double, override var y: Double): Button(feature.name, x, y) {
@@ -47,7 +48,12 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
     private fun addButtons() {
         var buttonY = y
         for(v in feature.values) {
-            val b = ValueButton(v as Value<Any>, x, buttonY)
+
+            val b = when(v.value) {
+                is Boolean -> BooleanButton(v as Value<Boolean>, x, buttonY)
+                else -> ValueButton(v as Value<Any>, x, buttonY)
+            }
+
             buttonY += b.openHeight
             valueButtons.add(b)
         }
