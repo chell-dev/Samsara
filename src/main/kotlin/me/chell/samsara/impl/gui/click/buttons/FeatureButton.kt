@@ -2,6 +2,7 @@ package me.chell.samsara.impl.gui.click.buttons
 
 import me.chell.samsara.api.Feature
 import me.chell.samsara.api.gui.Rectangle
+import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.gui.click.Button
 import me.chell.samsara.impl.gui.click.Window
@@ -52,6 +53,7 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
             val b = when(v.value) {
                 is Boolean -> BooleanButton(v as Value<Boolean>, x, buttonY)
                 is Enum<*> -> EnumButton(v as Value<Enum<*>>, x, buttonY)
+                is Bind -> BindButton(v as Value<Bind>, x, buttonY)
                 else -> ValueButton(v as Value<Any>, x, buttonY)
             }
 
