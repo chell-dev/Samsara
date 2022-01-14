@@ -8,7 +8,6 @@ import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
-import me.chell.samsara.api.value.ValueBuilder
 import kotlin.reflect.full.memberProperties
 
 open class Module(
@@ -22,8 +21,8 @@ open class Module(
     @Expose
     override val values = mutableListOf<Value<*>>()
 
-    @Register(99) val displayName: Value<String> = ValueBuilder("Display Name", name).visible{false}.build()
-    @Register(98) val bind: Value<Bind> = Value("Bind", Bind(-1))
+    @Register(99) val displayName = Value("Display Name", name, visible = { false })
+    @Register(98) val bind = Value("Bind", Bind(-1))
 
     override fun isEnabled(): Boolean = bind.value.enabled
 

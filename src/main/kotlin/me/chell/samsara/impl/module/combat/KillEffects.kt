@@ -4,7 +4,6 @@ import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
-import me.chell.samsara.api.value.ValueBuilder
 import me.chell.samsara.impl.event.EntityKilledEvent
 import me.chell.samsara.impl.event.PlayerTickEvent
 import net.minecraft.entity.EntityType
@@ -35,11 +34,11 @@ class KillEffects: Module("KillEffects", Category.COMBAT) {
     @Register(0) val quake = Value("Announcer", true)
 
     @Register(1) val chat = Value("Chat", Chat.CLIENT)
-    @Register(2) val message = ValueBuilder("Message", "GG, \${target}, well played!").visible{ chat.value != Chat.OFF }.build()
+    @Register(2) val message = Value("Message", "GG, \${target}, well played!", visible = { chat.value != Chat.OFF })
 
     @Register(3) val particles = Value("Particles", Particles.OFF)
-    @Register(4) val amount = ValueBuilder("Amount", 8).bounds(1, 10).visible{ particles.value != Particles.OFF }.build()
-    @Register(5) val time = ValueBuilder("Time", 2.0).bounds(0.0, 5.0).visible{ particles.value == Particles.HEARTS }.build()
+    @Register(4) val amount = Value("Amount", 8, sliderMin = 1, sliderMax = 10, visible = { particles.value != Particles.OFF })
+    @Register(5) val time = Value("Time", 2.0, sliderMin = 0.0, sliderMax = 5.0, visible = { particles.value == Particles.HEARTS })
 
     @Register(6) val players = Value("Players", true)
     @Register(7) val hostile = Value("Hostile", false)

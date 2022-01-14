@@ -5,7 +5,6 @@ import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
-import me.chell.samsara.api.value.ValueBuilder
 import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.module.movement.PullDown
 import net.minecraft.entity.LivingEntity
@@ -18,13 +17,13 @@ import net.minecraft.util.Hand
 
 class KillAura: Module("KillAura", Category.COMBAT, "Attack other entities.") {
 
-    @Register(0) val range = ValueBuilder("Range", 5.5).bounds(0.0, 7.0).build()
+    @Register(0) val range = Value("Range", 5.5, sliderMin = 0.0, sliderMax = 7.0)
     @Register(1) val players = Value("Players", true)
     @Register(2) val hostile = Value("Hostile", false)
     @Register(3) val passive = Value("Passive", false)
     @Register(4) val delay = Value("1.9 Delay", true)
     @Register(5) val sword = Value("Sword Only", false, "Only attack when holding a sword.")
-    @Register(6) val axe = ValueBuilder("Use Axe", false).visible{sword.value}.description("Also attack when holding an axe.").build()
+    @Register(6) val axe = Value("Use Axe", false, "Also attack when holding an axe.", visible = { sword.value })
     @Register(7) val crits = Value("Criticals", CritMode.Off)
 
     @EventHandler

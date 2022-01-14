@@ -4,7 +4,7 @@ import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.util.getBlockState
 import me.chell.samsara.api.value.Register
-import me.chell.samsara.api.value.ValueBuilder
+import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.event.PlayerTickEvent
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket
 import net.minecraft.util.Hand
@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction
 
 class AirPlace: Module("AirPlace", Category.MISC) {
 
-    @Register val distance = ValueBuilder("Distance", 4.5).bounds(0.0, 7.0).build()
+    @Register val distance = Value("Distance", 4.5, sliderMin = 0.0, sliderMax = 7.0)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {
