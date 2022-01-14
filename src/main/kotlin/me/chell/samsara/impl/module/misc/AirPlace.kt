@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction
 
 class AirPlace: Module("AirPlace", Category.MISC) {
 
-    @Register val distance = Value("Distance", 4.5, sliderMin = 0.0, sliderMax = 7.0)
+    @Register val distance = Value("Distance", 4.5, min = 0.0, max = 7.0)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

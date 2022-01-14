@@ -8,7 +8,7 @@ import me.chell.samsara.impl.event.PlayerTickEvent
 
 class Brightness: Module("Brightness", Category.RENDER) {
 
-    @Register val gamma = Value("Gamma", 10.0, sliderMin = 0.0, sliderMax = 10.0)
+    @Register val gamma = Value("Gamma", 10.0, min = 0.0, max = 10.0)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

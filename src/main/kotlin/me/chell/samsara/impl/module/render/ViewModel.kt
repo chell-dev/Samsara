@@ -11,13 +11,13 @@ import net.minecraft.util.math.Quaternion
 
 class ViewModel: Module("ViewModel", Category.RENDER) {
     @Register(0) val setOffhandProgress = Value("Offhand Progress", false)
-    @Register(1) val offhandValue = Value("Offhand Value", 0.5f, sliderMin = 0f, sliderMax = 1f, displayName = "Value", visible = {setOffhandProgress.value})
+    @Register(1) val offhandValue = Value("Offhand Value", 0.5f, min = 0f, max = 1f, displayName = "Value", visible = {setOffhandProgress.value})
     @Register(2) val setMainhandProgress = Value("Mainhand Progress", false)
-    @Register(3) val mainhandValue = Value("Mainhand Value", 1f, sliderMin = 0f, sliderMax = 1f, displayName = "Value", visible = {setMainhandProgress.value})
-    @Register(4) val fov = Value("FOV", 70, sliderMin = 40, sliderMax = 150)
-    @Register(5) val yOffset = Value("Offset Y", 0.0, sliderMin = -1.0, sliderMax = 1.0)
-    @Register(5) val zOffset = Value("Offset Z", 0.0, sliderMin = -1.0, sliderMax = 1.0)
-    @Register(6) val xRotation = Value("Rotation", 0, sliderMin = -90, sliderMax = 90)
+    @Register(3) val mainhandValue = Value("Mainhand Value", 1f, min = 0f, max = 1f, displayName = "Value", visible = {setMainhandProgress.value})
+    @Register(4) val fov = Value("FOV", 70, min = 40, max = 150)
+    @Register(5) val yOffset = Value("Offset Y", 0.0, min = -1.0, max = 1.0)
+    @Register(5) val zOffset = Value("Offset Z", 0.0, min = -1.0, max = 1.0)
+    @Register(6) val xRotation = Value("Rotation", 0, min = -90, max = 90)
 
     @EventHandler
     fun onPlayerTick(event: PlayerTickEvent) {

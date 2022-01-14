@@ -9,7 +9,7 @@ import me.chell.samsara.impl.event.MouseInputEvent
 
 class Zoom: Module("Zoom", Category.RENDER)  {
 
-    @Register val multi = Value("Multiplier", 0.16, "Lower value = more zoom.", sliderMin = 0.01, sliderMax = 1.0)
+    @Register val multi = Value("Multiplier", 0.16, "Lower value = more zoom.", min = 0.01, max = 1.0)
     @Register val scroll = Value("Scroll", true, "Change zoom amount with mouse wheel.")
     @Register val mouse = Value("Change Sensitivity", true, "Changes mouse sensitivity while zooming.")
 

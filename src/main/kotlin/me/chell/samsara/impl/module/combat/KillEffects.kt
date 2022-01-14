@@ -37,8 +37,8 @@ class KillEffects: Module("KillEffects", Category.COMBAT) {
     @Register(2) val message = Value("Message", "GG, \${target}, well played!", visible = { chat.value != Chat.OFF })
 
     @Register(3) val particles = Value("Particles", Particles.OFF)
-    @Register(4) val amount = Value("Amount", 8, sliderMin = 1, sliderMax = 10, visible = { particles.value != Particles.OFF })
-    @Register(5) val time = Value("Time", 2.0, sliderMin = 0.0, sliderMax = 5.0, visible = { particles.value == Particles.HEARTS })
+    @Register(4) val amount = Value("Amount", 8, min = 1, max = 10, visible = { particles.value != Particles.OFF })
+    @Register(5) val time = Value("Time", 2.0, min = 0.0, max = 5.0, visible = { particles.value == Particles.HEARTS })
 
     @Register(6) val players = Value("Players", true)
     @Register(7) val hostile = Value("Hostile", false)

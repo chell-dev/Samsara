@@ -17,7 +17,7 @@ import net.minecraft.util.Hand
 
 class KillAura: Module("KillAura", Category.COMBAT, "Attack other entities.") {
 
-    @Register(0) val range = Value("Range", 5.5, sliderMin = 0.0, sliderMax = 7.0)
+    @Register(0) val range = Value("Range", 5.5, min = 0.0, max = 7.0)
     @Register(1) val players = Value("Players", true)
     @Register(2) val hostile = Value("Hostile", false)
     @Register(3) val passive = Value("Passive", false)
