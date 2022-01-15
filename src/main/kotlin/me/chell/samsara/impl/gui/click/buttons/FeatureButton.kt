@@ -26,6 +26,7 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
                     is Enum<*> -> EnumButton(v as Value<Enum<*>>, x, y)
                     is Bind -> BindButton(v as Value<Bind>, x, y)
                     is File -> FileButton(v as Value<File>, x, y)
+                    is Runnable -> RunnableButton(v as Value<Runnable>, x, y)
                     else -> ValueButton(v as Value<Any>, x, y)
                 }
         }

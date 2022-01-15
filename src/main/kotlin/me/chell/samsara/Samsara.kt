@@ -13,7 +13,7 @@ import me.chell.samsara.impl.gui.click.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
-import java.awt.Desktop
+import net.minecraft.util.Util
 import java.io.File
 import java.net.URL
 import kotlin.reflect.full.memberProperties
@@ -29,7 +29,7 @@ object Samsara: Globals {
     val settings = mutableListOf<Value<*>>()
 
     @Register(-1) val openFolder = Value("Open Folder", Runnable {
-        Desktop.getDesktop().browseFileDirectory(File("${Globals.NAME}/"))
+        Util.getOperatingSystem().open(File("${Globals.NAME}/"))
     })
 
     @Register(0) val configsValue = Value("Config:", null)

@@ -6,10 +6,8 @@ import me.chell.samsara.impl.gui.click.Button
 import me.chell.samsara.impl.gui.click.Window
 import me.chell.samsara.impl.gui.click.buttons.ValueButton
 import net.minecraft.client.util.math.MatrixStack
-import org.lwjgl.util.tinyfd.TinyFileDialogs
-import java.io.File
 
-class FileButton(val v: Value<File>, override var x: Double, override var y: Double): ValueButton<File>(v, x, y) {
+class RunnableButton(val v: Value<Runnable>, override var x: Double, override var y: Double): ValueButton<Runnable>(v, x, y) {
 
     override fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float) {
         super.render(matrices, mouseX, mouseY, tickDelta)
@@ -19,21 +17,14 @@ class FileButton(val v: Value<File>, override var x: Double, override var y: Dou
         rect.x += Window.padding.left + Button.border.left
         rect.width -= Window.padding.left + Window.padding.right + Button.border.left + Button.border.right
 
-        drawString(matrices, "File", secondaryText, rect)
+        drawString(matrices, "Run", secondaryText, rect)
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         if(Rectangle(x, y, Window.width, height).isInBounds(mouseX, mouseY) && button == 0) {
-            showDialog()
+            value.value.run()
             return true
         }
         return false
-    }
-
-    private fun showDialog() {
-        val file = TinyFileDialogs.tinyfd_openFileDialog("Select File", value.value.absolutePath, null, null, false)
-
-        if(file != null)
-            value.value = File(file)
     }
 }
