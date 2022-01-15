@@ -23,7 +23,7 @@ class BooleanButton(val v: Value<Boolean>, override var x: Double, override var 
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        if(Rectangle(x, y, Window.width, height).isInBounds(mouseX, mouseY)) {
+        if(Rectangle(x, y, Window.width, height).isInBounds(mouseX, mouseY) && button == 0) {
             value.value = !value.value // lol
             return true
         }

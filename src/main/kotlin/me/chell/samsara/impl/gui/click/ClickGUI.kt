@@ -1,5 +1,6 @@
 package me.chell.samsara.impl.gui.click
 
+import me.chell.samsara.Samsara
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.LuaUtils
@@ -17,12 +18,14 @@ import java.util.*
 class ClickGUI: Screen(LiteralText("ClickGUI")) {
 
     companion object {
-        var INSTANCE: ClickGUI? = null
+        lateinit var INSTANCE: ClickGUI
     }
 
     private val windows = mutableListOf<Window>()
 
     init {
+        INSTANCE = this
+
         windows.clear()
 
         var x = 10.0
@@ -61,13 +64,32 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
         windows.add(widgetWindow)
         x += Window.width + 10.0
 
+        // Create Waypoints window
+        val waypointWindow = Window("Waypoints", x, y)
+        buttonY = waypointWindow.y + Window.titleHeight
+        /*
+        for(waypoint in WaypointManager.waypoints) {
+            val b = FeatureButton(waypoint, x, buttonY)
+            waypointWindow.buttons.add(b)
+            buttonY += b.openHeight
+        }
+        */
+        windows.add(waypointWindow)
+        x += Window.width + 10.0
+
         // Create Client window
-
-        // Create Config window
-
+        val clientWindow = Window("Client", x, y)
+        buttonY = clientWindow.y + Window.titleHeight
+        for(v in Samsara.settings) {
+            val b = FeatureButton.createButton(v, x, buttonY)
+            clientWindow.buttons.add(b)
+            buttonY += b.openHeight
+        }
+        windows.add(clientWindow)
+        x += Window.width + 10.0
 
         // load the current theme
-        loadTheme("DefaultTheme")
+        loadTheme(Samsara.themeFile.value.absolutePath)
     }
 
     fun loadTheme(name: String) {

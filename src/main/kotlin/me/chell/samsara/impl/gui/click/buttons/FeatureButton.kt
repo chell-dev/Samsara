@@ -8,6 +8,7 @@ import me.chell.samsara.impl.gui.click.Button
 import me.chell.samsara.impl.gui.click.Window
 import me.chell.samsara.impl.gui.click.buttons.value.*
 import net.minecraft.client.util.math.MatrixStack
+import java.io.File
 
 class FeatureButton(val feature: Feature, override var x: Double, override var y: Double): Button(feature.name, x, y) {
 
@@ -15,6 +16,19 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
 
     init {
         addButtons()
+    }
+
+    @Suppress("unchecked_cast")
+    companion object {
+        fun createButton(v: Value<*>, x: Double, y: Double): ValueButton<*> {
+                return when(v.value) {
+                    is Boolean -> BooleanButton(v as Value<Boolean>, x, y)
+                    is Enum<*> -> EnumButton(v as Value<Enum<*>>, x, y)
+                    is Bind -> BindButton(v as Value<Bind>, x, y)
+                    is File -> FileButton(v as Value<File>, x, y)
+                    else -> ValueButton(v as Value<Any>, x, y)
+                }
+        }
     }
 
     override fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float) {
@@ -49,14 +63,7 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
     private fun addButtons() {
         var buttonY = y
         for(v in feature.values) {
-
-            val b = when(v.value) {
-                is Boolean -> BooleanButton(v as Value<Boolean>, x, buttonY)
-                is Enum<*> -> EnumButton(v as Value<Enum<*>>, x, buttonY)
-                is Bind -> BindButton(v as Value<Bind>, x, buttonY)
-                else -> ValueButton(v as Value<Any>, x, buttonY)
-            }
-
+            val b = createButton(v, x, buttonY)
             buttonY += b.openHeight
             valueButtons.add(b)
         }
