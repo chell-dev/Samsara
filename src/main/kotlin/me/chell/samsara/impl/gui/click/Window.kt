@@ -51,6 +51,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
             height += padding.top
 
             for (button in buttons) {
+                if(!button.isVisible()) continue
                 button.x = x
                 button.y = y + height
                 button.render(matrices, mouseX, mouseY, tickDelta)
@@ -70,6 +71,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun tick() {
         if(!open) return
         for(button in buttons) {
+            if(!button.isVisible()) continue
             button.tick()
         }
     }
@@ -78,6 +80,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
         ClickGUI.INSTANCE.loadTheme("DefaultTheme")
         if(!open) return
         for(button in buttons) {
+            if(!button.isVisible()) continue
             button.guiClosed()
         }
     }
@@ -85,6 +88,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun screenResized() {
         if(!open) return
         for(button in buttons) {
+            if(!button.isVisible()) continue
             button.screenResized()
         }
     }
@@ -92,6 +96,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
         if(!open) return false
         for(button in buttons) {
+            if(!button.isVisible()) continue
             if(button.keyPressed(keyCode, scanCode, modifiers)) return true
         }
         return false
@@ -100,6 +105,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
         if(!open) return false
         for(button in buttons) {
+            if(!button.isVisible()) continue
             if(button.keyReleased(keyCode, scanCode, modifiers)) return true
         }
         return false
@@ -108,6 +114,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun charTyped(char: Char, modifiers: Int): Boolean {
         if(!open) return false
         for(button in buttons) {
+            if(!button.isVisible()) continue
             if(button.charTyped(char, modifiers)) return true
         }
         return false
@@ -128,6 +135,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
 
         if(!open) return false
         for(b in buttons) {
+            if(!b.isVisible()) continue
             if(b.mouseClicked(mouseX, mouseY, button)) return true
         }
         return false
@@ -141,6 +149,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
 
         if(!open) return false
         for(b in buttons) {
+            if(!b.isVisible()) continue
             if(b.mouseReleased(mouseX, mouseY, button)) return true
         }
         return false
@@ -149,6 +158,7 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     override fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double): Boolean {
         if(!open) return false
         for(b in buttons) {
+            if(!b.isVisible()) continue
             if(b.mouseScrolled(mouseX, mouseY, amount)) return true
         }
         return false

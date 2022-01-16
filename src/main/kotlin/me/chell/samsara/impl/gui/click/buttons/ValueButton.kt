@@ -51,5 +51,5 @@ open class ValueButton<T>(val value: Value<T>, override var x: Double, override 
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double): Boolean = false
 
-    fun isVisible(): Boolean = value.visible.test(false)
+    override fun isVisible() = value.visible.test(false)
 }
