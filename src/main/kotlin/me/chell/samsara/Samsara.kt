@@ -46,6 +46,9 @@ object Samsara: Globals {
         ClickGUI.INSTANCE.loadTheme(themeFile.value.absolutePath)
     })
 
+    @Register(8) val unload = Value("Unload Client", false)
+    @Register(9) val confirm = Value("Confirm", Runnable { mc.setScreen(null); unload() }, visible = { unload.value })
+
     fun init() {
         getModInfo()
         loadables.add(EventManager)
