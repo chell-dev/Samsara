@@ -2,7 +2,13 @@ Open-source utility mod for Fabric 1.18.1.
 
 It has (more like will have) features for anarchy servers as well as legit features for non-anarchy use
 
-Join the [Discord server](https://discord.gg/ubfWKsQTDG) if you want
+[![Discord link](https://img.shields.io/badge/discord-click%20to%20join-5865F2)](https://discord.gg/ubfWKsQTDG)
+
+![GitHub all releases](https://img.shields.io/github/downloads/chell-dev/Samsara/total)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/chell-dev/Samsara/Gradle%20build%20and%20release%20or%20upload%20artifacts)
+![GitHub all commits](https://badgen.net/github/commits/chell-dev/Samsara)
+
+// TODO obligatory gui screenshot
 
 # Usage
 1. Download the latest release and put it in your mods folder
