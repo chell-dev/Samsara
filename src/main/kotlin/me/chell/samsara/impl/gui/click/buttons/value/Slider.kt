@@ -8,6 +8,7 @@ import me.chell.samsara.impl.gui.click.buttons.ValueButton
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.util.math.MathHelper
 import org.lwjgl.glfw.GLFW
+import java.lang.NumberFormatException
 import kotlin.math.roundToInt
 
 class Slider(val v: Value<Number>, override var x: Double, override var y: Double): ValueButton<Number>(v, x, y) {
@@ -15,8 +16,11 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
     private var grabbed = false
     private var sliderWidth = 0.0
 
+    private var listening = false
+    private var input = ""
+    private var tickCounter = 0
+
     override fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float) {
-        setSliderWidth()
         val rect = Rectangle(x, y, Window.width, height).subtract(border)
         rect.x += Window.padding.left + Button.border.left
         rect.width -= Window.padding.left + Window.padding.right + Button.border.left + Button.border.right
@@ -26,11 +30,9 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
 
             val percent = mousePos / rect.width
 
-            // TODO round int values
-            var v = (value.max!!.toDouble() - value.min!!.toDouble()) * percent + value.min.toDouble()
-            v = (v * 100.0).roundToInt() / 100.0
-            value.value = v
-            // value.value = lerp
+            val v = (value.max!!.toDouble() - value.min!!.toDouble()) * percent + value.min.toDouble()
+
+            setValue((v * 100.0).roundToInt() / 100.0)
         }
 
         //draw border
@@ -59,13 +61,39 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
         rect.x += w
         rect.width -= w
 
-        drawString(matrices, value.value.toString(), secondaryText, rect)
+        var text = if(listening) input else value.value.toString()
+        if(listening && tickCounter % 10 > 3) text += '\u007C'
+
+        drawString(matrices, text, secondaryText, rect)
+    }
+
+    override fun tick() {
+        tickCounter++
+    }
+
+    override fun screenResized() {
+        setSliderWidth()
+        tickCounter = 0
+    }
+
+    override fun guiClosed() {
+        listening = false
+        grabbed = false
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        if(Rectangle(x, y, Window.width, height).isInBounds(mouseX, mouseY) && button == 0) {
-            grabbed = true
-            return true
+        if(Rectangle(x, y, Window.width, height).isInBounds(mouseX, mouseY)) {
+            when(button) {
+                0 -> {
+                    grabbed = true
+                    return true
+                }
+                1 -> {
+                    listening = true
+                    input = value.value.toString()
+                    return true
+                }
+            }
         }
         return false
     }
@@ -80,17 +108,40 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
 
     private val whitelist = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-', 'e')
 
-    // TODO keyboard input
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
-        when(keyCode) {
+        if(!listening) return false
+
+        return when(keyCode) {
             GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_KP_ENTER -> {
+                try {
+                    when(value.min) {
+                        is Int -> setValue(input.toInt())
+                        is Double -> setValue(input.toDouble())
+                        is Float -> setValue(input.toFloat())
+                    }
+                } catch (ignored: NumberFormatException) {}
+
+                listening = false
+                true
             }
             GLFW.GLFW_KEY_BACKSPACE -> {
+                input = input.dropLast(1)
+                true
             }
             GLFW.GLFW_KEY_ESCAPE -> {
+                listening = false
+                true
             }
+            else -> false
         }
-        return super.keyPressed(keyCode, scanCode, modifiers)
+    }
+
+    override fun charTyped(char: Char, modifiers: Int): Boolean {
+        if(listening && whitelist.contains(char)) {
+            input += char
+            return true
+        }
+        return false
     }
 
     private fun setSliderWidth() {
@@ -99,12 +150,14 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
         val v = value.value.toDouble()
         val diff = max - min
 
-        var d = v - min
-        if(d < 0) d *= -1
-
-        val percent = d / diff
+        val percent = (v - min) / diff
         val width = Window.width - Window.padding.left - Window.padding.right - Button.border.left - Button.border.right - border.left - border.right
 
         sliderWidth = MathHelper.clamp(width * percent, 0.0, width)
+    }
+
+    private fun setValue(v: Number) {
+        value.value = if(value.min is Int) v.toInt() else v
+        setSliderWidth()
     }
 }
