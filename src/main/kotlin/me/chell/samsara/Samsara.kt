@@ -28,6 +28,8 @@ object Samsara: Globals {
 
     val settings = mutableListOf<Value<*>>()
 
+    @Register(-2) val commandPrefix = Value("Prefix", ',')
+
     @Register(-1) val openFolder = Value("Open Folder", Runnable {
         Util.getOperatingSystem().open(File("${Globals.NAME}/"))
     })

@@ -92,4 +92,8 @@ class BindButton(val v: Value<Bind>, override var x: Double, override var y: Dou
         }
         return false
     }
+
+    override fun guiClosed() {
+        listening = false
+    }
 }

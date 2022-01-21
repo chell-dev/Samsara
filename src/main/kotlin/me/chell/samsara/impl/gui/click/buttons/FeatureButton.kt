@@ -28,6 +28,7 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
                     is File -> FileButton(v as Value<File>, x, y)
                     is Runnable -> RunnableButton(v as Value<Runnable>, x, y)
                     is Number -> Slider(v as Value<Number>, x, y)
+                    is Char -> CharButton(v as Value<Char>, x, y)
                     else -> ValueButton(v as Value<Any>, x, y)
                 }
         }
