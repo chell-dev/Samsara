@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.6.10"
     id("fabric-loom")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     `maven-publish`
     java
 }
@@ -8,11 +9,6 @@ plugins {
 group = property("maven_group")!!
 
 repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
     mavenCentral()
     maven {
         name = "jitpack.io"
@@ -25,10 +21,9 @@ dependencies {
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
-    // TODO fat jar
     //implementation("com.github.wagyourtail:baritone:ver")
-    implementation("org.luaj:luaj-jse:3.0.1")
-    implementation("com.github.NepNep21:DiscordRPC4j16:7ac6cddcbe")
+    implementation("org.luaj:luaj-jse:${property("luaj_version")}")
+    implementation("com.github.NepNep21:DiscordRPC4j16:${property("discord_version")}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${property("kotlin_version")}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${property("kotlin_version")}")
@@ -57,12 +52,6 @@ tasks {
                 //}
             }
         }
-
-        // select the repositories you want to publish to
-        //repositories {
-            // uncomment to publish to the local maven
-            // mavenLocal()
-        //}
     }
 
     compileKotlin {
@@ -72,8 +61,19 @@ tasks {
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     //withSourcesJar()
+}
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+    dependencies {
+        include(dependency("org.luaj:luaj-jse:.*"))
+        include(dependency("com.github.NepNep21:DiscordRPC4j16:.*"))
+        include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:.*"))
+        include(dependency("org.jetbrains.kotlin:kotlin-reflect:.*"))
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
 }
