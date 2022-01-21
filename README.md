@@ -8,13 +8,17 @@ It has (more like will have) features for anarchy servers as well as legit featu
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/chell-dev/Samsara/Gradle%20build%20and%20release%20or%20upload%20artifacts)
 ![GitHub all commits](https://badgen.net/github/commits/chell-dev/Samsara)
 
-// TODO obligatory gui screenshot
+<details>
+<summary><b>Screenshots</b></summary>
+    <h6>Default Theme</h6>
+    <img src="https://github.com/chell-dev/Samsara/tree/master/.github/assets/DefaultThemeScreenshot.png" title="Screenshot" />
+</details>
 
 # Usage
 1. Download the latest release and put it in your mods folder
 2. Also download [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/download)
 
-The default ClickGUI bind is `\ (backslash)`
+The default ClickGUI bind is `\ ` (backslash)
 
 Read the [Wiki](https://github.com/chell-dev/Samsara/wiki) for more info
 
