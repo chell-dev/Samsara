@@ -9,6 +9,7 @@ import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
+import me.chell.samsara.api.widget.WidgetManager
 import me.chell.samsara.impl.gui.click.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
@@ -28,7 +29,8 @@ object Samsara: Globals {
 
     val settings = mutableListOf<Value<*>>()
 
-    @Register(-2) val commandPrefix = Value("Prefix", ',')
+    @Register(-3) val commandPrefix = Value("Prefix", ',')
+    @Register(-2) val lockWidgets = Value("Lock Widgets", false)
 
     @Register(-1) val openFolder = Value("Open Folder", Runnable {
         Util.getOperatingSystem().open(File("${Globals.NAME}/"))
@@ -52,12 +54,13 @@ object Samsara: Globals {
     @Register(9) val confirm = Value("Confirm Unload", Runnable { mc.setScreen(null); unload() }, visible = { unload.value }, displayName = "Confirm")
 
     @Register(10) val reload = Value("Reload Client", false)
-    @Register(11) val confirm1 = Value("Confirm Reload", Runnable { unload(); load() }, visible = { unload.value }, displayName = "Confirm")
+    @Register(11) val confirm1 = Value("Confirm Reload", Runnable { unload(); load() }, visible = { reload.value }, displayName = "Confirm")
 
     fun init() {
         getModInfo()
         loadables.add(EventManager)
         loadables.add(ModuleManager)
+        loadables.add(WidgetManager)
         loadables.add(KillEventManager)
         loadables.add(AddonManager)
         loadables.add(DiscordUtils)

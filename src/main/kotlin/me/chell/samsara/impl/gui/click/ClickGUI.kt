@@ -4,6 +4,7 @@ import me.chell.samsara.Samsara
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.LuaUtils
+import me.chell.samsara.api.widget.WidgetManager
 import me.chell.samsara.impl.gui.click.buttons.FeatureButton
 import me.chell.samsara.impl.gui.click.buttons.ValueButton
 import net.minecraft.client.gui.screen.Screen
@@ -39,8 +40,8 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
             buttonY = w.y + Window.titleHeight
 
             for(m in ModuleManager.modules) {
-                val b = FeatureButton(m, x, buttonY)
                 if(m.category == c)  {
+                    val b = FeatureButton(m, x, buttonY)
                     w.buttons.add(b)
                     buttonY += b.openHeight
                 }
@@ -54,13 +55,11 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
         val widgetWindow = Window("Widgets", x, y)
         buttonY = widgetWindow.y + Window.titleHeight
 
-        /*
         for(widget in WidgetManager.widgets) {
             val b = FeatureButton(widget, x, buttonY)
             widgetWindow.buttons.add(b)
             buttonY += b.openHeight
         }
-        */
         windows.add(widgetWindow)
         x += Window.width + 10.0
 
@@ -110,6 +109,10 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
 
         for(window in windows) {
             window.render(m, mouseX.toDouble(), mouseY.toDouble(), delta)
+        }
+        for(widget in WidgetManager.widgets) {
+            if(!widget.isEnabled()) continue
+            widget.render(m, mouseX.toDouble(), mouseY.toDouble(), delta)
         }
     }
 
@@ -161,12 +164,20 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
         for(window in windows) {
             if(window.mouseClicked(mouseX, mouseY, button)) return true
         }
+        for(widget in WidgetManager.widgets) {
+            if(!widget.isEnabled()) continue
+            if(widget.mouseClicked(mouseX, mouseY, button)) return true
+        }
         return false
     }
 
     override fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean {
         for(window in windows) {
             if(window.mouseReleased(mouseX, mouseY, button)) return true
+        }
+        for(widget in WidgetManager.widgets) {
+            if(!widget.isEnabled()) continue
+            if(widget.mouseReleased(mouseX, mouseY, button)) return true
         }
         return false
     }
