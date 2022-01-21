@@ -77,7 +77,6 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable() {
     }
 
     override fun guiClosed() {
-        ClickGUI.INSTANCE.loadTheme("DefaultTheme")
         if(!open) return
         for(button in buttons) {
             if(!button.isVisible()) continue

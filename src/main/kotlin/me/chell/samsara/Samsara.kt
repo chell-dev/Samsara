@@ -47,7 +47,10 @@ object Samsara: Globals {
     })
 
     @Register(8) val unload = Value("Unload Client", false)
-    @Register(9) val confirm = Value("Confirm", Runnable { mc.setScreen(null); unload() }, visible = { unload.value })
+    @Register(9) val confirm = Value("Confirm Unload", Runnable { mc.setScreen(null); unload() }, visible = { unload.value }, displayName = "Confirm")
+
+    @Register(10) val reload = Value("Reload Client", false)
+    @Register(11) val confirm1 = Value("Confirm Reload", Runnable { unload(); load() }, visible = { unload.value }, displayName = "Confirm")
 
     fun init() {
         getModInfo()
