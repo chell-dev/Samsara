@@ -49,17 +49,17 @@ tasks {
                 artifact(remapJar) {
                     builtBy(remapJar)
                 }
-                artifact(kotlinSourcesJar) {
-                    builtBy(remapSourcesJar)
-                }
+                //artifact(kotlinSourcesJar) {
+                //    builtBy(remapSourcesJar)
+                //}
             }
         }
 
         // select the repositories you want to publish to
-        repositories {
+        //repositories {
             // uncomment to publish to the local maven
             // mavenLocal()
-        }
+        //}
     }
 
     compileKotlin {
