@@ -25,10 +25,13 @@ dependencies {
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
-    modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
+    // TODO fat jar
     //implementation("com.github.wagyourtail:baritone:ver")
     implementation("org.luaj:luaj-jse:3.0.1")
     implementation("com.github.NepNep21:DiscordRPC4j16:7ac6cddcbe")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${property("kotlin_version")}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${property("kotlin_version")}")
 }
 
 tasks {
