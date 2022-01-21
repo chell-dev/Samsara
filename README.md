@@ -10,8 +10,9 @@ It has (more like will have) features for anarchy servers as well as legit featu
 
 <details>
 <summary><b>Screenshots</b></summary>
-    <h6>Default Theme</h6>
-    <img src="https://github.com/chell-dev/Samsara/tree/master/.github/assets/DefaultThemeScreenshot.png" title="Screenshot" />
+<h6>Default Theme</h6>
+
+![Default Screenshot](./.github/assets/DefaultThemeScreenshot.png)
 </details>
 
 # Usage
