@@ -6,7 +6,7 @@ import me.chell.samsara.api.gui.TextProperties
 import me.chell.samsara.api.util.Align
 import me.chell.samsara.api.util.Color
 
-abstract class Button(open var name: String, open var x: Double, open var y: Double): Drawable() {
+abstract class Button(open var name: String, open var x: Double, open var y: Double): Drawable {
 
     var open = false
     var openHeight = height

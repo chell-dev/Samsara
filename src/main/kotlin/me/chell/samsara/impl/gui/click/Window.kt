@@ -8,7 +8,7 @@ import me.chell.samsara.api.util.Align
 import me.chell.samsara.api.util.Color
 import net.minecraft.client.util.math.MatrixStack
 
-open class Window(var name: String, var x: Double, var y: Double): Drawable() {
+open class Window(var name: String, var x: Double, var y: Double): Drawable {
 
     companion object {
         @JvmStatic var width = 110.0

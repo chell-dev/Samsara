@@ -6,21 +6,21 @@ import me.chell.samsara.api.util.Globals
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.util.math.MatrixStack
 
-abstract class Drawable: Globals {
+interface Drawable: Globals {
 
-    abstract fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float)
-    abstract fun tick()
+    fun render(matrices: MatrixStack, mouseX: Double, mouseY: Double, tickDelta: Float)
+    fun tick()
 
-    abstract fun guiClosed()
-    abstract fun screenResized()
+    fun guiClosed()
+    fun screenResized()
 
-    abstract fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean
-    abstract fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean
-    abstract fun charTyped(char: Char, modifiers: Int): Boolean
+    fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean
+    fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean
+    fun charTyped(char: Char, modifiers: Int): Boolean
 
-    abstract fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean
-    abstract fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean
-    abstract fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double): Boolean
+    fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean
+    fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean
+    fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double): Boolean
 
     fun fill(matrices: MatrixStack, rect: Rectangle, color: Color) {
         DrawableHelper.fill(matrices, rect.x.toInt(), rect.y.toInt(), rect.endX.toInt(), rect.endY.toInt(), color.argb)
