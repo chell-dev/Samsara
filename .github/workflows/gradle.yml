@@ -38,7 +38,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-          files: build/libs/samsara-$TAG.jar
+          files: "build/libs/samsara-${TAG}.jar"
 
     - name: Upload artifacts if a tag was NOT pushed
       uses: actions/upload-artifact@v2
