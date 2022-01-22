@@ -8,25 +8,47 @@ plugins {
 
 group = property("maven_group")!!
 
+val minecraftVersion: String by project
+val yarnMappings: String by project
+val loaderVersion: String by project
+
+val luajVersion: String by project
+val discordVersion: String by project
+
+val kotlinVersion: String by project
+val coroutinesVersion: String by project
+val serializationVersion: String by project
+
 repositories {
     mavenCentral()
-    maven {
-        name = "jitpack.io"
-        url = uri("https://jitpack.io")
-    }
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft_version")}")
-    mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
-    modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
+    minecraft("com.mojang:minecraft:$minecraftVersion")
+    mappings("net.fabricmc:yarn:$yarnMappings:v2")
+    modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 
     //implementation("com.github.wagyourtail:baritone:ver")
-    implementation("org.luaj:luaj-jse:${property("luaj_version")}")
-    implementation("com.github.NepNep21:DiscordRPC4j16:${property("discord_version")}")
+    use("org.luaj:luaj-jse:$luajVersion")
+    use("com.github.NepNep21:DiscordRPC4j16:$discordVersion")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${property("kotlin_version")}")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${property("kotlin_version")}")
+    // kotlin
+    use(kotlin("stdlib", kotlinVersion))
+    use(kotlin("stdlib-jdk8", kotlinVersion))
+    //use(kotlin("stdlib-jdk7", kotlinVersion))
+    use(kotlin("reflect", kotlinVersion))
+    //use("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    //use("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutinesVersion")
+    //use("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$coroutinesVersion")
+    //use("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$serializationVersion")
+    //use("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$serializationVersion")
+    //use("org.jetbrains.kotlinx:kotlinx-serialization-cbor-jvm:$serializationVersion")
+}
+
+fun DependencyHandlerScope.use(dep: Any) {
+    include(dep)
+    implementation(dep)
 }
 
 tasks {
@@ -61,19 +83,5 @@ tasks {
 }
 
 java {
-    //withSourcesJar()
-}
-
-tasks.shadowJar {
-    archiveClassifier.set("")
-    dependencies {
-        include(dependency("org.luaj:luaj-jse:.*"))
-        include(dependency("com.github.NepNep21:DiscordRPC4j16:.*"))
-        include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:.*"))
-        include(dependency("org.jetbrains.kotlin:kotlin-reflect:.*"))
-    }
-}
-
-tasks.build {
-    dependsOn(tasks.shadowJar)
+    // withSourcesJar()
 }
