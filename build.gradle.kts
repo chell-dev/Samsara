@@ -36,7 +36,7 @@ dependencies {
     // kotlin
     use(kotlin("stdlib", kotlinVersion))
     use(kotlin("stdlib-jdk8", kotlinVersion))
-    //use(kotlin("stdlib-jdk7", kotlinVersion))
+    use(kotlin("stdlib-jdk7", kotlinVersion))
     use(kotlin("reflect", kotlinVersion))
     //use("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     //use("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutinesVersion")
