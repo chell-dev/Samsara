@@ -78,7 +78,8 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
 
     override fun themeLoaded() {
         super.themeLoaded()
-        setSliderWidth()
+        if(isVisible())
+            setSliderWidth()
     }
 
     override fun guiClosed() {
