@@ -17,7 +17,7 @@ class RunnableButton(val v: Value<Runnable>, override var x: Double, override va
         rect.x += Window.padding.left + Button.border.left
         rect.width -= Window.padding.left + Window.padding.right + Button.border.left + Button.border.right
 
-        drawString(matrices, "Run", secondaryText, rect)
+        drawString(matrices, "\u27a4", secondaryText, rect)
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {

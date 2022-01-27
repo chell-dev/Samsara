@@ -23,6 +23,31 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable {
 
         @JvmStatic var border = Border(2.0, 2.0, 2.0, 2.0)
         @JvmStatic var borderColor = Color(100, 0, 150, 255)
+
+        @JvmStatic
+        fun setPadding(x: Double, y: Double, w: Double, h: Double) {
+            padding = Border(x, y, w, h)
+        }
+
+        @JvmStatic
+        fun setPaddingColor(r: Int, g: Int, b: Int, a: Int) {
+            paddingColor = Color(r, g, b, a)
+        }
+
+        @JvmStatic
+        fun setTitleColor(r: Int, g: Int, b: Int, a: Int) {
+            titleColor = Color(r, g, b, a)
+        }
+
+        @JvmStatic
+        fun setBorder(x: Double, y: Double, w: Double, h: Double) {
+            border = Border(x, y, w, h)
+        }
+
+        @JvmStatic
+        fun setBorderColor(r: Int, g: Int, b: Int, a: Int) {
+            borderColor = Color(r, g, b, a)
+        }
     }
 
     val buttons = mutableListOf<Button>()
@@ -89,6 +114,12 @@ open class Window(var name: String, var x: Double, var y: Double): Drawable {
         for(button in buttons) {
             if(!button.isVisible()) continue
             button.screenResized()
+        }
+    }
+
+    override fun themeLoaded() {
+        for(button in buttons) {
+            button.themeLoaded()
         }
     }
 

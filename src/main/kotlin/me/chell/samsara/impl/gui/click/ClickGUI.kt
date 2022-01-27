@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.LiteralText
 import org.luaj.vm2.lib.jse.CoerceJavaToLua
 import org.lwjgl.glfw.GLFW
+import java.io.File
 import java.lang.Exception
 import java.nio.file.Path
 import java.util.*
@@ -88,17 +89,22 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
         x += Window.width + 10.0
 
         // load the current theme
-        loadTheme(Samsara.themeFile.value.absolutePath)
+        loadTheme(Samsara.themeFile.value)
     }
 
-    fun loadTheme(name: String) {
+    fun loadTheme(file: File) {
         try {
-            LuaUtils.loadFile("Samsara/Themes/$name.lua")
+            LuaUtils.loadFile(file.absolutePath)
 
             val windowLua = CoerceJavaToLua.coerce(Window)
             val buttonLua = CoerceJavaToLua.coerce(Button)
             val valueLua = CoerceJavaToLua.coerce(ValueButton)
-            LuaUtils.globals.get(name).call(windowLua, buttonLua, valueLua)
+
+            LuaUtils.globals.get(file.name.dropLast(".lua".length)).call(windowLua, buttonLua, valueLua)
+
+            for(window in windows) {
+                window.themeLoaded()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

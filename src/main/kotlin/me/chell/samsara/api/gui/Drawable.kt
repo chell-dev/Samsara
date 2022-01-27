@@ -13,6 +13,7 @@ interface Drawable: Globals {
 
     fun guiClosed()
     fun screenResized()
+    fun themeLoaded()
 
     fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean
     fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean

@@ -76,6 +76,11 @@ class Slider(val v: Value<Number>, override var x: Double, override var y: Doubl
         tickCounter = 0
     }
 
+    override fun themeLoaded() {
+        super.themeLoaded()
+        setSliderWidth()
+    }
+
     override fun guiClosed() {
         listening = false
         grabbed = false

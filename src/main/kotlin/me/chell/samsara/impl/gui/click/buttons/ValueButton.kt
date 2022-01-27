@@ -14,6 +14,16 @@ open class ValueButton<T>(val value: Value<T>, override var x: Double, override 
 
         @JvmStatic var border = Border(2.0, 0.0, 0.0, 1.0)
         @JvmStatic var borderColor = Color(15, 15, 15, 200)
+
+        @JvmStatic
+        fun setBorder(x: Double, y: Double, w: Double, h: Double) {
+            border = Border(x, y, w, h)
+        }
+
+        @JvmStatic
+        fun setBorderColor(r: Int, g: Int, b: Int, a: Int) {
+            borderColor = Color(r, g, b, a)
+        }
     }
 
     init {
@@ -31,6 +41,10 @@ open class ValueButton<T>(val value: Value<T>, override var x: Double, override 
         drawBorder(matrices, border, rect, borderColor)
         // draw text
         drawString(matrices, value.displayName, primaryText, rect)
+    }
+
+    override fun themeLoaded() {
+        openHeight = height
     }
 
     override fun tick() {}

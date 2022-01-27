@@ -96,6 +96,12 @@ class FeatureButton(val feature: Feature, override var x: Double, override var y
         }
     }
 
+    override fun themeLoaded() {
+        for (button in valueButtons) {
+            button.themeLoaded()
+        }
+    }
+
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
         if(!open) return false
         for (button in valueButtons) {

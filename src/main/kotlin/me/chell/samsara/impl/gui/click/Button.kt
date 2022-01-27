@@ -27,6 +27,26 @@ abstract class Button(open var name: String, open var x: Double, open var y: Dou
         @JvmStatic var tooltipBorder = Border()
         @JvmStatic var tooltipBorder_color = Color(-1)
         @JvmStatic var tooltipText = TextProperties(Border(), Color(-1), true, Align.Horizontal.LEFT, Align.Vertical.CENTER)
+
+        @JvmStatic
+        fun setBorder(x: Double, y: Double, w: Double, h: Double) {
+            border = Border(x, y, w, h)
+        }
+
+        @JvmStatic
+        fun setBorderColor(r: Int, g: Int, b: Int, a: Int) {
+            borderColor = Color(r, g, b, a)
+        }
+
+        @JvmStatic
+        fun setPrimaryColor(r: Int, g: Int, b: Int, a: Int) {
+            primaryColor = Color(r, g, b, a)
+        }
+
+        @JvmStatic
+        fun setSecondaryColor(r: Int, g: Int, b: Int, a: Int) {
+            secondaryColor = Color(r, g, b, a)
+        }
     }
 
     open fun isVisible() = true
