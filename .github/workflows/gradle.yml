@@ -32,13 +32,13 @@ jobs:
 
     - name: Get tag if one was pushed
       if: startsWith(github.ref, 'refs/tags/')
-      run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
     - name: Release if a tag was pushed
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-          files: "build/libs/samsara-${TAG}.jar"
+          files: "build/libs/samsara-${{ env.TAG }}.jar"
 
     - name: Upload artifacts if a tag was NOT pushed
       uses: actions/upload-artifact@v2
