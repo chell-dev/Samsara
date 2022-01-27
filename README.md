@@ -12,11 +12,16 @@ It has (more like will have) features for anarchy servers as well as legit featu
 <summary><b>Screenshots</b></summary>
 <h6>Default Theme</h6>
 
-![Default Screenshot](./.github/assets/DefaultThemeScreenshot.png)
+![Default Screenshot](.github/assets/DefaultScreenshot.png)
+
+<h6>Blackout Theme</h6>
+
+![Blackout Screenshot](.github/assets/BlackoutScreenshot.png)
 </details>
 
 # Usage
-- Download the latest release and put it in your mods folder
+- Download the latest [release](https://github.com/chell-dev/Samsara/releases) or [dev build](https://github.com/chell-dev/Samsara/actions) and put it in your mods folder
+- Fabric API is **not** required
 
 The default ClickGUI bind is `\ ` (backslash)
 
