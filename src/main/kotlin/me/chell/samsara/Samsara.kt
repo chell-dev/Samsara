@@ -1,10 +1,12 @@
 package me.chell.samsara
 
+import me.chell.samsara.api.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.addon.AddonManager
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.DiscordUtils
+import me.chell.samsara.api.util.FileUtils
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.api.value.Register
@@ -19,15 +21,15 @@ import java.io.File
 import java.net.URL
 import kotlin.reflect.full.memberProperties
 
-object Samsara: Globals {
+object Samsara: Feature("Client"), Globals {
 
-    var MOTD = "No message :("
+    private var MOTD = "No message :("
 
     private val loadables = mutableListOf<Loadable>()
 
     var loaded = false
 
-    val settings = mutableListOf<Value<*>>()
+    override val values = mutableListOf<Value<*>>()
 
     @Register(-3) val commandPrefix = Value("Prefix", ',')
     @Register(-2) val lockWidgets = Value("Lock Widgets", false)
@@ -38,32 +40,34 @@ object Samsara: Globals {
 
     @Register(0) val configsValue = Value("Config:", null)
 
-    @Register(1) val modulesFile = Value("Modules", File("${Globals.NAME}/Modules.json"))
-    @Register(2) val widgetsFile = Value("Widgets", File("${Globals.NAME}/Widgets.json"))
-    @Register(3) val waypointFile = Value("Waypoints", File("${Globals.NAME}/Waypoints.json"))
+    @Register(1) val modulesFile = Value("Modules", File("Samsara/Modules.json"))
+    @Register(2) val widgetsFile = Value("Widgets", File("Samsara/Widgets.json"))
+    @Register(3) val waypointFile = Value("Waypoints", File("Samsara/Waypoints.json"))
 
-    @Register(4) val saveConfigs = Value("Save", Runnable { })
-    @Register(5) val loadConfigs = Value("Load", Runnable { })
+    @Register(4) val saveConfigs = Value("Save", Runnable { FileUtils.saveConfig() })
+    @Register(5) val loadConfigs = Value("Load", Runnable { FileUtils.loadConfig() })
 
-    @Register(6) val themeFile = Value("Theme", File("${Globals.NAME}/Themes/DefaultTheme"))
-    @Register(7) val loadTheme = Value("Load Theme", Runnable {
-        ClickGUI.INSTANCE.loadTheme(themeFile.value.absolutePath)
+    @Register(6) val themeFile = Value("GUI Theme", File("Samsara/Themes/Default.lua"))
+    @Register(7) val loadTheme = Value("Load Theme", Runnable { ClickGUI.INSTANCE.loadTheme(themeFile.value) })
+    @Register(8) val downloadThemes = Value("Download Themes", Runnable {
+        FileUtils.downloadTheme("Blackout")
     })
 
-    @Register(8) val unload = Value("Unload Client", false)
-    @Register(9) val confirm = Value("Confirm Unload", Runnable { mc.setScreen(null); unload() }, visible = { unload.value }, displayName = "Confirm")
+    @Register(9) val unload = Value("Unload Client", false)
+    @Register(10) val confirm = Value("Confirm Unload", Runnable { mc.setScreen(null); unload() }, visible = { unload.value }, displayName = "Confirm")
 
-    @Register(10) val reload = Value("Reload Client", false)
-    @Register(11) val confirm1 = Value("Confirm Reload", Runnable { unload(); load() }, visible = { reload.value }, displayName = "Confirm")
+    @Register(11) val reload = Value("Reload Client", false)
+    @Register(12) val confirm1 = Value("Confirm Reload", Runnable { mc.setScreen(null); unload(); load() }, visible = { reload.value }, displayName = "Confirm")
 
     fun init() {
         getModInfo()
+        FileUtils.createDefaultFiles()
         loadables.add(EventManager)
+        loadables.add(DiscordUtils)
         loadables.add(ModuleManager)
         loadables.add(WidgetManager)
         loadables.add(KillEventManager)
         loadables.add(AddonManager)
-        loadables.add(DiscordUtils)
         load()
         Runtime.getRuntime().addShutdownHook(object: Thread("${Globals.NAME} shutdown hook") {
             override fun run() {
@@ -75,7 +79,7 @@ object Samsara: Globals {
     fun load() {
         for(l in loadables) l.load()
         registerSettings()
-        //Config.loadModules("SamsaraConfig.json")
+        FileUtils.loadConfig()
         ClickGUI()
         Option.FOV.setMax(179f)
         loaded = true
@@ -84,9 +88,9 @@ object Samsara: Globals {
 
     fun unload() {
         loaded = false
-        //Config.saveModules("SamsaraConfig.json")
+        FileUtils.saveConfig()
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
-        settings.clear()
+        values.clear()
         Option.FOV.setMax(110f)
         LOG.info("${Globals.NAME} ${Globals.VERSION} unloaded.")
     }
@@ -103,8 +107,8 @@ object Samsara: Globals {
             }
         }
 
-        for(v in toAdd.keys) settings.add(v)
-        settings.sortBy { toAdd[it] }
+        for(v in toAdd.keys) values.add(v)
+        values.sortBy { toAdd[it] }
     }
 
     private fun getModInfo() {
@@ -118,4 +122,8 @@ object Samsara: Globals {
     }
 
     fun getMOTDFormatted() = "${Formatting.AQUA}Message Of The Day:${Formatting.RESET} $MOTD".dropLast(1)
+
+    override fun isEnabled() = false
+    override fun toggle() {}
+    override fun getDisplayName() = name
 }

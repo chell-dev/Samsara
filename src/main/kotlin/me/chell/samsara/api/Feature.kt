@@ -7,4 +7,6 @@ abstract class Feature(open val name: String) {
     abstract fun isEnabled(): Boolean
     abstract fun toggle()
     abstract fun getDisplayName(): String
+
+    fun <T> getValue(name: String): Value<T>? = values.firstOrNull { it.name.equals(name, true) } as Value<T>?
 }

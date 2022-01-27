@@ -1,6 +1,7 @@
 package me.chell.samsara.api.module
 
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import me.chell.samsara.api.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
@@ -11,7 +12,7 @@ import me.chell.samsara.api.value.Value
 import kotlin.reflect.full.memberProperties
 
 open class Module(
-    @Expose final override val name: String,
+    @Expose @SerializedName("module") final override val name: String,
     val category: Category,
     val description: String = "No description."
     ): Feature(name), Loadable, Globals {
@@ -42,8 +43,6 @@ open class Module(
     open fun onDisable() {
         EventManager.unregister(this)
     }
-
-    fun <T> getValue(name: String): Value<T>? = values.firstOrNull { it.name.equals(name, true) } as Value<T>?
 
     override fun getDisplayName(): String = displayName.value
 

@@ -1,5 +1,7 @@
 package me.chell.samsara.api.widget
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import me.chell.samsara.Samsara
 import me.chell.samsara.api.Feature
 import me.chell.samsara.api.Loadable
@@ -16,8 +18,12 @@ import me.chell.samsara.impl.gui.click.ClickGUI
 import net.minecraft.client.util.math.MatrixStack
 import kotlin.reflect.full.memberProperties
 
-open class Widget(final override val name: String, val description: String = "No description."): Feature(name), Loadable, Globals, Drawable {
+open class Widget(
+    @Expose @SerializedName("widget") final override val name: String,
+    val description: String = "No description."
+    ): Feature(name), Loadable, Globals, Drawable {
 
+    @Expose
     override val values = mutableListOf<Value<*>>()
 
     @Register(99) val x = Value("X", 0.0, visible = { false })
@@ -125,6 +131,8 @@ open class Widget(final override val name: String, val description: String = "No
     override fun guiClosed() {}
 
     override fun screenResized() {}
+
+    override fun themeLoaded() {}
 
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int) = false
 

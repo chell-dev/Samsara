@@ -80,7 +80,7 @@ class ClickGUI: Screen(LiteralText("ClickGUI")) {
         // Create Client window
         val clientWindow = Window("Client", x, y)
         buttonY = clientWindow.y + Window.titleHeight
-        for(v in Samsara.settings) {
+        for(v in Samsara.values) {
             val b = FeatureButton.createButton(v, x, buttonY)
             clientWindow.buttons.add(b)
             buttonY += b.openHeight

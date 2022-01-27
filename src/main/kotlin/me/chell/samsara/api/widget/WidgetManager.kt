@@ -7,6 +7,8 @@ object WidgetManager: Loadable {
 
     val widgets = mutableListOf<Widget>()
 
+    fun <T> getWidget(name: String): T? = widgets.firstOrNull { it.name.equals(name, true) } as T?
+
     override fun load() {
         widgets.add(Watermark())
 
