@@ -1,7 +1,7 @@
 package me.chell.samsara.impl.gui.click
 
 import me.chell.samsara.Samsara
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.util.LuaUtils
 import me.chell.samsara.api.widget.WidgetManager

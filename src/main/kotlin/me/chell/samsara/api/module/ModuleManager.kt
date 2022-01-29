@@ -3,6 +3,7 @@ package me.chell.samsara.api.module
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent

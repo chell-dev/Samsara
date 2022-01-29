@@ -1,7 +1,7 @@
 package me.chell.samsara.impl.module.misc
 
 import me.chell.samsara.api.event.EventHandler
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.impl.event.PlayerTickEvent
 import net.minecraft.item.EnderPearlItem
 import net.minecraft.util.Hand

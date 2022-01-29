@@ -1,7 +1,7 @@
 package me.chell.samsara.impl.module.misc
 
 import me.chell.samsara.api.animation.ModelEditor
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 
 class ModelEditorModule: Module("ModelEditor", Category.MISC, "Opens the model editor") {
 

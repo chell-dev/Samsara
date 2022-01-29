@@ -1,8 +1,7 @@
-package me.chell.samsara.api.module
+package me.chell.samsara.api.feature
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventManager
 import me.chell.samsara.api.util.Globals

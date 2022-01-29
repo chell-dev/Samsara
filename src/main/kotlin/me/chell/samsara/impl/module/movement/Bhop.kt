@@ -1,7 +1,7 @@
 package me.chell.samsara.impl.module.movement
 
 import me.chell.samsara.api.event.EventHandler
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.impl.event.PlayerTickEvent
 
 class Bhop: Module("Bhop", Category.MOVEMENT, "So you don't have to hold space") {

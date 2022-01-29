@@ -1,6 +1,6 @@
 package me.chell.samsara.impl.module.render
 
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.impl.gui.click.ClickGUI
 import org.lwjgl.glfw.GLFW
 

@@ -1,6 +1,6 @@
 package me.chell.samsara.impl.module.misc
 
-import me.chell.samsara.api.module.Module
+import me.chell.samsara.api.feature.Module
 import me.chell.samsara.api.util.DiscordUtils
 
 // TODO customization
