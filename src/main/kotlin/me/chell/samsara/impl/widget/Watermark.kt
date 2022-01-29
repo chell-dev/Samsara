@@ -1,7 +1,7 @@
 package me.chell.samsara.impl.widget
 
 import me.chell.samsara.api.util.Globals
-import me.chell.samsara.api.widget.Widget
+import me.chell.samsara.api.feature.Widget
 import me.chell.samsara.impl.gui.click.Button
 import net.minecraft.client.util.math.MatrixStack
 

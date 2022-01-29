@@ -1,6 +1,7 @@
 package me.chell.samsara.api.widget
 
 import me.chell.samsara.api.Loadable
+import me.chell.samsara.api.feature.Widget
 import me.chell.samsara.impl.widget.Watermark
 
 object WidgetManager: Loadable {

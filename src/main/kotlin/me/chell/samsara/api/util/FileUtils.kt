@@ -12,7 +12,7 @@ import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Value
-import me.chell.samsara.api.widget.Widget
+import me.chell.samsara.api.feature.Widget
 import me.chell.samsara.api.widget.WidgetManager
 import java.io.File
 import java.lang.reflect.Modifier
