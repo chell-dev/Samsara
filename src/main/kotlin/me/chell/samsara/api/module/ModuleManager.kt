@@ -40,8 +40,9 @@ object ModuleManager: Loadable, Globals {
         modules.add(Bhop())
         modules.add(BetterPingDisplay())
         modules.add(DiscordRPC())
+        modules.add(ClickGuiModule())
+        modules.add(UwuChat())
 
-        modules.add(ClickGuiModule()) // Keep this last
         for(m in modules) m.load()
     }
 
