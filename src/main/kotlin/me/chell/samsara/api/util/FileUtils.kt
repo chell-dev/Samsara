@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import me.chell.samsara.Samsara
-import me.chell.samsara.api.Feature
+import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.module.Module
 import me.chell.samsara.api.module.ModuleManager
 import me.chell.samsara.api.value.Bind

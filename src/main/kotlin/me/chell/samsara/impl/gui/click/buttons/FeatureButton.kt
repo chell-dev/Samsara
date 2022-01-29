@@ -1,6 +1,6 @@
 package me.chell.samsara.impl.gui.click.buttons
 
-import me.chell.samsara.api.Feature
+import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.gui.Rectangle
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Value

@@ -1,4 +1,4 @@
-package me.chell.samsara.api
+package me.chell.samsara.api.feature
 
 import me.chell.samsara.api.value.Value
 

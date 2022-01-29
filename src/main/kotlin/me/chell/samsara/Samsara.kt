@@ -1,6 +1,6 @@
 package me.chell.samsara
 
-import me.chell.samsara.api.Feature
+import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.addon.AddonManager
 import me.chell.samsara.api.event.EventManager

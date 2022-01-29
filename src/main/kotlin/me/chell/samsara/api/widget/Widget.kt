@@ -3,7 +3,7 @@ package me.chell.samsara.api.widget
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import me.chell.samsara.Samsara
-import me.chell.samsara.api.Feature
+import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
