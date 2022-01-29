@@ -4,14 +4,13 @@ import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.addon.AddonManager
 import me.chell.samsara.api.event.EventManager
-import me.chell.samsara.api.module.ModuleManager
+import me.chell.samsara.api.feature.FeatureManager
 import me.chell.samsara.api.util.DiscordUtils
 import me.chell.samsara.api.util.FileUtils
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
-import me.chell.samsara.api.widget.WidgetManager
 import me.chell.samsara.impl.gui.click.ClickGUI
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
@@ -64,8 +63,7 @@ object Samsara: Feature("Client"), Globals {
         FileUtils.createDefaultFiles()
         loadables.add(EventManager)
         loadables.add(DiscordUtils)
-        loadables.add(ModuleManager)
-        loadables.add(WidgetManager)
+        loadables.add(FeatureManager)
         loadables.add(KillEventManager)
         loadables.add(AddonManager)
         load()

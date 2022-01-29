@@ -1,6 +1,6 @@
 package me.chell.samsara.impl.mixin;
 
-import me.chell.samsara.api.module.ModuleManager;
+import me.chell.samsara.api.feature.FeatureManager;
 import me.chell.samsara.impl.module.render.BetterPingDisplay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.PlayerListHud;
@@ -30,7 +30,7 @@ public class MixinPlayerListHud {
     @ModifyConstant(method = "render", constant = @Constant(intValue = 13))
     public int changeWidth(int constant) {
         if(module == null) {
-            module = ModuleManager.INSTANCE.getModule("BetterPingDisplay");
+            module = FeatureManager.INSTANCE.getModule("BetterPingDisplay");
             return constant;
         }
         return module.isEnabled() ? 41 : constant;

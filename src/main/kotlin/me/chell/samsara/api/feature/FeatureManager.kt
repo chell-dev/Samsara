@@ -1,27 +1,34 @@
-package me.chell.samsara.api.module
+package me.chell.samsara.api.feature
 
 import me.chell.samsara.api.Loadable
 import me.chell.samsara.api.event.EventHandler
 import me.chell.samsara.api.event.EventManager
-import me.chell.samsara.api.feature.Module
 import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent
 import me.chell.samsara.impl.event.MouseInputEvent
 import me.chell.samsara.impl.event.PlayerTickEvent
-import me.chell.samsara.impl.module.combat.*
+import me.chell.samsara.impl.module.combat.KillAura
+import me.chell.samsara.impl.module.combat.KillEffects
+import me.chell.samsara.impl.module.combat.Velocity
 import me.chell.samsara.impl.module.misc.*
-import me.chell.samsara.impl.module.movement.*
+import me.chell.samsara.impl.module.movement.Bhop
+import me.chell.samsara.impl.module.movement.PullDown
+import me.chell.samsara.impl.module.movement.Sprint
 import me.chell.samsara.impl.module.render.*
+import me.chell.samsara.impl.widget.Watermark
 import org.lwjgl.glfw.GLFW
 
-object ModuleManager: Loadable, Globals {
+object FeatureManager: Loadable, Globals {
+
     val modules = mutableListOf<Module>()
+    val widgets = mutableListOf<Widget>()
 
     fun <T> getModule(name: String): T? = modules.firstOrNull { it.name.equals(name, true) } as T?
 
-    override fun load() {
-        EventManager.register(this)
+    fun <T> getWidget(name: String): T? = widgets.firstOrNull { it.name.equals(name, true) } as T?
+
+    private fun loadModules() {
         modules.add(Sprint())
         modules.add(PullDown())
         modules.add(FastUse())
@@ -47,11 +54,29 @@ object ModuleManager: Loadable, Globals {
         for(m in modules) m.load()
     }
 
+    private fun loadWidgets() {
+        widgets.add(Watermark())
+
+        for(w in widgets) w.load()
+    }
+
+    override fun load() {
+        EventManager.register(this)
+        loadModules()
+        loadWidgets()
+    }
+
     override fun unload() {
         EventManager.unregister(this)
+
         for(m in modules) m.unload()
         modules.clear()
+
+        for(w in widgets) w.unload()
+        widgets.clear()
     }
+
+    // vvv Module Binds vvv
 
     @EventHandler
     fun onKeyInput(event: KeyInputEvent) {

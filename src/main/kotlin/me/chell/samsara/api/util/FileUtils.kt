@@ -9,11 +9,10 @@ import com.google.gson.stream.JsonWriter
 import me.chell.samsara.Samsara
 import me.chell.samsara.api.feature.Feature
 import me.chell.samsara.api.feature.Module
-import me.chell.samsara.api.module.ModuleManager
+import me.chell.samsara.api.feature.FeatureManager
 import me.chell.samsara.api.value.Bind
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.api.feature.Widget
-import me.chell.samsara.api.widget.WidgetManager
 import java.io.File
 import java.lang.reflect.Modifier
 import java.net.URL
@@ -27,9 +26,7 @@ object FileUtils: Globals {
 
     fun saveConfig() {
         saveSettings()
-        saveFeatures(Samsara.modulesFile.value.absolutePath, ModuleManager.modules)
-        saveFeatures(Samsara.widgetsFile.value.absolutePath, WidgetManager.widgets)
-        //saveWaypoints(Samsara.waypointFile.value.absolutePath)
+        saveFeatures()
         LOG.info("Config saved.")
     }
 
@@ -60,10 +57,10 @@ object FileUtils: Globals {
         }
     }
 
-    private fun saveFeatures(fileName: String, list: List<Feature>) {
-        val file = createFile(fileName)
-
-        file.writeText(gson.toJson(list))
+    private fun saveFeatures() {
+        createFile(Samsara.modulesFile.value.absolutePath).writeText(gson.toJson(FeatureManager.modules))
+        createFile(Samsara.widgetsFile.value.absolutePath).writeText(gson.toJson(FeatureManager.widgets))
+        //createFile(Samsara.waypointsFile.value.absolutePath).writeText(gson.toJson(FeatureManager.waypoints))
     }
 
     private fun saveSettings() {
@@ -88,7 +85,7 @@ object FileUtils: Globals {
         val moduleList: List<Module> = gson.fromJson(file.reader(), object: TypeToken<List<Module>>() {}.type) ?: return
 
         for(m in moduleList) {
-            val module = ModuleManager.getModule<Module>(m.name) ?: continue
+            val module = FeatureManager.getModule<Module>(m.name) ?: continue
             for(v in m.values) {
                 parseValue(v, module)
             }
@@ -102,7 +99,7 @@ object FileUtils: Globals {
         val widgetList: List<Widget> = gson.fromJson(file.reader(), object: TypeToken<List<Widget>>() {}.type) ?: return
 
         for(w in widgetList) {
-            val widget = WidgetManager.getWidget<Widget>(w.name) ?: continue
+            val widget = FeatureManager.getWidget<Widget>(w.name) ?: continue
             for(v in w.values) {
                 parseValue(v, widget)
             }
