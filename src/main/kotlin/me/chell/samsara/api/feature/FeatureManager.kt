@@ -16,6 +16,7 @@ import me.chell.samsara.impl.module.movement.Bhop
 import me.chell.samsara.impl.module.movement.PullDown
 import me.chell.samsara.impl.module.movement.Sprint
 import me.chell.samsara.impl.module.render.*
+import me.chell.samsara.impl.widget.Armor
 import me.chell.samsara.impl.widget.Watermark
 import org.lwjgl.glfw.GLFW
 
@@ -56,6 +57,7 @@ object FeatureManager: Loadable, Globals {
 
     private fun loadWidgets() {
         widgets.add(Watermark())
+        widgets.add(Armor())
 
         for(w in widgets) w.load()
     }
