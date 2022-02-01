@@ -1,5 +1,6 @@
 package me.chell.samsara.api.util
 
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.font.TextRenderer
 import net.minecraft.client.network.ClientPlayNetworkHandler
@@ -12,12 +13,17 @@ import org.apache.logging.log4j.Logger
 interface Globals {
 
     companion object {
-        var NAME = ""
-        var VERSION = ""
+        private val fabric = FabricLoader.getInstance().getModContainer("samsara").get().metadata
     }
 
+    val MODNAME: String
+        get() = fabric.name
+
+    val MODVER: String
+        get() = fabric.version.friendlyString
+
     val MODID: String
-        get() = "samsara"
+        get() = fabric.id
 
     val LOG: Logger
         get() = LogManager.getLogger()

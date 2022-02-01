@@ -39,16 +39,16 @@ object FileUtils: Globals {
     }
 
     fun createDefaultFiles() {
-        createFile("${Globals.NAME}/Modules.json")
-        createFile("${Globals.NAME}/Widgets.json")
-        createFile("${Globals.NAME}/Waypoints.json")
-        createFile("${Globals.NAME}/Settings.json")
-        File("${Globals.NAME}/Addons/").mkdirs()
+        createFile("$MODNAME/Modules.json")
+        createFile("$MODNAME/Widgets.json")
+        createFile("$MODNAME/Waypoints.json")
+        createFile("$MODNAME/Settings.json")
+        File("$MODNAME/Addons/").mkdirs()
         downloadTheme("Default")
     }
 
     fun downloadTheme(name: String) {
-        val theme = File("${Globals.NAME}/Themes/$name.lua")
+        val theme = File("$MODNAME/Themes/$name.lua")
         if(!theme.exists()) {
             createFile(theme.absolutePath)
             try {
@@ -64,13 +64,13 @@ object FileUtils: Globals {
     }
 
     private fun saveSettings() {
-        val file = createFile("${Globals.NAME}/Settings.json")
+        val file = createFile("$MODNAME/Settings.json")
 
         file.writeText(gson.toJson(Samsara.values))
     }
 
     private fun loadSettings() {
-        val file = checkFile("${Globals.NAME}/Settings.json") ?: return
+        val file = checkFile("$MODNAME/Settings.json") ?: return
 
         val list: List<Value<*>> = gson.fromJson(file.reader(), object: TypeToken<List<Value<*>>>() {}.type) ?: return
 

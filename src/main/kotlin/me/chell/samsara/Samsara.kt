@@ -12,7 +12,6 @@ import me.chell.samsara.api.util.KillEventManager
 import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.gui.click.ClickGUI
-import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.option.Option
 import net.minecraft.util.Formatting
 import net.minecraft.util.Util
@@ -34,7 +33,7 @@ object Samsara: Feature("Client"), Globals {
     @Register(-2) val lockWidgets = Value("Lock Widgets", false)
 
     @Register(-1) val openFolder = Value("Open Folder", Runnable {
-        Util.getOperatingSystem().open(File("${Globals.NAME}/"))
+        Util.getOperatingSystem().open(File("$MODNAME/"))
     })
 
     @Register(0) val configsValue = Value("Config:", null)
@@ -59,7 +58,6 @@ object Samsara: Feature("Client"), Globals {
     @Register(12) val confirm1 = Value("Confirm Reload", Runnable { mc.setScreen(null); unload(); load() }, visible = { reload.value }, displayName = "Confirm")
 
     fun init() {
-        getModInfo()
         FileUtils.createDefaultFiles()
         loadables.add(EventManager)
         loadables.add(DiscordUtils)
@@ -67,7 +65,7 @@ object Samsara: Feature("Client"), Globals {
         loadables.add(KillEventManager)
         loadables.add(AddonManager)
         load()
-        Runtime.getRuntime().addShutdownHook(object: Thread("${Globals.NAME} shutdown hook") {
+        Runtime.getRuntime().addShutdownHook(object: Thread("$MODNAME shutdown hook") {
             override fun run() {
                 if(loaded) unload()
             }
@@ -81,7 +79,7 @@ object Samsara: Feature("Client"), Globals {
         ClickGUI()
         Option.FOV.setMax(179f)
         loaded = true
-        LOG.info("${Globals.NAME} ${Globals.VERSION} loaded.")
+        LOG.info("$MODNAME $MODVER loaded.")
     }
 
     fun unload() {
@@ -90,7 +88,7 @@ object Samsara: Feature("Client"), Globals {
         for(i in loadables.size-1 downTo 0) loadables[i].unload()
         values.clear()
         Option.FOV.setMax(110f)
-        LOG.info("${Globals.NAME} ${Globals.VERSION} unloaded.")
+        LOG.info("$MODNAME $MODVER unloaded.")
     }
 
     private fun registerSettings() {
@@ -107,12 +105,6 @@ object Samsara: Feature("Client"), Globals {
 
         for(v in toAdd.keys) values.add(v)
         values.sortBy { toAdd[it] }
-    }
-
-    private fun getModInfo() {
-        val mod = FabricLoader.getInstance().getModContainer(MODID).get()
-        Globals.NAME = mod.metadata.name
-        Globals.VERSION = mod.metadata.version.friendlyString
     }
 
     fun updateMOTD() {

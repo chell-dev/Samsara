@@ -1,6 +1,5 @@
 package me.chell.samsara.impl.widget
 
-import me.chell.samsara.api.util.Globals
 import me.chell.samsara.api.feature.Widget
 import me.chell.samsara.impl.gui.click.Button
 import net.minecraft.client.util.math.MatrixStack
@@ -10,7 +9,7 @@ class Watermark: Widget("Watermark") {
     override fun load() {
         super.load()
 
-        width = fontRenderer.getWidth("${Globals.NAME} ${Globals.VERSION}").toDouble()
+        width = fontRenderer.getWidth("$MODNAME $MODVER").toDouble()
         height = fontRenderer.fontHeight.toDouble()
     }
 
@@ -18,7 +17,7 @@ class Watermark: Widget("Watermark") {
         super.render(matrices, mouseX, mouseY, tickDelta)
         if(mouseX < 0 && !pinned.value) return
 
-        fontRenderer.drawWithShadow(matrices, Globals.NAME, x.value.toFloat(), y.value.toFloat(), Button.primaryText.color.argb)
-        fontRenderer.drawWithShadow(matrices, Globals.VERSION, x.value.toFloat() + fontRenderer.getWidth("${Globals.NAME} "), y.value.toFloat(), Button.secondaryText.color.argb)
+        fontRenderer.drawWithShadow(matrices, MODNAME, x.value.toFloat(), y.value.toFloat(), Button.primaryText.color.argb)
+        fontRenderer.drawWithShadow(matrices, MODVER, x.value.toFloat() + fontRenderer.getWidth("$MODNAME "), y.value.toFloat(), Button.secondaryText.color.argb)
     }
 }

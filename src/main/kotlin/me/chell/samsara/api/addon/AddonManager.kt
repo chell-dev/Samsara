@@ -11,7 +11,7 @@ object AddonManager: Loadable, Globals {
     val addons = mutableListOf<Addon>()
 
     init {
-        val folder = File("${Globals.NAME}/Addons/")
+        val folder = File("$MODNAME/Addons/")
         folder.mkdirs()
 
         for(f in folder.listFiles()!!) {
