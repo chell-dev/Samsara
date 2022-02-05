@@ -6,7 +6,7 @@ import me.chell.samsara.api.value.Register
 import me.chell.samsara.api.value.Value
 import me.chell.samsara.impl.event.PlayerTickEvent
 import me.chell.samsara.impl.event.RenderHandEvent
-import me.chell.samsara.impl.mixin.AccessorHeldItemRenderer
+import me.chell.samsara.impl.mixin.render.AccessorHeldItemRenderer
 import net.minecraft.util.math.Quaternion
 
 class ViewModel: Module("ViewModel", Category.RENDER) {

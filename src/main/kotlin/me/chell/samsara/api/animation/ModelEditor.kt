@@ -2,7 +2,7 @@ package me.chell.samsara.api.animation
 
 import com.mojang.authlib.GameProfile
 import me.chell.samsara.api.util.Globals
-import me.chell.samsara.impl.mixin.AccessorLivingEntityRenderer
+import me.chell.samsara.impl.mixin.render.AccessorLivingEntityRenderer
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.gui.screen.ingame.InventoryScreen
 import net.minecraft.client.model.ModelPart

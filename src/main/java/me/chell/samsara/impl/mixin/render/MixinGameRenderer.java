@@ -1,4 +1,4 @@
-package me.chell.samsara.impl.mixin;
+package me.chell.samsara.impl.mixin.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.chell.samsara.api.event.EventManager;

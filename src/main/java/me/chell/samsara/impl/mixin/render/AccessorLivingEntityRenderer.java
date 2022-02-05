@@ -1,4 +1,4 @@
-package me.chell.samsara.impl.mixin;
+package me.chell.samsara.impl.mixin.render;
 
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;

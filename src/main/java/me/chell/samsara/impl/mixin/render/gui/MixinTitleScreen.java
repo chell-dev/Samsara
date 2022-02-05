@@ -1,4 +1,4 @@
-package me.chell.samsara.impl.mixin;
+package me.chell.samsara.impl.mixin.render.gui;
 
 import me.chell.samsara.Samsara;
 import net.minecraft.client.MinecraftClient;

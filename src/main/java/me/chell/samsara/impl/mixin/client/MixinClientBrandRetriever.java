@@ -1,4 +1,4 @@
-package me.chell.samsara.impl.mixin;
+package me.chell.samsara.impl.mixin.client;
 
 import me.chell.samsara.api.feature.FeatureManager;
 import me.chell.samsara.impl.module.misc.FakeVanilla;

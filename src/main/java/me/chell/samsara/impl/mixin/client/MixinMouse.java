@@ -1,4 +1,4 @@
-package me.chell.samsara.impl.mixin;
+package me.chell.samsara.impl.mixin.client;
 
 import me.chell.samsara.api.event.EventManager;
 import me.chell.samsara.impl.event.MouseInputEvent;
