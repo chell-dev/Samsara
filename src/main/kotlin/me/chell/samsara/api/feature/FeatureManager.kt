@@ -30,7 +30,6 @@ object FeatureManager: Loadable, Globals {
         modules.add(Brightness())
         modules.add(Zoom())
         modules.add(FakeVanilla())
-        modules.add(ESP())
         modules.add(PearlBind())
         modules.add(KillEffects())
         modules.add(ModelEditorModule())
