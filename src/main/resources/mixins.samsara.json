@@ -4,10 +4,8 @@
   "package": "me.chell.samsara.impl.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AccessorClientPlayerInteractionManager",
     "AccessorHeldItemRenderer",
     "AccessorLivingEntityRenderer",
-    "AccessorMinecraftClient",
     "MixinBackgroundRenderer",
     "MixinClientBrandRetriever",
     "MixinClientPlayerEntity",
@@ -17,7 +15,6 @@
     "MixinInGameHud",
     "MixinInGameOverlayRenderer",
     "MixinKeyboard",
-    "MixinLivingEntity",
     "MixinMinecraftClient",
     "MixinMouse",
     "MixinParticleManager",
