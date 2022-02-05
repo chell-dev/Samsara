@@ -8,18 +8,11 @@ import me.chell.samsara.api.value.Bind
 import me.chell.samsara.impl.event.KeyInputEvent
 import me.chell.samsara.impl.event.MouseInputEvent
 import me.chell.samsara.impl.event.PlayerTickEvent
-import me.chell.samsara.impl.module.combat.KillAura
-import me.chell.samsara.impl.module.combat.KillEffects
-import me.chell.samsara.impl.module.combat.Velocity
+import me.chell.samsara.impl.module.combat.*
 import me.chell.samsara.impl.module.misc.*
-import me.chell.samsara.impl.module.movement.Bhop
-import me.chell.samsara.impl.module.movement.PullDown
-import me.chell.samsara.impl.module.movement.Sprint
+import me.chell.samsara.impl.module.movement.*
 import me.chell.samsara.impl.module.render.*
-import me.chell.samsara.impl.widget.Armor
-import me.chell.samsara.impl.widget.Coordinates
-import me.chell.samsara.impl.widget.Neko
-import me.chell.samsara.impl.widget.Watermark
+import me.chell.samsara.impl.widget.*
 import org.lwjgl.glfw.GLFW
 
 object FeatureManager: Loadable, Globals {
@@ -33,7 +26,6 @@ object FeatureManager: Loadable, Globals {
 
     private fun loadModules() {
         modules.add(Sprint())
-        modules.add(PullDown())
         modules.add(FastUse())
         modules.add(KillAura())
         modules.add(NoRender())
