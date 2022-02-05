@@ -33,7 +33,6 @@ object FeatureManager: Loadable, Globals {
         modules.add(Velocity())
         modules.add(Zoom())
         modules.add(FakeVanilla())
-        modules.add(AirPlace())
         modules.add(ESP())
         modules.add(PearlBind())
         modules.add(KillEffects())
