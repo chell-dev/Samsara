@@ -26,7 +26,6 @@ object FeatureManager: Loadable, Globals {
 
     private fun loadModules() {
         modules.add(Sprint())
-        modules.add(FastUse())
         modules.add(KillAura())
         modules.add(NoRender())
         modules.add(Brightness())
