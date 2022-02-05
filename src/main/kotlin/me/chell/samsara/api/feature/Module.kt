@@ -16,7 +16,7 @@ open class Module(
     val description: String = "No description."
     ): Feature(name), Loadable, Globals {
 
-    constructor() : this("", Category.MISC) // for json, do not use this
+    private constructor() : this("", Category.MISC) // for json
 
     @Expose
     override val values = mutableListOf<Value<*>>()

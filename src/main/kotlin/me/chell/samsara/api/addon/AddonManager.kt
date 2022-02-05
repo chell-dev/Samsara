@@ -11,13 +11,13 @@ object AddonManager: Loadable, Globals {
     val addons = mutableListOf<Addon>()
 
     init {
-        val folder = File("$MODNAME/Addons/")
-        folder.mkdirs()
+        val folder = File("mods/")
 
         for(f in folder.listFiles()!!) {
             if(f.name.endsWith(".jar", true)) {
 
                 for(entry in ZipFile(f).entries()) {
+
                     if(entry.name.endsWith(".class")) {
 
                         val classLoader = URLClassLoader.newInstance(arrayOf(f.toURI().toURL()), javaClass.classLoader); // thank you seppuku
@@ -26,7 +26,7 @@ object AddonManager: Loadable, Globals {
                         if(Addon::class.java.isAssignableFrom(clazz)) {
                             val a = clazz.getDeclaredConstructor().newInstance() as Addon
                             addons.add(a)
-                            LOG.info("Addon \"${a.name}\" found.")
+                            LOG.info("Found addon in ${f.name}.")
                             break
                         }
 

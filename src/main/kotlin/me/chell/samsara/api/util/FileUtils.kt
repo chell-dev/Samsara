@@ -43,7 +43,6 @@ object FileUtils: Globals {
         createFile("$MODNAME/Widgets.json")
         createFile("$MODNAME/Waypoints.json")
         createFile("$MODNAME/Settings.json")
-        File("$MODNAME/Addons/").mkdirs()
         downloadTheme("Default")
     }
 
